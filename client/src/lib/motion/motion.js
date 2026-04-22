@@ -1,0 +1,1 @@
+//shared animation variants used across the app
