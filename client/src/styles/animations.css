@@ -1,1 +1,133 @@
-/*CSS-only keyframes (spinners, shimmer skeletons)*/
+/* -------------------------------------------------------------------------- */
+/*                                 ANIMATIONS                                  */
+/* -------------------------------------------------------------------------- */
+
+/* 1. Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* 2. Theme Transition */
+html {
+  transition: background-color var(--transition), color var(--transition);
+}
+
+/* 3. Link Hover Underline Slide */
+.link-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.link-underline::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+}
+
+.link-underline:hover::after {
+  transform: scaleX(1);
+}
+
+/* 4. Button Press Micro-interaction */
+.btn-press:active {
+  transform: scale(0.97);
+}
+
+/* 5. Image Hover Zoom */
+.img-zoom {
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.img-zoom img {
+  transition: transform var(--transition);
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.img-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* 6. Red Top Border Reveal on Card Hover */
+.card-border-reveal {
+  position: relative;
+}
+
+.card-border-reveal::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background-color: var(--brand-primary);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--transition);
+  z-index: 10;
+}
+
+.card-border-reveal:hover::before {
+  transform: scaleX(1);
+}
+
+/* 7. Skeleton Loading Shimmer */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-border) 25%,
+    var(--color-bg) 50%,
+    var(--color-border) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite linear;
+}
+
+[data-theme="dark"] .skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-dark) 25%,
+    var(--color-surface) 50%,
+    var(--color-surface-dark) 75%
+  );
+  background-size: 200% 100%;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* 8. Focus Ring */
+:focus-visible {
+  outline: 2px solid var(--brand-primary);
+  outline-offset: 3px;
+}
+
+/* 9. Spinner Animation */
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid var(--color-border);
+  border-top-color: var(--brand-primary);
+  border-radius: var(--radius-full);
+  animation: spin 0.7s linear infinite;
+  display: inline-block;
+}
