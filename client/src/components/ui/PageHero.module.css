@@ -1,0 +1,96 @@
+.hero {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background-color: var(--color-surface-dark);
+  color: var(--color-text-inverse);
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+}
+
+.hasImage {
+  background-color: #000;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.4),
+    rgba(0,0,0,0.7)
+  );
+  z-index: 1;
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  padding: var(--space-20) 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Sizes */
+.sm .content { padding: var(--space-12) 0; }
+.md .content { padding: var(--space-20) 0; }
+.lg .content { padding: var(--space-24) 0; }
+
+/* Alignment */
+.left .content { align-items: flex-start; text-align: left; }
+.center .content { align-items: center; text-align: center; }
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  color: color-mix(in srgb, var(--color-text-inverse), transparent 30%);
+}
+
+.crumb {
+  color: inherit;
+  transition: color var(--transition);
+}
+
+.crumb:hover {
+  color: var(--brand-primary);
+}
+
+.separator {
+  color: var(--brand-primary);
+}
+
+.accentLine {
+  width: 48px;
+  height: 3px;
+  background-color: var(--brand-primary);
+  margin-bottom: var(--space-4);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: clamp(2.5rem, 8vw, 4rem);
+  line-height: 1.1;
+  font-weight: var(--font-bold);
+  margin-bottom: var(--space-4);
+  max-width: 800px;
+}
+
+.subtitle {
+  font-family: var(--font-body);
+  font-size: var(--text-xl);
+  color: color-mix(in srgb, var(--color-text-inverse), transparent 15%);
+  max-width: 600px;
+  margin-bottom: var(--space-8);
+  line-height: 1.5;
+}
+
+.actions {
+  display: flex;
+  gap: var(--space-4);
+}

@@ -1,0 +1,43 @@
+.container {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.spinner {
+  border-radius: var(--radius-full);
+  border: 2px solid transparent;
+  border-top-color: currentColor;
+}
+
+/* Sizes */
+.sm .spinner {
+  width: 16px;
+  height: 16px;
+  border-width: 2px;
+}
+
+.md .spinner {
+  width: 24px;
+  height: 24px;
+  border-width: 2px;
+}
+
+.lg .spinner {
+  width: 40px;
+  height: 40px;
+  border-width: 3px;
+}
+
+/* Variants */
+.primary {
+  color: var(--brand-primary);
+}
+
+.white {
+  color: var(--color-text-inverse);
+}
+
+.muted {
+  color: var(--color-text-muted);
+}

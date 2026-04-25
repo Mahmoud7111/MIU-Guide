@@ -93,6 +93,11 @@
   --btn-outlined-border: #8B0000;
   --btn-outlined-hover-bg: #8B0000;
   --btn-outlined-hover-text: #FFFFFF;
+  /* Feedback Colors */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
 }
 
 /* -------------------------------------------------------------------------- */
@@ -107,6 +112,12 @@
   --color-text-muted: #9CA3AF;
   --color-text-inverse: #1A1A1A;
   --color-border: #374151;
+
+  /* Feedback Colors (Slightly adjusted for dark mode if needed, but keeping standard for now) */
+  --color-success: #10B981;
+  --color-warning: #F59E0B;
+  --color-danger: #EF4444;
+  --color-info: #3B82F6;
 
   /* Shadows (Dark Mode) */
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.3);

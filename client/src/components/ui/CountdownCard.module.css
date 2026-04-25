@@ -1,0 +1,111 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  border-left: 4px solid transparent;
+  transition: border-color var(--transition);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.subject {
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  color: var(--brand-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin-bottom: var(--space-1);
+}
+
+.examName {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+.timeBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color-bg);
+  padding: var(--space-3) var(--space-2);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.timeValue {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  line-height: 1;
+}
+
+.timeLabel {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: var(--font-bold);
+  color: var(--color-text-muted);
+  margin-top: var(--space-2);
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-border);
+}
+
+.footerItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerLabel {
+  font-size: 0.65rem;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+}
+
+.footerValue {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semi);
+  color: var(--color-text);
+}
+
+/* Urgency States */
+.safe { border-left-color: var(--color-success); }
+.warning { border-left-color: var(--color-warning); }
+.urgent { border-left-color: var(--color-danger); }
+
+.urgent {
+  animation: pulse-border 2s infinite ease-in-out;
+}
+
+@keyframes pulse-border {
+  0% { border-left-color: var(--color-danger); }
+  50% { border-left-color: color-mix(in srgb, var(--color-danger), transparent 50%); }
+  100% { border-left-color: var(--color-danger); }
+}
+
+.passedMessage {
+  grid-column: span 4;
+  text-align: center;
+  font-family: var(--font-heading);
+  font-weight: var(--font-bold);
+  color: var(--color-text-muted);
+  padding: var(--space-4);
+  background-color: var(--color-bg);
+  border-radius: var(--radius-md);
+}
