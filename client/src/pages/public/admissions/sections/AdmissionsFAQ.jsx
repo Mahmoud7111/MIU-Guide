@@ -1,0 +1,1 @@
+export default function AdmissionsFAQ() { return <div>Coming soon</div>; }

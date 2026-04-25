@@ -1,0 +1,1 @@
+export default function FacultyContact() { return <div>Coming soon</div>; }

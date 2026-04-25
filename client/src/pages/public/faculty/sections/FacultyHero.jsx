@@ -1,0 +1,1 @@
+export default function FacultyHero() { return <div>Coming soon</div>; }

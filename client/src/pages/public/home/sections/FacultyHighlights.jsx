@@ -1,0 +1,1 @@
+export default function FacultyHighlights() { return <div>Coming soon</div>; }

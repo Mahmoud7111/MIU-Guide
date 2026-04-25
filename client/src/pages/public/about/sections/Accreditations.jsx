@@ -1,0 +1,1 @@
+export default function Accreditations() { return <div>Coming soon</div>; }

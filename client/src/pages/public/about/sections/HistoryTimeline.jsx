@@ -1,0 +1,1 @@
+export default function HistoryTimeline() { return <div>Coming soon</div>; }

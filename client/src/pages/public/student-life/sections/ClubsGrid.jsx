@@ -1,0 +1,1 @@
+export default function ClubsGrid() { return <div>Coming soon</div>; }

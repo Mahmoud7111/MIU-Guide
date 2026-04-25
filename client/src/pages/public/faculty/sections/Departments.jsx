@@ -1,0 +1,1 @@
+export default function Departments() { return <div>Coming soon</div>; }

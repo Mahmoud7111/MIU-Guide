@@ -1,0 +1,1 @@
+export default function NewsPage() { return <div>Coming soon</div>; }

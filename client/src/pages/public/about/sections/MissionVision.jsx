@@ -1,0 +1,1 @@
+export default function MissionVision() { return <div>Coming soon</div>; }

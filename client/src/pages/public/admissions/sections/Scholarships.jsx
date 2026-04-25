@@ -1,0 +1,1 @@
+export default function Scholarships() { return <div>Coming soon</div>; }

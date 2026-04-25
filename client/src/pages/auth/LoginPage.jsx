@@ -1,6 +1,1 @@
-import React from 'react';
-import styles from './LoginPage.module.css';
-
-const LoginPage = () => <div className={styles.login}>Login Page</div>;
-
-export default LoginPage;
+export default function LoginPage() { return <div>Coming soon</div>; }

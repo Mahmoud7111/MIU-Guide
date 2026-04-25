@@ -1,0 +1,1 @@
+export default function ResearchLabs() { return <div>Coming soon</div>; }

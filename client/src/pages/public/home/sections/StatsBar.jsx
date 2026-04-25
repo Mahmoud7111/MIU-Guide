@@ -1,0 +1,1 @@
+export default function StatsBar() { return <div>Coming soon</div>; }

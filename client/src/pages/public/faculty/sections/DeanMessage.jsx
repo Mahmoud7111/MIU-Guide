@@ -1,0 +1,1 @@
+export default function DeanMessage() { return <div>Coming soon</div>; }

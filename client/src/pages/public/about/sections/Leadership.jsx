@@ -1,0 +1,1 @@
+export default function Leadership() { return <div>Coming soon</div>; }

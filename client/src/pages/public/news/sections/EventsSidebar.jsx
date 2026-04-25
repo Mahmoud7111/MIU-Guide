@@ -1,0 +1,1 @@
+export default function EventsSidebar() { return <div>Coming soon</div>; }

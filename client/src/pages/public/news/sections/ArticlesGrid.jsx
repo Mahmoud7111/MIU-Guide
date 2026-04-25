@@ -1,0 +1,1 @@
+export default function ArticlesGrid() { return <div>Coming soon</div>; }

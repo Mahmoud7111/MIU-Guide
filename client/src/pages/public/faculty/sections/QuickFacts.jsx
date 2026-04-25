@@ -1,0 +1,1 @@
+export default function QuickFacts() { return <div>Coming soon</div>; }

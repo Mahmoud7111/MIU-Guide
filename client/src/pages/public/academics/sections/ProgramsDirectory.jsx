@@ -1,0 +1,1 @@
+export default function ProgramsDirectory() { return <div>Coming soon</div>; }

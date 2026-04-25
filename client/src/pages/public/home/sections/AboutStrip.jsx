@@ -1,0 +1,1 @@
+export default function AboutStrip() { return <div>Coming soon</div>; }

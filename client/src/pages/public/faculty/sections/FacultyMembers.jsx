@@ -1,0 +1,1 @@
+export default function FacultyMembers() { return <div>Coming soon</div>; }

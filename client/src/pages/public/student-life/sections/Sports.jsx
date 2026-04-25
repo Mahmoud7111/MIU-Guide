@@ -1,0 +1,1 @@
+export default function Sports() { return <div>Coming soon</div>; }

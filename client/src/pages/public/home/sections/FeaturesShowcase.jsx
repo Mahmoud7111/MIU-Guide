@@ -1,0 +1,1 @@
+export default function FeaturesShowcase() { return <div>Coming soon</div>; }

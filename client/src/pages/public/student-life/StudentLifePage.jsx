@@ -1,0 +1,1 @@
+export default function StudentLifePage() { return <div>Coming soon</div>; }

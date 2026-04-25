@@ -1,0 +1,1 @@
+export default function FacultiesGrid() { return <div>Coming soon</div>; }

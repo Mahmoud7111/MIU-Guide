@@ -1,0 +1,1 @@
+export default function HeroSection() { return <div>Coming soon</div>; }

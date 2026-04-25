@@ -1,0 +1,1 @@
+export default function CampusPreview() { return <div>Coming soon</div>; }

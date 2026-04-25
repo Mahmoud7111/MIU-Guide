@@ -1,0 +1,1 @@
+export default function FeaturedArticle() { return <div>Coming soon</div>; }
