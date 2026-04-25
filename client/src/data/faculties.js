@@ -1,2 +1,65 @@
-// Mock data for faculties
-export default [];
+/**
+ * @fileoverview Mock data for university faculties.
+ */
+export const FACULTIES = [
+  {
+    id: 'engineering',
+    name: 'Engineering & Technology',
+    slug: 'engineering-technology',
+    icon: 'wrench',
+    description: 'Preparing the next generation of engineers with cutting-edge technology and research.',
+    image: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800',
+    color: '#E63946',
+    departments: ['Architecture', 'Electronics', 'Mechatronics', 'Computer Engineering'],
+  },
+  {
+    id: 'pharmacy',
+    name: 'Pharmacy',
+    slug: 'pharmacy',
+    icon: 'pill',
+    description: 'A leading center for pharmaceutical education and drug research in the region.',
+    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?auto=format&fit=crop&q=80&w=800',
+    color: '#457B9D',
+    departments: ['Clinical Pharmacy', 'Pharmacology', 'Pharmaceutical Chemistry'],
+  },
+  {
+    id: 'business',
+    name: 'Business Administration',
+    slug: 'business-administration',
+    icon: 'briefcase',
+    description: 'Fostering innovative leadership and ethical business practices in a global economy.',
+    image: 'https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=800',
+    color: '#2A9D8F',
+    departments: ['Accounting', 'Finance', 'Marketing', 'MIS'],
+  },
+  {
+    id: 'dentistry',
+    name: 'Oral & Dental Medicine',
+    slug: 'oral-dental-medicine',
+    icon: 'activity',
+    description: 'Providing world-class dental education and community healthcare services.',
+    image: 'https://images.unsplash.com/photo-1588776814546-1ffce47267a5?auto=format&fit=crop&q=80&w=800',
+    color: '#8B0000',
+    departments: ['Oral Surgery', 'Orthodontics', 'Pedodontics'],
+  },
+  {
+    id: 'communication',
+    name: 'Mass Communication',
+    slug: 'mass-communication',
+    icon: 'radio',
+    description: 'Empowering voices and shaping the future of media and journalism.',
+    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800',
+    color: '#F4A261',
+    departments: ['Journalism', 'Public Relations', 'Radio & TV'],
+  },
+  {
+    id: 'als',
+    name: 'Al-Alsun & Mass Comm',
+    slug: 'alsun-mass-comm',
+    icon: 'languages',
+    description: 'Bridging cultures through language mastery and cultural studies.',
+    image: 'https://images.unsplash.com/photo-1543167664-40d6990297c1?auto=format&fit=crop&q=80&w=800',
+    color: '#6A4C93',
+    departments: ['English', 'German', 'Spanish', 'Italian'],
+  }
+];

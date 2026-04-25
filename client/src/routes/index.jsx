@@ -9,6 +9,10 @@ import RootLayout from '../components/layout/RootLayout';
 import PortalLayout from '../components/layout/Portal/PortalLayout';
 import PrivateRoute from './PrivateRoute';
 
+// Error Pages
+import NotFoundPage from '../pages/error/NotFoundPage';
+import ErrorPage from '../pages/error/ErrorPage';
+
 /**
  * PageStub component for rapid prototyping.
  * Replaces real page components until they are built.
@@ -45,6 +49,7 @@ const router = createBrowserRouter([
   // Public routes (Home, About, etc.)
   {
     element: <RootLayout />,
+    errorElement: <ErrorPage />,
     children: [
       { path: ROUTES.HOME, element: <PageStub name="Welcome to MIU" /> },
       { path: ROUTES.ABOUT, element: <PageStub name="About MIU" /> },
@@ -82,7 +87,7 @@ const router = createBrowserRouter([
   { path: ROUTES.REGISTER, element: <PageStub name="Create Account" /> },
 
   // 404
-  { path: '*', element: <PageStub name="404 - Not Found" /> },
+  { path: '*', element: <NotFoundPage /> },
 ]);
 
 export default router;

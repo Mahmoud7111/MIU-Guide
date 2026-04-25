@@ -1,6 +1,6 @@
 .footer {
   background-color: var(--color-surface-dark);
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
   padding: var(--space-20) 0 var(--space-10);
   margin-top: auto;
 }
@@ -35,11 +35,11 @@
   font-family: var(--font-heading);
   font-size: var(--text-2xl);
   font-weight: var(--font-bold);
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
 }
 
 .tagline {
-  color: color-mix(in srgb, var(--color-text-inverse), transparent 40%);
+  color: rgba(255, 255, 255, 0.6);
   font-size: var(--text-sm);
   line-height: 1.6;
   margin-bottom: var(--space-8);
@@ -52,7 +52,7 @@
 }
 
 .socialIcon {
-  color: color-mix(in srgb, var(--color-text-inverse), transparent 30%);
+  color: rgba(255, 255, 255, 0.7);
   transition: color var(--transition), transform var(--transition);
 }
 
@@ -65,7 +65,7 @@
   font-size: var(--text-lg);
   font-weight: var(--font-bold);
   margin-bottom: var(--space-6);
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
 }
 
 .links {
@@ -78,7 +78,7 @@
 }
 
 .links a {
-  color: color-mix(in srgb, var(--color-text-inverse), transparent 40%);
+  color: rgba(255, 255, 255, 0.6);
   text-decoration: none;
   font-size: var(--text-sm);
   transition: color var(--transition);
@@ -100,7 +100,7 @@
 }
 
 .links a:hover {
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
 }
 
 .links a:hover::after {
@@ -111,7 +111,7 @@
   display: flex;
   flex-direction: column;
   gap: var(--space-4);
-  color: color-mix(in srgb, var(--color-text-inverse), transparent 40%);
+  color: rgba(255, 255, 255, 0.6);
   font-size: var(--text-sm);
 }
 
@@ -139,7 +139,7 @@
 
 .copyright {
   font-size: var(--text-xs);
-  color: color-mix(in srgb, var(--color-text-inverse), transparent 50%);
+  color: rgba(255, 255, 255, 0.5);
 }
 
 .legal {
@@ -149,11 +149,11 @@
 
 .legal a {
   font-size: var(--text-xs);
-  color: color-mix(in srgb, var(--color-text-inverse), transparent 50%);
+  color: rgba(255, 255, 255, 0.5);
   text-decoration: none;
   transition: color var(--transition);
 }
 
 .legal a:hover {
-  color: var(--color-text-inverse);
+  color: #FFFFFF;
 }
