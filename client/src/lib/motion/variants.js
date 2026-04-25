@@ -304,3 +304,59 @@ export const progressBar = {
     },
   },
 };
+
+/* -------------------------------------------------------------------------- */
+/*                            COMPONENT SPECIFIC                                */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Animated underline for Navbar links.
+ * @type {import('framer-motion').Variants}
+ */
+export const navIndicator = {
+  hidden: { scaleX: 0 },
+  visible: { 
+    scaleX: 1,
+    transition: { duration: 0.3, ease: 'easeOut' }
+  },
+  exit: { 
+    scaleX: 0,
+    transition: { duration: 0.2, ease: 'easeIn' }
+  },
+};
+
+/**
+ * Active indicator for Sidebar items.
+ * @type {import('framer-motion').Variants}
+ */
+export const sidebarIndicator = {
+  hidden: { opacity: 0, x: -5 },
+  visible: { 
+    opacity: 1, 
+    x: 0,
+    transition: { duration: 0.3, ease: 'easeOut' }
+  },
+  exit: { 
+    opacity: 0, 
+    x: -5,
+    transition: { duration: 0.2, ease: 'easeIn' }
+  },
+};
+
+/** Hamburger top bar variant */
+export const hamburgerTop = {
+  closed: { rotate: 0, y: 0 },
+  open: { rotate: 45, y: 8 },
+};
+
+/** Hamburger middle bar variant */
+export const hamburgerMiddle = {
+  closed: { opacity: 1 },
+  open: { opacity: 0 },
+};
+
+/** Hamburger bottom bar variant */
+export const hamburgerBottom = {
+  closed: { rotate: 0, y: 0 },
+  open: { rotate: -45, y: -8 },
+};
