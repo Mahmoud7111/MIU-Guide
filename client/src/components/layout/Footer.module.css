@@ -26,9 +26,15 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: var(--space-2);
+  gap: var(--space-3);
   margin-bottom: var(--space-6);
-  color: var(--brand-primary);
+  text-decoration: none;
+}
+
+.footerLogo {
+  width: auto;
+  height: 80px;
+  object-fit: contain;
 }
 
 .logoText {
@@ -36,6 +42,7 @@
   font-size: var(--text-2xl);
   font-weight: var(--font-bold);
   color: #FFFFFF;
+  letter-spacing: 0.05em;
 }
 
 .tagline {

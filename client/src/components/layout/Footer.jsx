@@ -24,8 +24,7 @@ export const Footer = () => {
           {/* Col 1: Logo & Social */}
           <motion.div variants={staggerItem} className={styles.column}>
             <div className={styles.logo}>
-              <MIULogoIcon className={styles.logoIcon} />
-              <span className={styles.logoText}>MIU</span>
+              <img src="/MIU.png" alt="MIU Logo" className={styles.footerLogo} />
             </div>
             <p className={styles.tagline}>
               Leading the future through academic excellence and innovative thinking.
@@ -96,12 +95,7 @@ export const Footer = () => {
 
 /* --- Icons --- */
 
-const MIULogoIcon = (props) => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" {...props}>
-    <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2"/>
-    <path d="M16 2L16 30M2 16L30 16" stroke="currentColor" strokeWidth="2"/>
-  </svg>
-);
+
 
 const SocialIcon = ({ name }) => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

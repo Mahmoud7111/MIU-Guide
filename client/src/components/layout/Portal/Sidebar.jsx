@@ -33,18 +33,8 @@ export const Sidebar = ({ isOpen, collapsed, setCollapsed }) => {
       animate={{ width: collapsed ? 68 : 260 }}
       transition={{ type: 'spring', damping: 25, stiffness: 200 }}
     >
-      {/* Top: Logo */}
       <div className={styles.header}>
-        <MIULogoIcon className={styles.logoIcon} />
-        {!collapsed && (
-          <motion.span 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }} 
-            className={styles.logoText}
-          >
-            Student Portal
-          </motion.span>
-        )}
+        <img src="/MIU.png" alt="MIU Logo" className={styles.sidebarLogo} />
       </div>
 
       {/* Middle: Links */}
@@ -146,12 +136,7 @@ const getIcon = (name) => {
 
 /* --- SVGs --- */
 
-const MIULogoIcon = (props) => (
-  <svg width="24" height="24" viewBox="0 0 32 32" fill="none" {...props}>
-    <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2.5"/>
-    <path d="M16 2L16 30M2 16L30 16" stroke="currentColor" strokeWidth="2.5"/>
-  </svg>
-);
+
 
 const ChevronLeftIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m15 18-6-6 6-6"/></svg>

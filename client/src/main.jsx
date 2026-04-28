@@ -3,15 +3,15 @@ import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
 
 // Context Providers
-import { LanguageProvider } from '../context/LanguageContext';
-import { ThemeProvider } from '../context/ThemeContext';
-import { AuthProvider } from '../context/AuthContext';
+import { LanguageProvider } from './context/LanguageContext';
+import { ThemeProvider } from './context/ThemeContext';
+import { AuthProvider } from './context/AuthContext';
 
 // Router configuration
-import router from '../routes';
+import router from './routes/AppRouter';
 
 // Global Styles
-import '../styles/index.css';
+import './styles/index.css';
 
 /**
  * Entry point for the MIU-Guide React application.

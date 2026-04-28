@@ -39,8 +39,7 @@ export const Navbar = () => {
       <div className={`${styles.container} container`}>
         {/* Logo */}
         <Link to={ROUTES.HOME} className={styles.logo}>
-          <MIULogoIcon className={styles.logoIcon} />
-          <span className={styles.logoText}>Misr International University</span>
+          <img src="/MIU.png" alt="MIU Logo" className={styles.logoImage} />
         </Link>
 
         {/* Desktop Nav */}
@@ -54,9 +53,13 @@ export const Navbar = () => {
               {({ isActive }) => (
                 <>
                   {link.label}
-                  <AnimatePresence>
-                    {isActive && <ActiveIndicator />}
-                  </AnimatePresence>
+                  {isActive && (
+                    <motion.div 
+                      layoutId="nav-underline"
+                      className={styles.activeLine}
+                      transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
+                    />
+                  )}
                 </>
               )}
             </NavLink>
@@ -65,23 +68,41 @@ export const Navbar = () => {
 
         {/* Right Actions */}
         <div className={styles.actions}>
-          <button className={styles.iconBtn} aria-label="Search">
+          <motion.button 
+            className={styles.iconBtn} 
+            aria-label="Search"
+            whileHover={{ scale: 1.1, backgroundColor: 'rgba(139, 0, 0, 0.1)' }}
+            whileTap={{ scale: 0.9 }}
+          >
             <SearchIcon size={20} />
-          </button>
+          </motion.button>
 
           <motion.button 
             className={styles.iconBtn} 
             onClick={toggleTheme}
+            whileHover={{ scale: 1.1, backgroundColor: 'rgba(139, 0, 0, 0.1)' }}
             whileTap={{ rotate: 180, scale: 0.8 }}
             aria-label="Toggle theme"
           >
             <AnimatePresence mode="wait">
               {isDark ? (
-                <motion.span key="sun" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <motion.span 
+                  key="sun" 
+                  initial={{ opacity: 0, rotate: -90 }} 
+                  animate={{ opacity: 1, rotate: 0 }} 
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <SunIcon size={20} />
                 </motion.span>
               ) : (
-                <motion.span key="moon" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+                <motion.span 
+                  key="moon" 
+                  initial={{ opacity: 0, rotate: -90 }} 
+                  animate={{ opacity: 1, rotate: 0 }} 
+                  exit={{ opacity: 0, rotate: 90 }}
+                  transition={{ duration: 0.2 }}
+                >
                   <MoonIcon size={20} />
                 </motion.span>
               )}
@@ -136,7 +157,7 @@ export const Navbar = () => {
               transition={{ type: 'spring', damping: 25, stiffness: 200 }}
             >
               <div className={styles.drawerHeader}>
-                <MIULogoIcon className={styles.logoIcon} />
+                <img src="/MIU.png" alt="MIU Logo" className={styles.logoImage} />
                 <button onClick={() => setIsDrawerOpen(false)} className={styles.closeBtn}>
                   <motion.span whileHover={{ rotate: 90 }} style={{ display: 'inline-block' }}>&times;</motion.span>
                 </button>
@@ -181,28 +202,9 @@ export const Navbar = () => {
   );
 };
 
-/* --- Internal Helpers --- */
 
-const ActiveIndicator = () => (
-  <motion.span 
-    layoutId="nav-indicator"
-    className={styles.activeIndicator}
-    variants={navIndicator}
-    initial="hidden"
-    animate="visible"
-    exit="exit"
-  />
-);
 
-const MIULogoIcon = (props) => (
-  <svg width="32" height="32" viewBox="0 0 32 32" fill="none" {...props}>
-    <circle cx="16" cy="16" r="14" stroke="currentColor" strokeWidth="2"/>
-    <path d="M16 2L16 30M2 16L30 16" stroke="currentColor" strokeWidth="2"/>
-    <ellipse cx="16" cy="16" rx="14" ry="7" stroke="currentColor" strokeWidth="2"/>
-    <path d="M16 2C16 2 21 6 21 16C21 26 16 30 16 30" stroke="currentColor" strokeWidth="2"/>
-    <path d="M16 2C16 2 11 6 11 16C11 26 16 30 16 30" stroke="currentColor" strokeWidth="2"/>
-  </svg>
-);
+
 
 const SearchIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

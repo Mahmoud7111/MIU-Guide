@@ -33,7 +33,10 @@
   color: var(--brand-primary);
 }
 
-.logoIcon {
+.sidebarLogo {
+  width: auto;
+  height: 40px;
+  object-fit: contain;
   flex-shrink: 0;
 }
 
