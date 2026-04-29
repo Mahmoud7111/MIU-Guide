@@ -1,37 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollDirection } from '../../hooks/useScrollDirection';
+import { useScrollPosition } from '../../hooks/useScrollPosition';
 import { useClickOutside } from '../../hooks/useClickOutside';
 import { useTheme } from '../../context/ThemeContext';
 import { NAV_LINKS, ROUTES } from '../../lib/constants';
-import { 
-  navIndicator, 
-  hamburgerTop, 
-  hamburgerMiddle, 
-  hamburgerBottom 
-} from '../../lib/motion/variants';
 import Button from '../ui/Button';
 import styles from './Navbar.module.css';
 
 /**
  * Main application navigation bar.
- * Features scroll-aware visibility, theme toggling, and a mobile drawer.
+ * Features Oxford-style pill and Harvard-style full-screen menu.
  */
 export const Navbar = () => {
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-  const { scrollDirection, scrollY } = useScrollDirection();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { scrollDirection } = useScrollDirection();
+  const scrollY = useScrollPosition();
   const { theme, toggleTheme, isDark } = useTheme();
   const navigate = useNavigate();
-  const drawerRef = useClickOutside(() => setIsDrawerOpen(false));
+  const menuRef = useClickOutside(() => setIsMenuOpen(false));
+  const searchRef = useClickOutside(() => setIsSearchOpen(false));
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const isScrolled = scrollY > 60;
-  const isHidden = scrollDirection === 'down' && scrollY > 100;
+  const handleSearch = (e) => {
+    if (e.key === 'Enter' && searchQuery.trim()) {
+      console.log('Searching for:', searchQuery);
+      // navigate(`/search?q=${searchQuery}`); // Example search route
+      setIsSearchOpen(false);
+      setSearchQuery('');
+    }
+  };
+
+  const isScrolled = scrollY > 50;
+  const isHidden = scrollDirection === 'down' && scrollY > 200;
+
+  // Prevent scroll when menu is open
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => { document.body.style.overflow = 'unset'; };
+  }, [isMenuOpen]);
 
   return (
     <header 
       className={`
         ${styles.header} 
+        ${!isScrolled ? styles.transparent : ''} 
         ${isScrolled ? styles.scrolled : ''} 
         ${isHidden ? styles.hidden : ''}
       `}
@@ -42,157 +61,144 @@ export const Navbar = () => {
           <img src="/MIU.png" alt="MIU Logo" className={styles.logoImage} />
         </Link>
 
-        {/* Desktop Nav */}
-        <nav className={styles.desktopNav}>
-          {NAV_LINKS.map((link) => (
-            <NavLink 
-              key={link.path} 
-              to={link.path} 
-              className={({ isActive }) => `${styles.navLink} ${isActive ? styles.active : ''}`}
+        <div className={styles.navGroups}>
+          {/* Group 1: Nav Links Pill */}
+          <nav className={styles.linksPill}>
+            <Link to="/admissions" className={styles.pillLink}>Admissions</Link>
+            <Link to="/news" className={styles.pillLink}>News</Link>
+            <Link to="/research" className={styles.pillLink}>Research</Link>
+          </nav>
+          
+          {/* Group 2: Actions Pill */}
+          <div className={styles.actionsPill}>
+            <div 
+              ref={searchRef}
+              className={`${styles.searchContainer} ${isSearchOpen ? styles.searchOpen : ''}`}
             >
-              {({ isActive }) => (
-                <>
-                  {link.label}
-                  {isActive && (
-                    <motion.div 
-                      layoutId="nav-underline"
-                      className={styles.activeLine}
-                      transition={{ type: 'spring', bounce: 0, duration: 0.4 }}
-                    />
-                  )}
-                </>
-              )}
-            </NavLink>
-          ))}
-        </nav>
+               <input 
+                 type="text" 
+                 placeholder="Search MIU..." 
+                 className={styles.searchInput}
+                 autoFocus={isSearchOpen}
+                 value={searchQuery}
+                 onChange={(e) => setSearchQuery(e.target.value)}
+                 onKeyDown={handleSearch}
+               />
+               <button 
+                 className={styles.actionBtn} 
+                 onClick={() => setIsSearchOpen(!isSearchOpen)}
+                 aria-label="Toggle search"
+               >
+                 <SearchIcon size={18} />
+               </button>
+            </div>
 
-        {/* Right Actions */}
-        <div className={styles.actions}>
-          <motion.button 
-            className={styles.iconBtn} 
-            aria-label="Search"
-            whileHover={{ scale: 1.1, backgroundColor: 'rgba(139, 0, 0, 0.1)' }}
-            whileTap={{ scale: 0.9 }}
-          >
-            <SearchIcon size={20} />
-          </motion.button>
+            <button 
+              className={styles.actionBtn} 
+              onClick={toggleTheme}
+              aria-label="Toggle theme"
+            >
+              {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
+            </button>
 
-          <motion.button 
-            className={styles.iconBtn} 
-            onClick={toggleTheme}
-            whileHover={{ scale: 1.1, backgroundColor: 'rgba(139, 0, 0, 0.1)' }}
-            whileTap={{ rotate: 180, scale: 0.8 }}
-            aria-label="Toggle theme"
-          >
-            <AnimatePresence mode="wait">
-              {isDark ? (
-                <motion.span 
-                  key="sun" 
-                  initial={{ opacity: 0, rotate: -90 }} 
-                  animate={{ opacity: 1, rotate: 0 }} 
-                  exit={{ opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <SunIcon size={20} />
-                </motion.span>
-              ) : (
-                <motion.span 
-                  key="moon" 
-                  initial={{ opacity: 0, rotate: -90 }} 
-                  animate={{ opacity: 1, rotate: 0 }} 
-                  exit={{ opacity: 0, rotate: 90 }}
-                  transition={{ duration: 0.2 }}
-                >
-                  <MoonIcon size={20} />
-                </motion.span>
-              )}
-            </AnimatePresence>
-          </motion.button>
-
-          <div className={styles.portalBtn}>
-            <Button variant="primary" onClick={() => navigate(ROUTES.DASHBOARD)}>
-              Student Portal
-            </Button>
+            <button 
+              className={styles.menuBtn} 
+              onClick={() => setIsMenuOpen(true)}
+              aria-label="Open menu"
+            >
+              <span className={styles.menuLabel}>Menu</span>
+              <MenuIcon size={18} />
+            </button>
           </div>
-
-          {/* Hamburger Toggle */}
-          <button 
-            className={styles.hamburger} 
-            onClick={() => setIsDrawerOpen(true)}
-            aria-label="Open menu"
-          >
-            <motion.span 
-              variants={hamburgerTop}
-              animate={isDrawerOpen ? "open" : "closed"}
-            />
-            <motion.span 
-              variants={hamburgerMiddle}
-              animate={isDrawerOpen ? "open" : "closed"}
-            />
-            <motion.span 
-              variants={hamburgerBottom}
-              animate={isDrawerOpen ? "open" : "closed"}
-            />
-          </button>
         </div>
       </div>
 
-      {/* Mobile Drawer */}
+      {/* Harvard Style Full Screen Menu Overlay */}
       <AnimatePresence>
-        {isDrawerOpen && (
-          <div className={styles.drawerWrapper}>
-            <motion.div 
-              className={styles.backdrop}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setIsDrawerOpen(false)}
-            />
+        {isMenuOpen && (
+          <div className={`${styles.drawerWrapper} ${isMenuOpen ? styles.open : ''}`}>
             <motion.aside
-              ref={drawerRef}
+              ref={menuRef}
               className={styles.drawer}
-              initial={{ x: '-100%' }}
-              animate={{ x: 0 }}
-              exit={{ x: '-100%' }}
-              transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+              initial={{ y: '-100%' }}
+              animate={{ y: 0 }}
+              exit={{ y: '-100%' }}
+              transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
               <div className={styles.drawerHeader}>
-                <img src="/MIU.png" alt="MIU Logo" className={styles.logoImage} />
-                <button onClick={() => setIsDrawerOpen(false)} className={styles.closeBtn}>
-                  <motion.span whileHover={{ rotate: 90 }} style={{ display: 'inline-block' }}>&times;</motion.span>
+                <Link to={ROUTES.HOME} onClick={() => setIsMenuOpen(false)}>
+                  <img src="/MIU.png" alt="MIU Logo" className={styles.logoImage} style={{ filter: 'brightness(0) invert(1)', height: '70px' }} />
+                </Link>
+                <button onClick={() => setIsMenuOpen(false)} className={styles.closeBtn}>
+                  Close <XIcon size={24} />
                 </button>
               </div>
 
-              <nav className={styles.drawerNav}>
-                {NAV_LINKS.map((link, idx) => (
-                  <motion.div
-                    key={link.path}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: idx * 0.05 + 0.2 }}
-                  >
-                    <NavLink 
-                      to={link.path} 
-                      className={styles.drawerLink}
-                      onClick={() => setIsDrawerOpen(false)}
+              <div className={styles.drawerContent}>
+                {/* Left: Primary Nav */}
+                <nav className={styles.drawerNav}>
+                  {NAV_LINKS.map((link, idx) => (
+                    <motion.div
+                      key={link.path}
+                      initial={{ opacity: 0, x: -30 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: idx * 0.05 + 0.2 }}
                     >
-                      {link.label}
-                    </NavLink>
+                      <NavLink 
+                        to={link.path} 
+                        className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
+                        onClick={() => setIsMenuOpen(false)}
+                      >
+                        {link.label}
+                      </NavLink>
+                    </motion.div>
+                  ))}
+                </nav>
+
+                {/* Right: Detailed Sections */}
+                <div className={styles.drawerDetails}>
+                  <motion.div 
+                    className={styles.detailSection}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4 }}
+                  >
+                    <h3>MIU's Campus <ArrowIcon /></h3>
+                    <p>Experience our state-of-the-art facilities, modern learning environments, and vibrant student life in the heart of the city.</p>
+                    <div className={styles.detailLinks}>
+                      <Link to="/campus/libraries" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Libraries <SmallArrow /></Link>
+                      <Link to="/campus/housing" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Student Housing <SmallArrow /></Link>
+                      <Link to="/campus/sports" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Athletics <SmallArrow /></Link>
+                    </div>
                   </motion.div>
-                ))}
-              </nav>
+
+                  <motion.div 
+                    className={styles.detailSection}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5 }}
+                  >
+                    <h3>Admissions <ArrowIcon /></h3>
+                    <p>Start your journey at MIU. Find everything you need to know about applying, scholarships, and requirements.</p>
+                    <div className={styles.detailLinks}>
+                      <Link to="/apply" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>How to Apply <SmallArrow /></Link>
+                      <Link to="/tuition" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Tuition & Aid <SmallArrow /></Link>
+                      <Link to="/visit" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Plan a Visit <SmallArrow /></Link>
+                    </div>
+                  </motion.div>
+                </div>
+              </div>
 
               <div className={styles.drawerFooter}>
-                <Button 
-                  variant="primary" 
-                  fullWidth 
-                  onClick={() => {
-                    navigate(ROUTES.DASHBOARD);
-                    setIsDrawerOpen(false);
-                  }}
-                >
-                  Student Portal
-                </Button>
+                <div className={styles.footerLinks}>
+                  <span className={styles.footerLabel}>Quick Links</span>
+                  <Link to="/directory" className={styles.footerLink}>A to Z Index</Link>
+                  <Link to="/people" className={styles.footerLink}>Find a person</Link>
+                  <Link to="/events" className={styles.footerLink}>Events</Link>
+                  <Link to="/news" className={styles.footerLink}>Media Relations</Link>
+                  <Link to="/alumni" className={styles.footerLink}>Alumni</Link>
+                  <Link to="/give" className={styles.footerLink}>Give Now</Link>
+                </div>
               </div>
             </motion.aside>
           </div>
@@ -202,24 +208,44 @@ export const Navbar = () => {
   );
 };
 
-
-
-
-
 const SearchIcon = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
   </svg>
 );
 
+const MenuIcon = ({ size }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+  </svg>
+);
+
+const XIcon = ({ size }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M18 6 6 18M6 6l12 12"/>
+  </svg>
+);
+
+const ArrowIcon = () => (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <path d="M5 12h14M12 5l7 7-7 7"/>
+  </svg>
+);
+
+const SmallArrow = () => (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+    <path d="m9 18 6-6-6-6"/>
+  </svg>
+);
+
 const SunIcon = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
   </svg>
 );
 
 const MoonIcon = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
   </svg>
 );
