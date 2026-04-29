@@ -18,6 +18,7 @@ export const Button = ({
   fullWidth = false,
   onClick,
   type = 'button',
+  as: Component = 'button',
   children,
   className = '',
   ...props
@@ -25,9 +26,12 @@ export const Button = ({
   const isDisabled = disabled || loading;
   const isIconOnly = !children;
 
+  // If using a custom component (like motion(Link)), we wrap it
+  const MotionComponent = Component === 'button' ? motion.button : motion(Component);
+
   return (
-    <motion.button
-      type={type}
+    <MotionComponent
+      type={Component === 'button' ? type : undefined}
       onClick={onClick}
       disabled={isDisabled}
       className={`
@@ -50,7 +54,7 @@ export const Button = ({
           {IconRight && <span className={styles.iconRight}><IconRight size={size === 'sm' ? 16 : 20} /></span>}
         </>
       )}
-    </motion.button>
+    </MotionComponent>
   );
 };
 

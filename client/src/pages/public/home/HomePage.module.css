@@ -1,1 +1,15 @@
-/* Coming soon */
+.home {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+.contentWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ensure sections have some breathing room if they don't have their own padding */
+.contentWrapper > * {
+  width: 100%;
+}
