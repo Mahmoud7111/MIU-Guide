@@ -6,6 +6,7 @@ import authService from '../../services/authService';
 import { ROUTES } from '../../lib/constants';
 import { validateEmail, validatePassword } from '../../lib/validators';
 import styles from './LoginPage.module.css';
+import cairoBg from '../../assets/images/tools/cairo3-large.jpg';
 
 const initialFormState = {
   email: '',
@@ -138,7 +139,7 @@ export default function LoginPage() {
     'Minimum 8 characters, include an uppercase letter and a number.';
 
   return (
-    <section className={styles.page}>
+    <section className={styles.page} style={{ backgroundImage: `url(${cairoBg})` }}>
       <div className={styles.container}>
         <Card variant="elevated" padding="lg" className={styles.card}>
           <div className={styles.header}>

@@ -3,14 +3,17 @@ import { motion } from 'framer-motion';
 import { Card } from '../../../../components/ui';
 import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
 import styles from './Leadership.module.css';
+import chairmanImg from '../../../../assets/images/tools/Mr.Hussein El Rashidy .png';
+
+const CHAIRMAN_DATA = {
+  id: 'chairman',
+  role: 'Chairman of the Board of Trustees',
+  name: 'Mr. Hussein El Rashidy',
+  description: "Guiding the university's strategic vision, the Chairman ensures MIU adheres to its foundational mission of providing premium international-standard education while contributing significantly to societal development.",
+  image: chairmanImg
+};
 
 const LEADERSHIP_DATA = [
-  {
-    id: 'chairman',
-    role: 'Chairman of the Board of Trustees',
-    name: 'Hussein El Rashidy',
-    description: 'Guiding the university\'s strategic vision, the Chairman ensures MIU adheres to its foundational mission of providing premium international-standard education while contributing significantly to societal development.',
-  },
   {
     id: 'president',
     role: 'University President',
@@ -50,6 +53,28 @@ export default function Leadership() {
             Committed to academic excellence, our institutional leadership guides Misr International University towards achieving its vision of being a premier destination for higher education.
           </p>
         </motion.div>
+
+        {/* Featured Chairman Section */}
+        <div className={styles.chairmanSection}>
+          <motion.div variants={fadeUp}>
+            <Card variant="bordered" padding="none" className={styles.chairmanCard}>
+              <div className={styles.chairmanContent}>
+                <div className={styles.chairmanImageWrapper}>
+                  <img 
+                    src={CHAIRMAN_DATA.image} 
+                    alt={CHAIRMAN_DATA.name} 
+                    className={styles.chairmanImage} 
+                  />
+                </div>
+                <div className={styles.chairmanText}>
+                  <p className={styles.roleLabel}>{CHAIRMAN_DATA.role}</p>
+                  <h3 className={styles.leaderName}>{CHAIRMAN_DATA.name}</h3>
+                  <p className={styles.leaderDescription}>{CHAIRMAN_DATA.description}</p>
+                </div>
+              </div>
+            </Card>
+          </motion.div>
+        </div>
 
         <div className={styles.grid}>
           {LEADERSHIP_DATA.map((member) => (

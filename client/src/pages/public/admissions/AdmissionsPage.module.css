@@ -1,1 +1,22 @@
-/* Coming soon */
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-bg);
+  min-height: 100vh;
+}
+
+.sectionDivider {
+  height: 1px;
+  background-color: var(--color-border);
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .sectionDivider {
+    max-width: calc(100% - var(--space-8));
+  }
+}
