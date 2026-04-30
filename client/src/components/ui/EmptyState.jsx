@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { fadeUp } from '../../lib/motion/variants';
+import { fadeUp } from '@/lib/motion/variants';
 import Button from './Button';
 import styles from './EmptyState.module.css';
 

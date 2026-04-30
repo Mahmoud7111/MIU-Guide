@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { fadeUp, fadeIn, staggerContainer } from '../../../../lib/motion/variants';
-import Button from '../../../../components/ui/Button';
-import { ROUTES } from '../../../../lib/constants';
-import campusVideo from '../../../../assets/videos/Discover-MIU1.mp4';
+import { fadeUp, fadeIn, staggerContainer } from '@/lib/motion/variants';
+import Button from '@/components/ui/Button';
+import { ROUTES } from '@/lib/constants';
+import campusVideo from '@/assets/videos/Discover-MIU1.mp4';
 import styles from './HeroSection.module.css';
 
 /**

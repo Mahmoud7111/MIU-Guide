@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { HiAcademicCap, HiDocumentText, HiTranslate, HiInformationCircle } from 'react-icons/hi';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './Requirements.module.css';
 
 const REQUIREMENTS_DATA = [

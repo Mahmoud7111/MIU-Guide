@@ -1,6 +1,6 @@
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { ROUTES } from '../lib/constants';
+import { useAuth } from '@/context/AuthContext';
+import { ROUTES } from '@/lib/constants';
 
 /**
  * Route guard for protected pages.

@@ -1,14 +1,14 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PageHero } from '../../../components/ui';
-import { pageTransition } from '../../../lib/motion/variants';
+import { PageHero } from '@/components/ui';
+import { pageTransition } from '@/lib/motion/variants';
 import styles from './AcademicsPage.module.css';
 
 // Import Sections
 import FacultiesGrid from './sections/FacultiesGrid';
 import ProgramsSearch from './sections/ProgramsSearch';
 import ProgramsDirectory from './sections/ProgramsDirectory';
-import AcademicCalendar from '../../../components/sections/academic/AcademicCalendar';
+import AcademicCalendar from '@/components/sections/academic/AcademicCalendar';
 
 export default function AcademicsPage() {
   return (

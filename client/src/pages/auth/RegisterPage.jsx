@@ -1,12 +1,12 @@
 import { useMemo, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Card, Input } from '../../components/ui';
-import { useAuth } from '../../context/AuthContext';
-import authService from '../../services/authService';
-import { ROUTES } from '../../lib/constants';
-import { validateEmail, validatePassword } from '../../lib/validators';
+import { Button, Card, Input } from '@/components/ui';
+import { useAuth } from '@/context/AuthContext';
+import authService from '@/services/authService';
+import { ROUTES } from '@/lib/constants';
+import { validateEmail, validatePassword } from '@/lib/validators';
 import styles from './RegisterPage.module.css';
-import cairoBg from '../../assets/images/tools/cairo3-large.jpg';
+import cairoBg from '@/assets/images/tools/campus.webp';
 
 const initialFormState = {
   fullName: '',

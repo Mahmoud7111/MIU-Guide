@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { pageTransition } from '../../../lib/motion/variants';
-import { PageHero } from '../../../components/ui';
+import { pageTransition } from '@/lib/motion/variants';
+import { PageHero } from '@/components/ui';
 
 // About Sections
 import MissionVision from './sections/MissionVision';

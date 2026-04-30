@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
-import { ROUTES } from '../lib/constants';
-import { Spinner } from '../components/ui';
+import { ROUTES } from '@/lib/constants';
+import { Spinner } from '@/components/ui';
 
 /**
  * Loading wrapper for lazy-loaded components.
@@ -13,7 +13,7 @@ const Loadable = (Component) => (props) => (
 );
 
 // Layouts
-import RootLayout from '../components/layout/RootLayout';
+import RootLayout from '@/components/layout/RootLayout';
 const PortalLayout = Loadable(lazy(() => import('../components/layout/Portal/PortalLayout')));
 const PrivateRoute = Loadable(lazy(() => import('./PrivateRoute')));
 
@@ -22,7 +22,7 @@ const NotFoundPage = Loadable(lazy(() => import('../pages/public/error/NotFoundP
 const ErrorPage = Loadable(lazy(() => import('../pages/public/error/ErrorPage')));
 
 // Public Pages
-import HomePage from '../pages/public/home/HomePage';
+import HomePage from '@/pages/public/home/HomePage';
 const AboutPage = Loadable(lazy(() => import('../pages/public/about/AboutPage')));
 const AcademicsPage = Loadable(lazy(() => import('../pages/public/academics/AcademicsPage')));
 const FacultyPage = Loadable(lazy(() => import('../pages/public/faculty/FacultyPage')));

@@ -1,5 +1,5 @@
-import http from '../lib/api/http';
-import { ENDPOINTS } from '../lib/api/endpoints';
+import http from '@/lib/api/http';
+import { ENDPOINTS } from '@/lib/api/endpoints';
 
 /**
  * Service for fetching campus-related data.

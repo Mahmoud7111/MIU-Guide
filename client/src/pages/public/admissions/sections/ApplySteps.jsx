@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '../../../../components/ui';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
+import { Card } from '@/components/ui';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './ApplySteps.module.css';
 
 const STEPS_DATA = [

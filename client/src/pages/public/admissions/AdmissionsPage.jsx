@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PageHero } from '../../../components/ui';
-import { pageTransition } from '../../../lib/motion/variants';
+import { PageHero } from '@/components/ui';
+import { pageTransition } from '@/lib/motion/variants';
 import styles from './AdmissionsPage.module.css';
 
 // Import Admissions Sections

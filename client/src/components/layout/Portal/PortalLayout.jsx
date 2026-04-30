@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useAuth } from '../../../context/AuthContext';
-import { useTheme } from '../../../context/ThemeContext';
-import { usePageTitle } from '../../../hooks/usePageTitle';
+import { useAuth } from '@/context/AuthContext';
+import { useTheme } from '@/context/ThemeContext';
+import { usePageTitle } from '@/hooks/usePageTitle';
 import Sidebar from './Sidebar';
 import styles from './PortalLayout.module.css';
 

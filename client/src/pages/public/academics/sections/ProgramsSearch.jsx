@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Card, TagBadge } from '../../../../components/ui';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
+import { Card, TagBadge } from '@/components/ui';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './ProgramsSearch.module.css';
 
 const PROGRAMS_DATA = [

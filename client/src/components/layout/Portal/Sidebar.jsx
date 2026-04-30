@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { SIDEBAR_LINKS } from '../../../lib/constants';
-import { sidebarIndicator } from '../../../lib/motion/variants';
-import { useAuth } from '../../../context/AuthContext';
+import { SIDEBAR_LINKS } from '@/lib/constants';
+import { sidebarIndicator } from '@/lib/motion/variants';
+import { useAuth } from '@/context/AuthContext';
 import styles from './Sidebar.module.css';
 
 /**

@@ -1,8 +1,8 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { HiAcademicCap, HiTrophy, HiStar } from 'react-icons/hi2';
-import { Card } from '../../../../components/ui';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
+import { Card } from '@/components/ui';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './Scholarships.module.css';
 
 export default function Scholarships() {

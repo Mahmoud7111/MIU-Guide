@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TESTIMONIALS } from '../../../../data/testimonials';
-import { fadeUp, fadeIn } from '../../../../lib/motion/variants';
+import { TESTIMONIALS } from '@/data/testimonials';
+import { fadeUp, fadeIn } from '@/lib/motion/variants';
 import styles from './Testimonials.module.css';
 
 /**

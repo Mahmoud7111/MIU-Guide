@@ -1,5 +1,5 @@
 import { useLocation } from 'react-router-dom';
-import { ROUTES } from '../lib/constants';
+import { ROUTES } from '@/lib/constants';
 
 /**
  * Hook to map the current pathname to a human-readable page title.

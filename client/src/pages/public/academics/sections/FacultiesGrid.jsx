@@ -1,9 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Card, Button, TagBadge } from '../../../../components/ui';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
-import { ROUTES } from '../../../../lib/constants';
+import { Card, Button, TagBadge } from '@/components/ui';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
+import { ROUTES } from '@/lib/constants';
 import styles from './FacultiesGrid.module.css';
 
 const FACULTIES_DATA = [

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { fadeUp } from '../../lib/motion/variants';
+import { fadeUp } from '@/lib/motion/variants';
 import styles from './Input.module.css';
 
 /**

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { motion } from 'framer-motion';
-import { staggerContainer, staggerItem, fadeUp } from '../../lib/motion/variants';
+import { staggerContainer, staggerItem, fadeUp } from '@/lib/motion/variants';
 import styles from './PageHero.module.css';
 
 //! Might delete it 

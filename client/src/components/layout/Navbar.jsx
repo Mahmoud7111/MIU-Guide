@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useScrollDirection } from '../../hooks/useScrollDirection';
-import { useScrollPosition } from '../../hooks/useScrollPosition';
-import { useClickOutside } from '../../hooks/useClickOutside';
-import { useTheme } from '../../context/ThemeContext';
-import { NAV_LINKS, ROUTES } from '../../lib/constants';
-import Button from '../ui/Button';
+import { useScrollDirection } from '@/hooks/useScrollDirection';
+import { useScrollPosition } from '@/hooks/useScrollPosition';
+import { useClickOutside } from '@/hooks/useClickOutside';
+import { useTheme } from '@/context/ThemeContext';
+import { NAV_LINKS, ROUTES } from '@/lib/constants';
+import Button from '@/components/ui/Button';
 import styles from './Navbar.module.css';
 
 /**

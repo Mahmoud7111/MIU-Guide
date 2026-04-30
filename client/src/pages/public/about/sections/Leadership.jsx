@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Card } from '../../../../components/ui';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
+import { Card } from '@/components/ui';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './Leadership.module.css';
-import chairmanImg from '../../../../assets/images/tools/Mr.Hussein El Rashidy .png';
+import chairmanImg from '@/assets/images/tools/campus.webp';
 
 const CHAIRMAN_DATA = {
   id: 'chairman',

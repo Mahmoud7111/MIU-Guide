@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import PropTypes from 'prop-types';
 import { motion, AnimatePresence } from 'framer-motion';
-import { modalVariant, backdropVariant } from '../../lib/motion/variants';
+import { modalVariant, backdropVariant } from '@/lib/motion/variants';
 import styles from './Modal.module.css';
 
 /**

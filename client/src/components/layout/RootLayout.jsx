@@ -2,7 +2,7 @@ import { Outlet, useLocation } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import Navbar from './Navbar';
 import Footer from './Footer';
-import ScrollToTop from '../../routes/ScrollToTop';
+import ScrollToTop from '@/routes/ScrollToTop';
 
 /**
  * RootLayout component that wraps all public and protected routes.

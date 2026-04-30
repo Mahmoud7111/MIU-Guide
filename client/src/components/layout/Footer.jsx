@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { staggerContainer, staggerItem } from '../../lib/motion/variants';
-import { ROUTES } from '../../lib/constants';
+import { staggerContainer, staggerItem } from '@/lib/motion/variants';
+import { ROUTES } from '@/lib/constants';
 import styles from './Footer.module.css';
 
 /**

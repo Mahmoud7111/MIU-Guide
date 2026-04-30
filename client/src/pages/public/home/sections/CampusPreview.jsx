@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { fadeUp, fadeIn, staggerContainer } from '../../../../lib/motion/variants';
-import Button from '../../../../components/ui/Button';
-import Spinner from '../../../../components/ui/Spinner';
-import { ROUTES } from '../../../../lib/constants';
-import campusModel from '../../../../assets/3D-Models/Tcampus.glb';
+import { fadeUp, fadeIn, staggerContainer } from '@/lib/motion/variants';
+import Button from '@/components/ui/Button';
+import Spinner from '@/components/ui/Spinner';
+import { ROUTES } from '@/lib/constants';
+import campusModel from '@/assets/3D-Models/Tcampus.glb';
 import styles from './CampusPreview.module.css';
 
 /**

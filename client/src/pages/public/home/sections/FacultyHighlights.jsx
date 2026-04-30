@@ -1,10 +1,10 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { FACULTIES } from '../../../../data/faculties';
-import { ROUTES } from '../../../../lib/constants';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
-import Button from '../../../../components/ui/Button';
+import { FACULTIES } from '@/data/faculties';
+import { ROUTES } from '@/lib/constants';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
+import Button from '@/components/ui/Button';
 import styles from './FacultyHighlights.module.css';
 
 /**

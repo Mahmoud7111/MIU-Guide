@@ -1,9 +1,9 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { NEWS } from '../../../../data/news';
-import { ROUTES } from '../../../../lib/constants';
-import { fadeUp, staggerContainer, staggerItem } from '../../../../lib/motion/variants';
+import { NEWS } from '@/data/news';
+import { ROUTES } from '@/lib/constants';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './NewsSection.module.css';
 
 /**
