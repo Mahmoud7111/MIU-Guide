@@ -1,1 +1,0 @@
-export default function AcademicCalendar() { return <div>Coming soon</div>; }

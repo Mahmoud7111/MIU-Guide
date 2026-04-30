@@ -33,7 +33,6 @@ export const Navbar = () => {
     }
   };
 
-  const isScrolled = scrollY > 50;
   const isHidden = scrollDirection === 'down' && scrollY > 200;
 
   // Prevent scroll when menu is open
@@ -47,11 +46,9 @@ export const Navbar = () => {
   }, [isMenuOpen]);
 
   return (
-    <header 
+    <header
       className={`
         ${styles.header} 
-        ${!isScrolled ? styles.transparent : ''} 
-        ${isScrolled ? styles.scrolled : ''} 
         ${isHidden ? styles.hidden : ''}
       `}
     >
@@ -64,45 +61,53 @@ export const Navbar = () => {
         <div className={styles.navGroups}>
           {/* Group 1: Nav Links Pill */}
           <nav className={styles.linksPill}>
-            <Link to="/admissions" className={styles.pillLink}>Admissions</Link>
-            <Link to="/news" className={styles.pillLink}>News</Link>
+            <Link to={ROUTES.ACADEMICS} className={styles.pillLink}>Academics</Link>
+            <Link to={ROUTES.ADMISSIONS} className={styles.pillLink}>Admissions</Link>
+            <Link to={ROUTES.NEWS} className={styles.pillLink}>News</Link>
             <Link to="/research" className={styles.pillLink}>Research</Link>
           </nav>
-          
+
           {/* Group 2: Actions Pill */}
           <div className={styles.actionsPill}>
-            <div 
+            <div
               ref={searchRef}
               className={`${styles.searchContainer} ${isSearchOpen ? styles.searchOpen : ''}`}
             >
-               <input 
-                 type="text" 
-                 placeholder="Search MIU..." 
-                 className={styles.searchInput}
-                 autoFocus={isSearchOpen}
-                 value={searchQuery}
-                 onChange={(e) => setSearchQuery(e.target.value)}
-                 onKeyDown={handleSearch}
-               />
-               <button 
-                 className={styles.actionBtn} 
-                 onClick={() => setIsSearchOpen(!isSearchOpen)}
-                 aria-label="Toggle search"
-               >
-                 <SearchIcon size={18} />
-               </button>
+              <input
+                type="text"
+                placeholder="Search MIU..."
+                className={styles.searchInput}
+                autoFocus={isSearchOpen}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyDown={handleSearch}
+              />
+              <button
+                className={styles.actionBtn}
+                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                aria-label="Toggle search"
+              >
+                <SearchIcon size={18} />
+              </button>
             </div>
 
-            <button 
-              className={styles.actionBtn} 
+            <button
+              className={styles.actionBtn}
               onClick={toggleTheme}
               aria-label="Toggle theme"
             >
               {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
             </button>
 
-            <button 
-              className={styles.menuBtn} 
+            <Link to={ROUTES.LOGIN} className={styles.actionBtn} aria-label="Login">
+              Login
+            </Link>
+            <Link to={ROUTES.REGISTER} className={`${styles.actionBtn} ${styles.authAction}`} aria-label="Register">
+              Register
+            </Link>
+
+            <button
+              className={styles.menuBtn}
               onClick={() => setIsMenuOpen(true)}
               aria-label="Open menu"
             >
@@ -144,8 +149,8 @@ export const Navbar = () => {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: idx * 0.05 + 0.2 }}
                     >
-                      <NavLink 
-                        to={link.path} 
+                      <NavLink
+                        to={link.path}
                         className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
                         onClick={() => setIsMenuOpen(false)}
                       >
@@ -153,11 +158,41 @@ export const Navbar = () => {
                       </NavLink>
                     </motion.div>
                   ))}
+
+                  <motion.div
+                    key={ROUTES.LOGIN}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: NAV_LINKS.length * 0.05 + 0.2 }}
+                  >
+                    <NavLink
+                      to={ROUTES.LOGIN}
+                      className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Login
+                    </NavLink>
+                  </motion.div>
+
+                  <motion.div
+                    key={ROUTES.REGISTER}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (NAV_LINKS.length + 1) * 0.05 + 0.2 }}
+                  >
+                    <NavLink
+                      to={ROUTES.REGISTER}
+                      className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Register
+                    </NavLink>
+                  </motion.div>
                 </nav>
 
                 {/* Right: Detailed Sections */}
                 <div className={styles.drawerDetails}>
-                  <motion.div 
+                  <motion.div
                     className={styles.detailSection}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -172,7 +207,7 @@ export const Navbar = () => {
                     </div>
                   </motion.div>
 
-                  <motion.div 
+                  <motion.div
                     className={styles.detailSection}
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -210,43 +245,43 @@ export const Navbar = () => {
 
 const SearchIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+    <circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" />
   </svg>
 );
 
 const MenuIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
+    <line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" />
   </svg>
 );
 
 const XIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M18 6 6 18M6 6l12 12"/>
+    <path d="M18 6 6 18M6 6l12 12" />
   </svg>
 );
 
 const ArrowIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M5 12h14M12 5l7 7-7 7"/>
+    <path d="M5 12h14M12 5l7 7-7 7" />
   </svg>
 );
 
 const SmallArrow = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-    <path d="m9 18 6-6-6-6"/>
+    <path d="m9 18 6-6-6-6" />
   </svg>
 );
 
 const SunIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/>
+    <circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
   </svg>
 );
 
 const MoonIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
   </svg>
 );
 

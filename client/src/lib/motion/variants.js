@@ -23,15 +23,15 @@
  * @type {import('framer-motion').Variants}
  */
 export const fadeUp = {
-  hidden: {
+  offscreen: {
     opacity: 0,
-    y: 24,
+    y: 40,
   },
-  visible: {
+  onscreen: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.5,
+      duration: 0.6,
       ease: 'easeOut',
     },
   },
