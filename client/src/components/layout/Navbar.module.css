@@ -14,29 +14,21 @@
 @media (max-width: 768px) {
   .header {
     height: 70px;
-    top: 25px; /* Move a little under */
+    top: 25px;
+    /* Move a little under */
     padding: 0 var(--space-2);
   }
 }
 
-.header.scrolled {
-  height: 80px;
-  background-color: var(--color-surface-light); /* Same as footer */
-  box-shadow: 0 4px 30px rgba(255, 255, 255, 0.2);
+.header.hidden {
+  transform: translateY(-110%); /* Default hide */
 }
 
 @media (max-width: 768px) {
-  .header.scrolled {
-    height: 60px;
+  .header.hidden {
+    /* Accounts for the 25px top offset to ensure it's fully off-screen */
+    transform: translateY(calc(-100% - 30px));
   }
-}
-
-.header.transparent {
-  background-color: transparent;
-}
-
-.header.hidden {
-  transform: translateY(-100%);
 }
 
 .container {
@@ -91,7 +83,8 @@
 }
 
 /* Common Pill Styles */
-.linksPill, .actionsPill {
+.linksPill,
+.actionsPill {
   background-color: #1A1A1A;
   padding: 6px;
   border-radius: var(--radius-md);
@@ -103,7 +96,8 @@
 }
 
 .linksPill {
-  display: none; /* Hide on mobile */
+  display: none;
+  /* Hide on mobile */
 }
 
 @media (min-width: 1024px) {
@@ -139,7 +133,8 @@
   }
 }
 
-.actionBtn, .menuBtn {
+.actionBtn,
+.menuBtn {
   background: none;
   border: none;
   color: white;
@@ -153,12 +148,15 @@
 }
 
 @media (max-width: 768px) {
-  .actionBtn, .menuBtn {
+
+  .actionBtn,
+  .menuBtn {
     padding: 6px;
   }
 }
 
-.actionBtn:hover, .menuBtn:hover {
+.actionBtn:hover,
+.menuBtn:hover {
   background-color: rgba(255, 255, 255, 0.15);
 }
 
@@ -184,7 +182,8 @@
 
 @media (max-width: 480px) {
   .menuLabel {
-    display: none; /* Hide 'Menu' text on very small screens */
+    display: none;
+    /* Hide 'Menu' text on very small screens */
   }
 }
 
@@ -192,7 +191,8 @@
 .searchContainer {
   display: flex;
   align-items: center;
-  justify-content: flex-end; /* Keep icon on the right */
+  justify-content: flex-end;
+  /* Keep icon on the right */
   background-color: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-sm);
   transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
@@ -203,7 +203,8 @@
 .searchOpen {
   width: 280px;
   background-color: rgba(0, 0, 0, 0.3);
-  padding-left: var(--space-4); /* Space before the text starts */
+  padding-left: var(--space-4);
+  /* Space before the text starts */
 }
 
 @media (max-width: 480px) {
@@ -329,7 +330,8 @@
   }
 }
 
-.drawerLink:hover, .drawerLink.active {
+.drawerLink:hover,
+.drawerLink.active {
   color: white;
   transform: translateX(20px);
 }
