@@ -1,1 +1,11 @@
-/* Coming soon */
+.aboutPage {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sectionsContainer {
+  display: flex;
+  flex-direction: column;
+  /* Child sections maintain their own vertical rhythm via internal paddings */
+}

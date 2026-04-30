@@ -1,0 +1,80 @@
+.contentWrapper {
+  padding: var(--space-16) 0;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-16);
+}
+
+.termSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.termHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding-bottom: var(--space-4);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.termTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  color: var(--brand-primary);
+  margin: 0;
+}
+
+.eventsGrid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.eventCard {
+  width: 100%;
+}
+
+.eventContent {
+  display: grid;
+  grid-template-columns: 200px 1fr auto;
+  align-items: center;
+  gap: var(--space-6);
+}
+
+.eventDate {
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  font-size: var(--text-lg);
+}
+
+.eventDescription {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  margin: 0;
+}
+
+.eventBadge {
+  justify-self: flex-end;
+}
+
+@media (max-width: 768px) {
+  .eventContent {
+    grid-template-columns: 1fr;
+    gap: var(--space-3);
+  }
+
+  .eventBadge {
+    justify-self: flex-start;
+  }
+  
+  .contentWrapper {
+    padding: var(--space-12) 0;
+  }
+}
