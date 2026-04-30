@@ -1,1 +1,15 @@
-/* Coming soon */
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: var(--color-background);
+}
+
+.sectionDivider {
+  height: 1px;
+  background-color: var(--color-border);
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  opacity: 0.5;
+}

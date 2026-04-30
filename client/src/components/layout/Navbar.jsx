@@ -61,8 +61,9 @@ export const Navbar = () => {
         <div className={styles.navGroups}>
           {/* Group 1: Nav Links Pill */}
           <nav className={styles.linksPill}>
-            <Link to="/admissions" className={styles.pillLink}>Admissions</Link>
-            <Link to="/news" className={styles.pillLink}>News</Link>
+            <Link to={ROUTES.ACADEMICS} className={styles.pillLink}>Academics</Link>
+            <Link to={ROUTES.ADMISSIONS} className={styles.pillLink}>Admissions</Link>
+            <Link to={ROUTES.NEWS} className={styles.pillLink}>News</Link>
             <Link to="/research" className={styles.pillLink}>Research</Link>
           </nav>
 
@@ -97,6 +98,13 @@ export const Navbar = () => {
             >
               {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
             </button>
+
+            <Link to={ROUTES.LOGIN} className={styles.actionBtn} aria-label="Login">
+              Login
+            </Link>
+            <Link to={ROUTES.REGISTER} className={`${styles.actionBtn} ${styles.authAction}`} aria-label="Register">
+              Register
+            </Link>
 
             <button
               className={styles.menuBtn}
@@ -150,6 +158,36 @@ export const Navbar = () => {
                       </NavLink>
                     </motion.div>
                   ))}
+
+                  <motion.div
+                    key={ROUTES.LOGIN}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: NAV_LINKS.length * 0.05 + 0.2 }}
+                  >
+                    <NavLink
+                      to={ROUTES.LOGIN}
+                      className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Login
+                    </NavLink>
+                  </motion.div>
+
+                  <motion.div
+                    key={ROUTES.REGISTER}
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: (NAV_LINKS.length + 1) * 0.05 + 0.2 }}
+                  >
+                    <NavLink
+                      to={ROUTES.REGISTER}
+                      className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
+                      onClick={() => setIsMenuOpen(false)}
+                    >
+                      Register
+                    </NavLink>
+                  </motion.div>
                 </nav>
 
                 {/* Right: Detailed Sections */}

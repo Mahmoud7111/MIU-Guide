@@ -1,0 +1,127 @@
+.section {
+  padding: var(--space-16) 0;
+  width: 100%;
+  position: relative;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+}
+
+.header {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.title {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.subtitle {
+  font-size: var(--text-lg);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-8);
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: var(--space-4);
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: var(--color-border);
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: var(--space-12);
+}
+
+.timelineMarker {
+  position: absolute;
+  left: calc(var(--space-4) - var(--space-2) + 1px);
+  top: var(--space-8);
+  width: var(--space-4);
+  height: var(--space-4);
+  border-radius: 50%;
+  background-color: var(--color-background);
+  border: 2px solid var(--brand-primary);
+  z-index: 1;
+}
+
+.itemCard {
+  width: 100%;
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.itemYear {
+  font-size: var(--text-sm);
+  font-weight: var(--font-bold);
+  color: var(--brand-primary);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.itemTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+  margin: 0;
+}
+
+.itemText {
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--space-12) 0;
+  }
+  
+  .title {
+    font-size: var(--text-3xl);
+  }
+  
+  .timeline::before {
+    left: var(--space-2);
+  }
+  
+  .timelineItem {
+    padding-left: var(--space-8);
+  }
+  
+  .timelineMarker {
+    left: calc(var(--space-2) - var(--space-2) + 1px);
+  }
+}
