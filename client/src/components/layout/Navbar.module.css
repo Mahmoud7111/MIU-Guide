@@ -1,22 +1,26 @@
 .header {
   position: fixed;
-  top: 0;
+  top: 15px;
   left: 0;
   width: 100%;
-  height: 90px;
+  height: 100px;
   background-color: transparent;
   z-index: 1000;
   transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   align-items: center;
+  pointer-events: none;
+}
+
+.header > * {
+  pointer-events: auto;
 }
 
 @media (max-width: 768px) {
   .header {
-    height: 70px;
-    top: 25px;
-    /* Move a little under */
-    padding: 0 var(--space-2);
+    height: 60px;
+    top: 15px;
+    padding: 0 var(--space-4);
   }
 }
 
@@ -33,12 +37,13 @@
 
 .container {
   width: 100%;
-  max-width: 1600px;
-  margin: 0 auto;
+  max-width: 100%;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 var(--space-10);
+  padding-left: var(--space-12);
+  padding-right: var(--space-6);
 }
 
 @media (max-width: 768px) {
@@ -54,20 +59,20 @@
 }
 
 .logoImage {
-  height: 70px;
+  height: 80px;
   width: auto;
   object-fit: contain;
-  transition: height 0.3s ease;
+  transition: all 0.3s ease;
 }
 
 @media (max-width: 768px) {
   .logoImage {
-    height: 50px;
+    height: 40px;
   }
 }
 
 .header.scrolled .logoImage {
-  height: 60px;
+  height: 45px;
 }
 
 @media (max-width: 768px) {

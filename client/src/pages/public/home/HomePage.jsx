@@ -2,6 +2,8 @@ import React from 'react';
 import HeroSection from './sections/HeroSection';
 import StatsBar from './sections/StatsBar';
 import AboutStrip from './sections/AboutStrip';
+import CampusPreview from './sections/CampusPreview';
+import FacultyHighlights from './sections/FacultyHighlights';
 import FeaturesShowcase from './sections/FeaturesShowcase';
 import NewsSection from './sections/NewsSection';
 import Testimonials from './sections/Testimonials';
@@ -21,6 +23,8 @@ const HomePage = () => {
         <StatsBar />
         <FeaturesShowcase />
         <AboutStrip />
+        <CampusPreview />
+        <FacultyHighlights />
 
         {/* <NewsSection /> */}
         {/* <Testimonials /> */}

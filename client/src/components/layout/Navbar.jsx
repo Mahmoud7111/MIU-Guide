@@ -34,6 +34,7 @@ export const Navbar = () => {
   };
 
   const isHidden = scrollDirection === 'down' && scrollY > 200;
+  const isScrolled = scrollY > 50;
 
   // Prevent scroll when menu is open
   useEffect(() => {
@@ -50,9 +51,10 @@ export const Navbar = () => {
       className={`
         ${styles.header} 
         ${isHidden ? styles.hidden : ''}
+        ${isScrolled ? styles.scrolled : ''}
       `}
     >
-      <div className={`${styles.container} container`}>
+      <div className={styles.container}>
         {/* Logo */}
         <Link to={ROUTES.HOME} className={styles.logo}>
           <img src="/MIU.png" alt="MIU Logo" className={styles.logoImage} />
@@ -101,9 +103,6 @@ export const Navbar = () => {
 
             <Link to={ROUTES.LOGIN} className={styles.actionBtn} aria-label="Login">
               Login
-            </Link>
-            <Link to={ROUTES.REGISTER} className={`${styles.actionBtn} ${styles.authAction}`} aria-label="Register">
-              Register
             </Link>
 
             <button
@@ -174,20 +173,6 @@ export const Navbar = () => {
                     </NavLink>
                   </motion.div>
 
-                  <motion.div
-                    key={ROUTES.REGISTER}
-                    initial={{ opacity: 0, x: -30 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: (NAV_LINKS.length + 1) * 0.05 + 0.2 }}
-                  >
-                    <NavLink
-                      to={ROUTES.REGISTER}
-                      className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
-                      onClick={() => setIsMenuOpen(false)}
-                    >
-                      Register
-                    </NavLink>
-                  </motion.div>
                 </nav>
 
                 {/* Right: Detailed Sections */}
