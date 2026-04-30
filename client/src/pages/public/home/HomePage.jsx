@@ -26,8 +26,8 @@ const HomePage = () => {
         <CampusPreview />
         <FacultyHighlights />
 
-        {/* <NewsSection /> */}
-        {/* <Testimonials /> */}
+        <NewsSection />
+        <Testimonials />
       </div>
     </main>
   );
