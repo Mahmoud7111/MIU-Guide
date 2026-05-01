@@ -8,11 +8,11 @@
 
 .sectionDivider {
   height: 1px;
-  background-color: var(--color-border);
+  background: linear-gradient(to right, transparent, var(--color-border), transparent);
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
-  opacity: 0.5;
+  opacity: 0.6;
 }
 
 @media (max-width: 768px) {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { HiAcademicCap, HiDocumentText, HiTranslate, HiInformationCircle } from 'react-icons/hi';
+import { HiInformationCircle } from 'react-icons/hi';
 import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './Requirements.module.css';
 
@@ -8,7 +8,6 @@ const REQUIREMENTS_DATA = [
   {
     id: 'academic',
     title: 'Academic Requirements',
-    icon: <HiAcademicCap />,
     items: [
       {
         label: 'High School Certificate',
@@ -27,7 +26,6 @@ const REQUIREMENTS_DATA = [
   {
     id: 'documents',
     title: 'Documents Required',
-    icon: <HiDocumentText />,
     items: [
       {
         label: 'Official Transcripts',
@@ -46,7 +44,6 @@ const REQUIREMENTS_DATA = [
   {
     id: 'language',
     title: 'Language Proficiency',
-    icon: <HiTranslate />,
     items: [
       {
         label: 'MIU English Placement Test',
@@ -55,29 +52,6 @@ const REQUIREMENTS_DATA = [
       {
         label: 'Exemption Criteria',
         value: 'Students with high scores in TOEFL (iBT) or IELTS might be exempted from the EPT or specific English levels.'
-      },
-      {
-        label: 'Intensive Programs',
-        value: 'Students who do not meet the minimum proficiency levels will be enrolled in Intensive English Programs.'
-      }
-    ]
-  },
-  {
-    id: 'process',
-    title: 'Additional Notes',
-    icon: <HiInformationCircle />,
-    items: [
-      {
-        label: 'Interview Process',
-        value: 'Qualified candidates will be invited for a personal interview as part of the holistic evaluation process.'
-      },
-      {
-        label: 'Medical Examination',
-        value: 'Final admission is subject to passing the university-mandated medical examination.'
-      },
-      {
-        label: 'Application Fee',
-        value: 'A non-refundable application and administrative fee is required for processing your file.'
       }
     ]
   }
@@ -86,53 +60,51 @@ const REQUIREMENTS_DATA = [
 export default function Requirements() {
   return (
     <section className={styles.sectionWrapper} id="requirements">
-      <motion.div 
+      <motion.div
         className={styles.container}
         variants={staggerContainer}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: '-50px' }}
       >
-        <motion.div className={styles.header} variants={fadeUp}>
-          <h2 className={styles.title}>Admission Requirements</h2>
-          <p className={styles.subtitle}>
-            MIU maintains high academic standards to ensure a diverse and capable student body. Review the prerequisites for your intended program.
-          </p>
-        </motion.div>
+        <div className={styles.pageWrapper}>
+          <motion.div className={styles.leftSide} variants={fadeUp}>
+            <h2 className={styles.mainTitle}>Admission Requirements</h2>
+            <p className={styles.description}>
+              MIU maintains high academic standards to ensure a diverse and capable student body.
+              Please review the prerequisites for your intended program to ensure a smooth application process.
+            </p>
+          </motion.div>
 
-        <div className={styles.grid}>
-          {REQUIREMENTS_DATA.map((section) => (
-            <motion.div key={section.id} className={styles.requirementSection} variants={staggerItem}>
-              <div className={styles.sectionHeader}>
-                <div className={styles.iconWrapper}>
-                  {section.icon}
-                </div>
-                <h3 className={styles.sectionTitle}>{section.title}</h3>
+          <motion.div className={styles.rightSide} variants={staggerItem}>
+            {REQUIREMENTS_DATA.map((section) => (
+              <div key={section.id} className={styles.requirementGroup}>
+                <h3 className={styles.groupTitle}>{section.title}</h3>
+                <ul className={styles.itemList}>
+                  {section.items.map((item, idx) => (
+                    <li key={idx} className={styles.item}>
+                      <span className={styles.bullet}>&bull;</span>
+                      <div className={styles.itemContent}>
+                        <span className={styles.itemLabel}>{item.label}</span>
+                        <p className={styles.itemValue}>{item.value}</p>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
               </div>
-              
-              <ul className={styles.requirementsList}>
-                {section.items.map((item, idx) => (
-                  <li key={idx} className={styles.requirementItem}>
-                    <span className={styles.bullet}>&bull;</span>
-                    <div className={styles.itemContent}>
-                      <span className={styles.itemTitle}>{item.label}</span>
-                      <p className={styles.itemDescription}>{item.value}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-            </motion.div>
-          ))}
-        </div>
+            ))}
 
-        <motion.div className={styles.additionalNotes} variants={fadeUp}>
-          <h4 className={styles.notesTitle}>
-            <HiInformationCircle /> Important Note for International Students
-          </h4>
-          <p className={styles.notesText}>
-            Certificates obtained from outside Egypt must be authenticated by the Egyptian Ministry of Foreign Affairs and the relevant educational authorities in the country of origin. Equivalence certification from the Supreme Council of Egyptian Universities may also be required for certain international systems.
-          </p>
-        </motion.div>
+            <motion.div className={styles.noteBox} variants={fadeUp}>
+              <h4 className={styles.noteTitle}>
+                <HiInformationCircle /> Note for International Students
+              </h4>
+              <p className={styles.noteText}>
+                Certificates obtained from outside Egypt must be authenticated by the Egyptian Ministry of Foreign Affairs
+                and relevant educational authorities in the country of origin.
+              </p>
+            </motion.div>
+          </motion.div>
+        </div>
       </motion.div>
     </section>
   );

@@ -1,1 +1,156 @@
-/* Empty CSS module to fix missing file build errors */
+.sectionWrapper {
+  padding: var(--space-20) 0;
+  width: 100%;
+  background-color: var(--color-surface);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.pageWrapper {
+  display: flex;
+  gap: 80px;
+  align-items: flex-start;
+}
+
+.leftSide {
+  flex: 0.9;
+  max-width: 380px;
+  position: sticky;
+  top: calc(var(--navbar-height) + var(--space-8));
+}
+
+.mainTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-5xl);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  line-height: 1.2;
+}
+
+.description {
+  color: var(--color-text-muted);
+  font-size: var(--text-lg);
+  line-height: 1.6;
+}
+
+.rightSide {
+  flex: 2.2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-12);
+  border-left: 1px solid var(--color-border);
+  padding-left: 40px;
+}
+
+.requirementGroup {
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-10);
+}
+
+.requirementGroup:last-of-type {
+  border-bottom: none;
+}
+
+.groupTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--brand-primary);
+  margin-bottom: var(--space-6);
+}
+
+.itemList {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.item {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.bullet {
+  color: var(--brand-primary);
+  font-weight: bold;
+  font-size: 1.2rem;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+.itemContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.itemLabel {
+  display: block;
+  font-weight: var(--font-semi);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  margin-bottom: 2px;
+}
+
+.itemValue {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+
+.noteBox {
+  padding: var(--space-6);
+  background-color: color-mix(in srgb, var(--brand-primary), transparent 96%);
+  border-left: 4px solid var(--brand-primary);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-4);
+}
+
+.noteTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--brand-primary);
+  margin-bottom: var(--space-2);
+  font-size: var(--text-lg);
+}
+
+.noteText {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 992px) {
+  .pageWrapper {
+    gap: 40px;
+  }
+}
+
+@media (max-width: 768px) {
+  .pageWrapper {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .leftSide {
+    position: static;
+    max-width: 100%;
+  }
+
+  .rightSide {
+    border-left: none;
+    padding-left: 0;
+  }
+
+  .mainTitle {
+    font-size: var(--text-3xl);
+  }
+}

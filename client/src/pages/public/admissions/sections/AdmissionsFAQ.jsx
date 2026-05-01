@@ -1,6 +1,6 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { Card } from '@/components/ui';
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { HiPlus, HiMinus } from 'react-icons/hi';
 import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './AdmissionsFAQ.module.css';
 
@@ -38,8 +38,14 @@ const FAQ_DATA = [
 ];
 
 export default function AdmissionsFAQ() {
+  const [activeIndex, setActiveIndex] = useState(null);
+
+  const toggleFAQ = (index) => {
+    setActiveIndex(activeIndex === index ? null : index);
+  };
+
   return (
-    <section className={styles.contentWrapper} id="faq">
+    <section className={styles.sectionWrapper} id="faq">
       <motion.div 
         className={styles.container}
         variants={staggerContainer}
@@ -50,22 +56,49 @@ export default function AdmissionsFAQ() {
         <motion.div className={styles.header} variants={fadeUp}>
           <h2 className={styles.title}>Frequently Asked Questions</h2>
           <p className={styles.subtitle}>
-            Find answers to common questions about our admission process, requirements, and life at Misr International University.
+            Find answers to common questions about our admission process, requirements, and life at MIU.
           </p>
         </motion.div>
 
         <div className={styles.faqList}>
-          {FAQ_DATA.map((item, index) => (
-            <motion.div key={item.id} variants={staggerItem}>
-              <Card variant="bordered" hoverable padding="lg" className={styles.faqCard}>
-                <div className={styles.questionWrapper}>
-                  <span className={styles.questionIcon}>?</span>
-                  <h3 className={styles.question}>{item.question}</h3>
-                </div>
-                <p className={styles.answer}>{item.answer}</p>
-              </Card>
-            </motion.div>
-          ))}
+          {FAQ_DATA.map((item, index) => {
+            const isOpen = activeIndex === index;
+            
+            return (
+              <motion.div 
+                key={item.id} 
+                variants={staggerItem}
+                className={`${styles.faqItem} ${isOpen ? styles.active : ''}`}
+              >
+                <button 
+                  className={styles.questionButton}
+                  onClick={() => toggleFAQ(index)}
+                  aria-expanded={isOpen}
+                >
+                  <span className={styles.questionText}>{item.question}</span>
+                  <span className={styles.iconWrapper}>
+                    {isOpen ? <HiMinus /> : <HiPlus />}
+                  </span>
+                </button>
+                
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: 'easeInOut' }}
+                      className={styles.answerWrapper}
+                    >
+                      <div className={styles.answerContent}>
+                        <p className={styles.answerText}>{item.answer}</p>
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
         </div>
       </motion.div>
     </section>

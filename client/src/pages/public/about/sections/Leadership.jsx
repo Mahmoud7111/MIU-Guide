@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Card } from '@/components/ui';
 import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './Leadership.module.css';
-import chairmanImg from '@/assets/images/tools/campus.webp';
+import chairmanImg from '@/assets/images/tools/Mr.Hussein El Rashidy .png';
 
 const CHAIRMAN_DATA = {
   id: 'chairman',

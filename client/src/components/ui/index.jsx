@@ -10,3 +10,4 @@ export { default as AnimatedCounter } from './AnimatedCounter';
 export { default as ProgressBar } from './ProgressBar';
 export { default as TagBadge } from './TagBadge';
 export { default as CountdownCard } from './CountdownCard';
+export { default as HeroSection } from './HeroSection';

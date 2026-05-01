@@ -6,7 +6,7 @@ import authService from '@/services/authService';
 import { ROUTES } from '@/lib/constants';
 import { validateEmail, validatePassword } from '@/lib/validators';
 import styles from './RegisterPage.module.css';
-import cairoBg from '@/assets/images/tools/campus.webp';
+import cairoBg from '@/assets/images/tools/cairo3-large.jpg';
 
 const initialFormState = {
   fullName: '',

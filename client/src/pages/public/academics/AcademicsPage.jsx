@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PageHero } from '@/components/ui';
+import { PageHero, HeroSection } from '@/components/ui';
 import { pageTransition } from '@/lib/motion/variants';
 import styles from './AcademicsPage.module.css';
+
+// Import Assets
+import cairoHero from '@/assets/images/tools/cairo1-large.jpg';
 
 // Import Sections
 import FacultiesGrid from './sections/FacultiesGrid';
@@ -19,13 +22,14 @@ export default function AcademicsPage() {
       animate="visible"
       exit="exit"
     >
-      <PageHero 
+      <HeroSection 
         title="Academics at MIU" 
         subtitle="Explore our world-class faculties, comprehensive programs, and stay updated with the university academic calendar."
-        align="center"
+        image={cairoHero}
+        titleColor="#ffffff"
         breadcrumbs={[
           { label: 'Home', path: '/' },
-          { label: 'Academics', path: '/academics' }
+          { label: 'Academics' }
         ]}
       />
       

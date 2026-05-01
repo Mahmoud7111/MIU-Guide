@@ -1,13 +1,16 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { pageTransition } from '@/lib/motion/variants';
-import { PageHero } from '@/components/ui';
+import { PageHero, HeroSection } from '@/components/ui';
 
 // About Sections
 import MissionVision from './sections/MissionVision';
 import HistoryTimeline from './sections/HistoryTimeline';
 import Leadership from './sections/Leadership';
 import Accreditations from './sections/Accreditations';
+
+// Assets
+import campusHero from '@/assets/images/tools/campus.webp';
 
 import styles from './AboutPage.module.css';
 
@@ -24,13 +27,13 @@ export default function AboutPage() {
       exit="exit"
       className={styles.aboutPage}
     >
-      <PageHero 
+      <HeroSection 
         title="About MIU" 
         subtitle="A legacy of academic excellence, innovation, and international standards since 1996."
-        align="center"
+        image={campusHero}
         breadcrumbs={[
           { label: 'Home', path: '/' },
-          { label: 'About Us', path: '/about' }
+          { label: 'About Us' }
         ]}
       />
       
