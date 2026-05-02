@@ -134,3 +134,8 @@ input, textarea, select {
   white-space: nowrap;
   border-width: 0;
 }
+
+/* 14. Hide native cursor on desktop — custom cursor takes over */
+@media (hover: hover) and (pointer: fine) {
+  * { cursor: none !important; }
+}

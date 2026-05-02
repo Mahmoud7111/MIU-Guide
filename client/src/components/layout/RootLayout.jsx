@@ -4,6 +4,8 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import ScrollToTop from '@/routes/ScrollToTop';
 
+import CustomCursor from '../ui/CustomCursor/CustomCursor';
+
 /**
  * RootLayout component that wraps all public and protected routes.
  * Provides the core shell of the application including Navbar, Footer, and page transitions.
@@ -13,6 +15,9 @@ const RootLayout = () => {
 
   return (
     <>
+      {/* Custom Cursor */}
+      <CustomCursor />
+
       {/* Utility to scroll to top on every route change */}
       <ScrollToTop />
 

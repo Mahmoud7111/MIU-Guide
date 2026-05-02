@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import Sidebar from './Sidebar';
+import CustomCursor from '../../ui/CustomCursor/CustomCursor';
 import styles from './PortalLayout.module.css';
 
 /**
@@ -26,6 +27,7 @@ export const PortalLayout = () => {
 
   return (
     <div className={styles.layout}>
+      <CustomCursor />
       {/* Persistent Sidebar */}
       <Sidebar 
         isOpen={isSidebarOpen} 
