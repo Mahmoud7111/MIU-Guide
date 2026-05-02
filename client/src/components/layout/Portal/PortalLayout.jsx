@@ -6,6 +6,7 @@ import { useTheme } from '@/context/ThemeContext';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import Sidebar from './Sidebar';
 import CustomCursor from '../../ui/CustomCursor/CustomCursor';
+import Chatbot from '../../ui/Chatbot/Chatbot';
 import styles from './PortalLayout.module.css';
 
 /**
@@ -89,6 +90,9 @@ export const PortalLayout = () => {
           </AnimatePresence>
         </main>
       </div>
+
+      {/* Floating Chatbot */}
+      <Chatbot />
 
       {/* Mobile Backdrop */}
       <AnimatePresence>

@@ -3,6 +3,7 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ScrollToTop from '@/routes/ScrollToTop';
+import Chatbot from '../ui/Chatbot/Chatbot';
 
 import CustomCursor from '../ui/CustomCursor/CustomCursor';
 
@@ -34,6 +35,9 @@ const RootLayout = () => {
           <Outlet key={location.pathname} />
         </AnimatePresence>
       </main>
+
+      {/* Floating Chatbot */}
+      <Chatbot />
 
       {/* Persistent Footer */}
       <Footer />

@@ -41,24 +41,83 @@
   line-height: 1.6;
 }
 
-/* Grid */
+.gridWrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Scroll Buttons */
+.scrollBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 20;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.left {
+  left: -26px;
+}
+
+.right {
+  right: -26px;
+}
+
+.scrollBtn:hover {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: white;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: var(--shadow-lg);
+}
+
+.scrollBtn:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+/* Grid / Scroll Rail */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  overflow-x: auto;
   gap: var(--space-6);
+  padding: var(--space-2) 0 var(--space-8);
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.grid::-webkit-scrollbar {
+  display: none;
 }
 
 /* Card */
 .card {
+  flex: 0 0 calc((100% - (var(--space-6) * 2)) / 3);
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  padding: var(--space-6);
+  padding: var(--space-8);
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  transition: box-shadow var(--transition);
+  transition: all var(--transition);
   cursor: default;
+  scroll-snap-align: start;
 }
 
 .iconWrap {
@@ -103,15 +162,24 @@
 }
 
 /* Responsive */
+@media (max-width: 1280px) {
+  .left { left: 0; }
+  .right { right: 0; }
+}
+
 @media (max-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
+  .card {
+    flex: 0 0 calc((100% - var(--space-6)) / 2);
   }
 }
 
 @media (max-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr;
+  .scrollBtn {
+    display: none;
+  }
+  
+  .card {
+    flex: 0 0 85%;
   }
 
   .heading {

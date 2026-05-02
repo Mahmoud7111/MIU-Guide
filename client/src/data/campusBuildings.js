@@ -82,6 +82,27 @@ export const buildings = [
       { floor: 3, label: 'Third Floor', departments: ['Recording Studio', 'Music Room'] },
     ],
   },
+  {
+    id: 'sports-complex',
+    name: 'Sports Complex',
+    slug: 'sports-complex',
+    image: '/images/sports-complex.jpg',
+    description: 'Premier sports and fitness facilities at MIU.',
+    cameraOrbit: '135deg 72deg 65%',
+    fieldOfView: '28deg',
+    floors: [
+      {
+        floor: 0,
+        label: 'Outdoor Areas',
+        departments: ['Football Court', 'Basketball Court', 'Handball Court'],
+      },
+      {
+        floor: 1,
+        label: 'Indoor Facilities',
+        departments: ['MIU Gym', 'Locker Rooms', 'Sports Office'],
+      },
+    ],
+  },
 ];
 
 export const restaurants = [
@@ -256,6 +277,34 @@ export const facilities = [
     icon: 'coffee',
     description: 'Multiple dining options including the Main Cafeteria, MIU Café, and Main Canteen offering a variety of cuisines and quick bites.',
     location: 'Campus Wide',
+  },
+  {
+    id: 10,
+    name: 'MIU Gym',
+    icon: 'dumbbell',
+    description: 'Fully equipped fitness center with modern training equipment.',
+    location: 'Support Complex',
+  },
+  {
+    id: 11,
+    name: 'Football Court',
+    icon: 'football',
+    description: 'Standard size football field for training and tournaments.',
+    location: 'Support Complex',
+  },
+  {
+    id: 12,
+    name: 'Basketball Court',
+    icon: 'basketball',
+    description: 'Professional basketball court with night lighting.',
+    location: 'Support Complex',
+  },
+  {
+    id: 13,
+    name: 'Handball Court',
+    icon: 'handball',
+    description: 'Multi-purpose court for handball and other indoor sports.',
+    location: 'Support Complex',
   },
 ];
 

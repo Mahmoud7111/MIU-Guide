@@ -5,6 +5,7 @@ import { useAuth } from '@/context/AuthContext';
 import authService from '@/services/authService';
 import { ROUTES } from '@/lib/constants';
 import { validateEmail, validatePassword } from '@/lib/validators';
+import Chatbot from '@/components/ui/Chatbot/Chatbot';
 import styles from './LoginPage.module.css';
 import cairoBg from '@/assets/images/tools/cairo3-large.jpg';
 
@@ -139,88 +140,91 @@ export default function LoginPage() {
     'Minimum 8 characters, include an uppercase letter and a number.';
 
   return (
-    <section className={styles.page} style={{ backgroundImage: `url(${cairoBg})` }}>
-      <div className={styles.container}>
-        <Card variant="elevated" padding="lg" className={styles.card}>
-          <div className={styles.header}>
-            <div>
-              <p className={styles.overline}>Student Portal Login</p>
-              <h1 className={styles.title}>Sign in to your account</h1>
-            </div>
-            <p className={styles.description}>
-              Use your university credentials to access your schedule, grades,
-              attendance, and campus services.
-            </p>
-          </div>
-
-          {submitError && (
-            <div className={styles.errorBanner} role="alert">
-              {submitError}
-            </div>
-          )}
-
-          <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <Input
-              name="email"
-              type="email"
-              label="Email address"
-              placeholder="you@student.edu.eg"
-              value={form.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.email}
-              disabled={loading}
-              required
-              autoComplete="email"
-            />
-
-            <Input
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              label="Password"
-              placeholder="Enter your password"
-              value={form.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.password}
-              hint={!errors.password ? passwordHint : undefined}
-              disabled={loading}
-              required
-              autoComplete="current-password"
-              iconRight={() => (
-                <button
-                  type="button"
-                  className={styles.passwordToggle}
-                  onClick={togglePasswordVisibility}
-                >
-                  {showPassword ? 'Hide' : 'Show'}
-                </button>
-              )}
-            />
-
-            <div className={styles.actions}>
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                fullWidth
-                loading={loading}
-                disabled={!isFormValid}
-              >
-                Sign in
-              </Button>
-
-              <p className={styles.footerText}>
-                Don&apos;t have an account?{' '}
-                <Link className={styles.link} to={ROUTES.REGISTER}>
-                  Create a new account
-                </Link>
+    <>
+      <section className={styles.page} style={{ backgroundImage: `url(${cairoBg})` }}>
+        <div className={styles.container}>
+          <Card variant="elevated" padding="lg" className={styles.card}>
+            <div className={styles.header}>
+              <div>
+                <p className={styles.overline}>Student Portal Login</p>
+                <h1 className={styles.title}>Sign in to your account</h1>
+              </div>
+              <p className={styles.description}>
+                Use your university credentials to access your schedule, grades,
+                attendance, and campus services.
               </p>
             </div>
-          </form>
-        </Card>
-      </div>
-    </section>
+
+            {submitError && (
+              <div className={styles.errorBanner} role="alert">
+                {submitError}
+              </div>
+            )}
+
+            <form className={styles.form} onSubmit={handleSubmit} noValidate>
+              <Input
+                name="email"
+                type="email"
+                label="Email address"
+                placeholder="you@student.edu.eg"
+                value={form.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.email}
+                disabled={loading}
+                required
+                autoComplete="email"
+              />
+
+              <Input
+                name="password"
+                type={showPassword ? 'text' : 'password'}
+                label="Password"
+                placeholder="Enter your password"
+                value={form.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={errors.password}
+                hint={!errors.password ? passwordHint : undefined}
+                disabled={loading}
+                required
+                autoComplete="current-password"
+                iconRight={() => (
+                  <button
+                    type="button"
+                    className={styles.passwordToggle}
+                    onClick={togglePasswordVisibility}
+                  >
+                    {showPassword ? 'Hide' : 'Show'}
+                  </button>
+                )}
+              />
+
+              <div className={styles.actions}>
+                <Button
+                  type="submit"
+                  variant="primary"
+                  size="lg"
+                  fullWidth
+                  loading={loading}
+                  disabled={!isFormValid}
+                >
+                  Sign in
+                </Button>
+
+                <p className={styles.footerText}>
+                  Don&apos;t have an account?{' '}
+                  <Link className={styles.link} to={ROUTES.REGISTER}>
+                    Create a new account
+                  </Link>
+                </p>
+              </div>
+            </form>
+          </Card>
+        </div>
+      </section>
+      <Chatbot />
+    </>
   );
 }
 
