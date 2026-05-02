@@ -1,3 +1,186 @@
-.buildings {
-  padding: 2rem;
+.page {
+  min-height: 100vh;
+}
+
+/* Hero */
+.hero {
+  background: var(--color-surface-dark);
+  padding: var(--space-16) 0 var(--space-12);
+}
+
+.heroContainer {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: rgba(255,255,255,0.55);
+}
+
+.breadcrumbLink {
+  color: rgba(255,255,255,0.55);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+.breadcrumbLink:hover {
+  color: #fff;
+}
+
+.sep {
+  color: var(--brand-primary);
+}
+
+.heroTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-5xl);
+  font-weight: var(--font-bold);
+  color: #fff;
+  margin: 0;
+}
+
+.heroSub {
+  font-size: var(--text-base);
+  color: rgba(255,255,255,0.65);
+  margin: 0;
+  max-width: 480px;
+  line-height: 1.6;
+}
+
+/* Section */
+.section {
+  padding: var(--space-16) 0;
+  background: var(--color-bg);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+.buildingList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+/* Building card */
+.buildingCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.buildingHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.buildingName {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  margin: 0 0 var(--space-1);
+}
+
+.buildingDesc {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.floorCount {
+  flex-shrink: 0;
+  padding: var(--space-1) var(--space-3);
+  background: rgba(139,0,0,0.08);
+  border: 1px solid rgba(139,0,0,0.2);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-semi);
+  color: var(--brand-primary);
+}
+
+/* Floors accordion */
+.floors {
+  display: flex;
+  flex-direction: column;
+}
+
+.floorRow {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.floorRow:last-child {
+  border-bottom: none;
+}
+
+.floorToggle {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4) var(--space-6);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  transition: background var(--transition-fast);
+}
+
+.floorToggle:hover {
+  background: var(--color-bg);
+}
+
+.floorLabel {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semi);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+
+.floorChevron {
+  font-size: var(--text-xl);
+  color: var(--color-text-muted);
+  transition: transform var(--transition-fast);
+  display: inline-block;
+  transform: rotate(0deg);
+}
+
+.chevronOpen {
+  transform: rotate(90deg);
+  color: var(--brand-primary);
+}
+
+.floorDepts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6) var(--space-5);
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: var(--text-4xl);
+  }
+
+  .buildingHeader {
+    flex-direction: column;
+  }
 }

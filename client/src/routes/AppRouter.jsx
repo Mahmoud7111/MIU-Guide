@@ -31,6 +31,8 @@ const StudentLifePage = Loadable(lazy(() => import('../pages/public/student-life
 const NewsPage = Loadable(lazy(() => import('../pages/public/news/NewsPage')));
 const ContactPage = Loadable(lazy(() => import('../pages/public/contact/ContactPage')));
 const CampusPage = Loadable(lazy(() => import('../pages/public/campus/CampusPage')));
+const BuildingsPage = Loadable(lazy(() => import('../pages/public/campus/BuildingsPage')));
+const RoomsPage = Loadable(lazy(() => import('../pages/public/campus/RoomsPage')));
 
 // Portal Pages
 const DashboardPage = Loadable(lazy(() => import('../pages/portal/dashboard/DashboardPage')));
@@ -64,6 +66,8 @@ const router = createBrowserRouter([
       { path: ROUTES.NEWS, element: <NewsPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.CAMPUS, element: <CampusPage /> },
+      { path: ROUTES.CAMPUS_BUILDINGS, element: <BuildingsPage /> },
+      { path: ROUTES.CAMPUS_ROOMS, element: <RoomsPage /> },
     ]
   },
   

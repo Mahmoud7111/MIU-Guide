@@ -43,6 +43,12 @@ export const ROUTES = {
   /** Interactive campus map */
   CAMPUS: '/campus',
 
+  /** Campus buildings directory */
+  CAMPUS_BUILDINGS: '/campus/buildings',
+
+  /** Campus rooms & departments directory */
+  CAMPUS_ROOMS: '/campus/rooms',
+
   /** Authentication — sign in */
   LOGIN: '/login',
 

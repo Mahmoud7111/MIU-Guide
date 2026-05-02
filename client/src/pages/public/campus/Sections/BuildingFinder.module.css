@@ -1,0 +1,320 @@
+.section {
+  padding: var(--space-20) 0;
+  background: var(--color-bg);
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Header */
+.header {
+  margin-bottom: var(--space-10);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  max-width: 620px;
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-semi);
+  color: var(--brand-primary);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.heading {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text);
+  line-height: 1.1;
+  margin: 0;
+}
+
+.subtext {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Main grid */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 360px 1fr;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+/* LEFT — selector column */
+.selectorCol {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.typeSelector {
+  display: flex;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  padding: 4px;
+  margin-bottom: var(--space-2);
+}
+
+.typeTab {
+  flex: 1;
+  padding: var(--space-2) var(--space-4);
+  border: none;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-sm);
+  font-weight: var(--font-medium);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.typeTab:hover {
+  color: var(--brand-primary);
+}
+
+.typeTabActive {
+  background: var(--brand-primary);
+  color: #fff;
+}
+
+.typeTabActive:hover {
+  color: #fff;
+}
+
+.cardList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-height: 250px;
+  overflow-y: auto;
+  padding-right: var(--space-2);
+}
+
+/* Building card */
+.buildingCard {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-left: 3px solid transparent;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  text-align: left;
+  width: 100%;
+  position: relative;
+  transition: border-left-color var(--transition-fast), background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.buildingCard:hover {
+  border-left-color: var(--brand-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.buildingCardActive {
+  border-left-color: var(--brand-primary) !important;
+  background: rgba(139, 0, 0, 0.04);
+  box-shadow: var(--shadow-md);
+}
+
+.cardIconWrap {
+  flex-shrink: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: rgba(139, 0, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--brand-primary);
+  margin-top: 2px;
+}
+
+.cardText {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
+}
+
+.buildingCardName {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semi);
+  color: var(--color-text);
+  line-height: 1.3;
+}
+
+.buildingCardDesc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  line-height: 1.4;
+}
+
+.cardArrowIcon {
+  flex-shrink: 0;
+  color: var(--brand-primary);
+  display: flex;
+  align-items: center;
+  margin-top: 2px;
+}
+
+/* Detail panel */
+.detailPanel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  margin-top: var(--space-1);
+}
+
+.detailHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--brand-primary);
+}
+
+.detailTitle {
+  font-size: var(--text-sm);
+  font-weight: var(--font-semi);
+  color: var(--color-text);
+}
+
+/* Floor tabs */
+.floorTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.floorTab {
+  padding: 4px var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-family: var(--font-body);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.floorTab:hover {
+  border-color: var(--brand-primary);
+  color: var(--brand-primary);
+}
+
+.floorTabActive {
+  background: var(--brand-primary);
+  border-color: var(--brand-primary);
+  color: #fff;
+}
+
+/* Floor content */
+.floorContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.floorLabelRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-muted);
+}
+
+.floorLabel {
+  font-size: var(--text-xs);
+  font-weight: var(--font-semi);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.departmentList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+/* RIGHT — 3D viewer column */
+.viewerCol {
+  position: sticky;
+  top: 80px;
+}
+
+.viewerWrapper {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  border: 1px solid rgba(139, 0, 0, 0.2);
+  box-shadow: 0 8px 48px rgba(139, 0, 0, 0.1), var(--shadow-xl);
+  background: #1A1A1A;
+}
+
+/* Zoom badge */
+.zoomBadge {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-3);
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-full);
+  font-size: var(--text-xs);
+  font-weight: var(--font-medium);
+  color: rgba(255, 255, 255, 0.85);
+  pointer-events: none;
+}
+
+/* Mobile */
+@media (max-width: 1024px) {
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .viewerCol {
+    position: static;
+    order: -1;
+  }
+
+  .viewerWrapper {
+    height: 400px;
+  }
+
+  .heading {
+    font-size: var(--text-3xl);
+  }
+}
+
+@media (max-width: 768px) {
+  .viewerWrapper {
+    height: 320px;
+  }
+}
