@@ -29,5 +29,3 @@ export const useScrollDirection = () => {
 
   return { scrollDirection, scrollY };
 };
-
-export default useScrollDirection;

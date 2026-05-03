@@ -23,5 +23,3 @@ export const usePageTitle = () => {
 
   return titleMap[pathname] || 'Student Portal';
 };
-
-export default usePageTitle;
