@@ -13,11 +13,14 @@ import CustomCursor from '../ui/CustomCursor/CustomCursor';
  */
 const RootLayout = () => {
   const location = useLocation();
+  const isAuthRoute = location.pathname.startsWith('/login') || 
+                      location.pathname.startsWith('/register') ||
+                      location.pathname.startsWith('/forgot-password');
 
   return (
-    <>
+    <div className={isAuthRoute ? 'native-cursor' : ''}>
       {/* Custom Cursor */}
-      <CustomCursor />
+      {!isAuthRoute && <CustomCursor />}
 
       {/* Utility to scroll to top on every route change */}
       <ScrollToTop />
@@ -41,7 +44,7 @@ const RootLayout = () => {
 
       {/* Persistent Footer */}
       <Footer />
-    </>
+    </div>
   );
 };
 
