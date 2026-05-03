@@ -1,15 +1,21 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, Reorder } from 'framer-motion';
 import { pageTransition } from '@/lib/motion/variants';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { 
   calculateCurrentGPA, 
+  GRADE_POINTS,
   getTotalCredits, 
   getHighestGrade, 
-  getLowestGrade 
+  getLowestGrade,
+  getFailedCourses,
 } from '@/lib/gpaUtils';
-import { formatGPAStatus } from '@/lib/formatters';
+import { formatGPA, formatGPAStatus } from '@/lib/formatters';
 import Button from '@/components/ui/Button';
+import Badge from '@/components/ui/Badge';
+import Modal from '@/components/ui/Modal';
+import EmptyState from '@/components/ui/EmptyState';
+import { FiBookOpen } from 'react-icons/fi';
 
 import GpaTabs from './components/GpaTabs';
 import CourseRow from './components/CourseRow';
@@ -30,17 +36,28 @@ const GpaPage = () => {
     { id: 2, courseCode: 'MATH101', name: 'Calculus I', credits: 3, grade: 'B+' },
   ]);
   const [futureCourses, setFutureCourses] = useLocalStorage('gpa_future_courses', []);
+  const [isResetOpen, setIsResetOpen] = useState(false);
 
   // Derived state for current GPA
   const currentGpa = calculateCurrentGPA(courses);
   const standing = formatGPAStatus(currentGpa);
   const totalCredits = getTotalCredits(courses);
-  const highestCourse = getHighestGrade(courses)?.courseCode;
-  const lowestCourse = getLowestGrade(courses)?.courseCode;
+  const highestCourse = getHighestGrade(courses);
+  const lowestCourse = getLowestGrade(courses);
+  const failedCourses = getFailedCourses(courses);
+  const failedCount = failedCourses.length;
+  const totalGradePoints = courses.reduce(
+    (sum, course) =>
+      sum + (GRADE_POINTS[course.grade] || 0) * (Number(course.credits) || 0),
+    0,
+  );
 
   // Handlers for Mode 1
   const addCourse = () => {
-    setCourses([...courses, { id: Date.now(), courseCode: '', name: '', credits: 3, grade: '' }]);
+    setCourses((prev) => [
+      ...prev,
+      { id: Date.now(), courseCode: '', name: '', credits: 3, grade: '' },
+    ]);
   };
 
   const updateCourse = (id, fields) => {
@@ -48,7 +65,20 @@ const GpaPage = () => {
   };
 
   const removeCourse = (id) => {
+    if (courses.length <= 1) return;
     setCourses(courses.filter(c => c.id !== id));
+  };
+
+  const handleResetAll = () => {
+    setCourses([]);
+    setIsResetOpen(false);
+  };
+
+  const exportSummary = () => {
+    const summary = `My GPA: ${formatGPA(currentGpa)} | Standing: ${standing} | Credits: ${totalCredits}`;
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText(summary);
+    }
   };
 
   return (
@@ -76,43 +106,124 @@ const GpaPage = () => {
               exit={{ opacity: 0, x: 10 }}
               transition={{ duration: 0.2 }}
             >
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 'var(--space-4)' }}>
+              <div className={styles.panelHeader}>
                 <h3 className={styles.panelTitle}>Current Semester</h3>
-                <Button variant="primary" onClick={addCourse}>+ Add Course</Button>
+                <div className={styles.panelActions}>
+                  <Button variant="outlined" onClick={() => setIsResetOpen(true)}>
+                    Reset All
+                  </Button>
+                </div>
               </div>
 
-              <table className={styles.courseTable}>
-                <thead>
-                  <tr>
-                    <th>Code</th>
-                    <th>Name</th>
-                    <th>Credits</th>
-                    <th>Grade</th>
-                    <th>Points</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <AnimatePresence>
-                    {courses.map(course => (
-                      <CourseRow 
-                        key={course.id} 
-                        course={course} 
-                        onUpdate={(fields) => updateCourse(course.id, fields)}
-                        onRemove={() => removeCourse(course.id)}
-                      />
-                    ))}
-                  </AnimatePresence>
-                </tbody>
-              </table>
+              {courses.length === 0 ? (
+                <div className={styles.emptyStateWrapper}>
+                  <EmptyState
+                    icon={FiBookOpen}
+                    title="Add your first course to calculate GPA"
+                    description="Start building your GPA by adding course details and grades."
+                  />
+                  <Button variant="primary" onClick={addCourse} className={styles.emptyStateButton}>
+                    + Add Course
+                  </Button>
+                </div>
+              ) : (
+                <>
+                  <table className={styles.courseTable}>
+                    <thead>
+                      <tr>
+                        <th>Code</th>
+                        <th>Name</th>
+                        <th>Credits</th>
+                        <th>Grade</th>
+                        <th>Grade Points</th>
+                        <th></th>
+                      </tr>
+                    </thead>
+                    <Reorder.Group
+                      as="tbody"
+                      axis="y"
+                      values={courses}
+                      onReorder={setCourses}
+                    >
+                      <AnimatePresence>
+                        {courses.map(course => (
+                          <CourseRow 
+                            key={course.id} 
+                            course={course} 
+                            onUpdate={(fields) => updateCourse(course.id, fields)}
+                            onRemove={() => removeCourse(course.id)}
+                            onAddRow={addCourse}
+                            disableRemove={courses.length <= 1}
+                          />
+                        ))}
+                      </AnimatePresence>
+                    </Reorder.Group>
+                  </table>
 
-              <GpaDisplay 
-                gpa={currentGpa}
-                standing={standing}
-                totalCredits={totalCredits}
-                highestCourse={highestCourse}
-                lowestCourse={lowestCourse}
-              />
+                  <div className={styles.courseActions}>
+                    <Button variant="primary" onClick={addCourse} fullWidth>
+                      + Add Course
+                    </Button>
+                  </div>
+                </>
+              )}
+
+              {courses.length > 0 && (
+                <>
+                  <GpaDisplay 
+                    gpa={currentGpa}
+                    standing={standing}
+                    totalCredits={totalCredits}
+                    highestCourse={highestCourse?.courseCode}
+                    lowestCourse={lowestCourse?.courseCode}
+                  />
+
+                  <div className={styles.summaryCard}>
+                    <div className={styles.summaryHeader}>
+                      <h4 className={styles.summaryTitle}>Semester Summary</h4>
+                      <Button variant="outlined" size="sm" onClick={exportSummary}>
+                        Export Summary
+                      </Button>
+                    </div>
+                    <div className={styles.summaryGrid}>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Total credits attempted</span>
+                        <span className={styles.summaryValue}>{totalCredits}</span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Total grade points earned</span>
+                        <span className={styles.summaryValue}>{totalGradePoints.toFixed(2)}</span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Highest grade</span>
+                        <span className={styles.summaryValue}>
+                          {highestCourse
+                            ? `${highestCourse.name || highestCourse.courseCode} (${highestCourse.grade})`
+                            : '-'}
+                        </span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Lowest grade</span>
+                        <span className={styles.summaryValue}>
+                          {lowestCourse
+                            ? `${lowestCourse.name || lowestCourse.courseCode} (${lowestCourse.grade})`
+                            : '-'}
+                        </span>
+                      </div>
+                      <div className={styles.summaryItem}>
+                        <span className={styles.summaryLabel}>Failed courses</span>
+                        <span className={styles.summaryValue}>
+                          {failedCount > 0 ? (
+                            <Badge variant="danger">{failedCount}</Badge>
+                          ) : (
+                            '0'
+                          )}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
             </motion.div>
           )}
 
@@ -146,6 +257,24 @@ const GpaPage = () => {
           )}
         </AnimatePresence>
       </div>
+
+      <Modal
+        isOpen={isResetOpen}
+        onClose={() => setIsResetOpen(false)}
+        title="Reset all courses?"
+        footer={
+          <div className={styles.modalFooter}>
+            <Button variant="outlined" onClick={() => setIsResetOpen(false)}>
+              Cancel
+            </Button>
+            <Button variant="primary" onClick={handleResetAll}>
+              Reset All
+            </Button>
+          </div>
+        }
+      >
+        This will remove all current courses and reset your GPA calculation.
+      </Modal>
     </motion.div>
   );
 };

@@ -1,8 +1,10 @@
 import React from 'react';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, Reorder } from 'framer-motion';
 import Button from '@/components/ui/Button';
-import { calculateFutureGPA } from '@/lib/gpaUtils';
-import { formatGPA, formatGPATrend } from '@/lib/formatters';
+import EmptyState from '@/components/ui/EmptyState';
+import { FiBookOpen } from 'react-icons/fi';
+import { calculateFutureGPA, GRADE_POINTS } from '@/lib/gpaUtils';
+import { formatGPA } from '@/lib/formatters';
 import CourseRow from './CourseRow';
 import styles from '../GpaPage.module.css';
 
@@ -17,7 +19,10 @@ import styles from '../GpaPage.module.css';
  */
 const FutureSimulator = ({ completedCourses, futureCourses, setFutureCourses, currentGpa }) => {
   const addFutureCourse = () => {
-    setFutureCourses([...futureCourses, { id: Date.now(), courseCode: '', name: '', credits: 3, expectedGrade: '' }]);
+    setFutureCourses((prev) => [
+      ...prev,
+      { id: Date.now(), courseCode: '', name: '', credits: 3, expectedGrade: '' },
+    ]);
   };
 
   const updateFutureCourse = (id, fields) => {
@@ -30,12 +35,95 @@ const FutureSimulator = ({ completedCourses, futureCourses, setFutureCourses, cu
 
   const projectedGpa = calculateFutureGPA(completedCourses, futureCourses);
   const impact = Number((projectedGpa - currentGpa).toFixed(2));
-  const trend = formatGPATrend(projectedGpa, currentGpa);
+  const arrow = impact > 0 ? '↑' : impact < 0 ? '↓' : '→';
+  const deltaText =
+    impact > 0
+      ? `Your GPA will improve by +${impact.toFixed(2)}`
+      : impact < 0
+      ? `Your GPA will drop by ${impact.toFixed(2)}`
+      : 'Your GPA will stay the same';
+  const deltaClass =
+    impact > 0 ? styles.deltaUp : impact < 0 ? styles.deltaDown : styles.deltaNeutral;
+
+  const setScenario = (grade) => {
+    setFutureCourses(
+      futureCourses.map((course) => ({
+        ...course,
+        expectedGrade: grade,
+      })),
+    );
+  };
 
   return (
     <div className={styles.simulatorLayout}>
       <div className={styles.simulatorPanel}>
-        <h3 className={styles.panelTitle}>Future Courses</h3>
+        <h3 className={styles.panelTitle}>Completed Courses</h3>
+        {completedCourses.length === 0 ? (
+          <div className={styles.emptyStateWrapper}>
+            <EmptyState
+              icon={FiBookOpen}
+              title="No completed courses yet"
+              description="Add courses in the Current GPA tab to see your projection."
+            />
+          </div>
+        ) : (
+          <table className={styles.courseTable}>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Cr</th>
+                <th>Grade</th>
+                <th>Points</th>
+              </tr>
+            </thead>
+            <tbody>
+              {completedCourses.map((course) => {
+                const points =
+                  (GRADE_POINTS[course.grade] || 0) * (Number(course.credits) || 0);
+                return (
+                  <tr key={course.id} className={styles.readOnlyRow}>
+                    <td className={styles.courseTableTd}>{course.courseCode || '-'}</td>
+                    <td className={styles.courseTableTd}>{course.name || '-'}</td>
+                    <td className={styles.courseTableTd}>{course.credits || '-'}</td>
+                    <td className={styles.courseTableTd}>{course.grade || '-'}</td>
+                    <td className={`${styles.courseTableTd} ${styles.pointsFormula}`}>
+                      {course.grade
+                        ? `${course.grade} × ${course.credits}cr = ${points.toFixed(1)} pts`
+                        : '-'}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
+        <div className={styles.gpaSummary}>
+          Current GPA: <strong>{formatGPA(currentGpa)}</strong>
+        </div>
+      </div>
+
+      <div className={styles.simulatorPanel}>
+        <div className={styles.panelHeader}>
+          <h3 className={styles.panelTitle}>In-Progress Courses</h3>
+          <div className={styles.chipRow}>
+            <button
+              type="button"
+              className={styles.chip}
+              onClick={() => setScenario('A')}
+            >
+              Best case scenario
+            </button>
+            <button
+              type="button"
+              className={styles.chip}
+              onClick={() => setScenario('D')}
+            >
+              Worst case scenario
+            </button>
+          </div>
+        </div>
+
         <table className={styles.courseTable}>
           <thead>
             <tr>
@@ -43,46 +131,42 @@ const FutureSimulator = ({ completedCourses, futureCourses, setFutureCourses, cu
               <th>Name</th>
               <th>Cr</th>
               <th>Expected</th>
-              <th>Pts</th>
+              <th>Points</th>
               <th></th>
             </tr>
           </thead>
-          <tbody>
+          <Reorder.Group
+            as="tbody"
+            axis="y"
+            values={futureCourses}
+            onReorder={setFutureCourses}
+          >
             <AnimatePresence>
               {futureCourses.map((course) => (
-                <CourseRow 
-                  key={course.id} 
-                  course={course} 
+                <CourseRow
+                  key={course.id}
+                  course={course}
                   isFuture={true}
                   onUpdate={(fields) => updateFutureCourse(course.id, fields)}
                   onRemove={() => removeFutureCourse(course.id)}
+                  onAddRow={addFutureCourse}
+                  disableRemove={futureCourses.length <= 1}
                 />
               ))}
             </AnimatePresence>
-          </tbody>
+          </Reorder.Group>
         </table>
-        <Button variant="outline" onClick={addFutureCourse} style={{ width: '100%' }}>
+        <Button variant="outlined" onClick={addFutureCourse} fullWidth>
           + Add Expected Course
         </Button>
-      </div>
 
-      <div className={styles.simulatorPanel}>
-        <h3 className={styles.panelTitle}>Live Projection</h3>
-        <div style={{ textAlign: 'center', padding: 'var(--space-6) 0' }}>
-          <div style={{ fontSize: 'var(--text-xl)', color: 'var(--color-text-muted)', marginBottom: 'var(--space-2)' }}>
-            Current GPA: <strong style={{ color: 'var(--color-text)' }}>{formatGPA(currentGpa)}</strong>
+        <div className={styles.projectionCard}>
+          <div className={styles.projectionValue}>{formatGPA(projectedGpa)}</div>
+          <div className={styles.projectionLabel}>Projected GPA</div>
+          <div className={`${styles.deltaCard} ${deltaClass}`}>
+            <span className={styles.deltaArrow}>{arrow}</span>
+            <span className={styles.deltaText}>{deltaText}</span>
           </div>
-          <div style={{ fontSize: 'var(--text-6xl)', fontWeight: 700, margin: 'var(--space-4) 0' }}>
-            {formatGPA(projectedGpa)}
-          </div>
-          {impact !== 0 && (
-            <div className={styles.deltaIndicator} style={{
-              background: impact > 0 ? 'var(--color-success-light)' : 'var(--color-danger-light)',
-              color: impact > 0 ? 'var(--color-success-dark)' : 'var(--color-danger-dark)'
-            }}>
-              {trend} from current
-            </div>
-          )}
         </div>
       </div>
     </div>
