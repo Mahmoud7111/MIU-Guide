@@ -1,5 +1,6 @@
 import React from 'react';
-import { formatCourseCode, formatDate, formatDuration, formatRoomCode } from '@/lib/formatters';
+import { formatCourseCode, formatDuration, formatRoomCode } from '@/lib/formatters';
+import { formatDate } from '@/lib/dateUtils';
 import Badge from '@/components/ui/Badge';
 import styles from '../ExamsPage.module.css';
 
