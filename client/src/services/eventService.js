@@ -1,5 +1,10 @@
-// Event API calls
+import { NEWS } from '@/data/news';
+
+/**
+ * Service for fetching university events.
+ */
 export const getEvents = async () => {
-  // Implement get events API call
-    return <div>coming soon</div>;
+  // Return news items categorized as 'Event'
+  const events = NEWS.filter(item => item.category === 'Event' || item.category === 'Achievement');
+  return { data: events };
 };

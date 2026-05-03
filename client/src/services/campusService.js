@@ -1,25 +1,35 @@
-import http from '@/lib/api/http';
-import { ENDPOINTS } from '@/lib/api/endpoints';
+import { buildings, campusEvents } from '@/data/campusBuildings';
 
 /**
  * Service for fetching campus-related data.
+ * Refactored to return mock data from local files.
  */
 export const campusService = {
   /**
    * Fetch all campus buildings and landmarks.
    */
-  getBuildings: () => http.get(ENDPOINTS.BUILDINGS),
+  getBuildings: async () => {
+    return { data: buildings };
+  },
 
   /**
    * Fetch specific building details by ID.
    * @param {string} id 
    */
-  getBuildingById: (id) => http.get(`${ENDPOINTS.BUILDINGS}/${id}`),
+  getBuildingById: async (id) => {
+    const building = buildings.find(b => b.id === id || b.slug === id);
+    if (building) {
+      return { data: building };
+    }
+    throw new Error('Building not found');
+  },
 
   /**
    * Fetch upcoming campus events.
    */
-  getEvents: () => http.get(ENDPOINTS.EVENTS),
+  getEvents: async () => {
+    return { data: campusEvents };
+  },
 };
 
 export default campusService;
