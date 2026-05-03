@@ -135,7 +135,4 @@ input, textarea, select {
   border-width: 0;
 }
 
-/* 14. Hide native cursor on desktop — custom cursor takes over */
-@media (hover: hover) and (pointer: fine) {
-  * { cursor: none !important; }
-}
+/* 14. Custom Scrollbar or other desktop-only styles can go here */
