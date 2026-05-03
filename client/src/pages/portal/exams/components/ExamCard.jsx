@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { getDaysUntil, formatDate } from '@/lib/dateUtils';
-import { formatCourseCode, formatTime, formatDuration, formatRoomCode, truncate } from '@/lib/formatters';
+import { getDaysUntil, formatDate, formatTime } from '@/lib/dateUtils';
+import { formatCourseCode, formatDuration, formatRoomCode, truncate } from '@/lib/formatters';
 import Badge from '@/components/ui/Badge';
 import Button from '@/components/ui/Button';
 import ExamCountdown from './ExamCountdown';

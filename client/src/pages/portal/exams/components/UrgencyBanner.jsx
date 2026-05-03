@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { formatCourseCode, formatTime, formatRoomCode } from '@/lib/formatters';
-import { formatDateShort } from '@/lib/dateUtils';
+import { formatCourseCode, formatRoomCode } from '@/lib/formatters';
+import { formatDateShort, formatTime } from '@/lib/dateUtils';
 import styles from '../ExamsPage.module.css';
 
 /**
