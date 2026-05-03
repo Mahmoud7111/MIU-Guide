@@ -1,9 +1,5 @@
 /**
  * Service for handling authentication requests.
- */
-
-/**
- * Service for handling authentication requests.
  * Refactored to use hardcoded mock data and localStorage.
  */
 export const authService = {

@@ -1,5 +1,4 @@
 /**
-/**
  * @fileoverview Schedule & exam service for the MIU Student Portal.
  *
  * All data is mocked — no real API calls.
@@ -357,4 +356,4 @@ export const getExamsByCourse = (courseCode) => {
   const code = courseCode.trim().toUpperCase();
   return MOCK_EXAMS.filter((e) => e.courseCode.toUpperCase() === code);
 };
-};
+
