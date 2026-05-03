@@ -160,14 +160,18 @@ export const useCountdown = (targetDate) => {
 
     // ── Tick every second ─────────────────────────────────────────
     intervalRef.current = setInterval(() => {
-      const next = calculateCountdown(target);
-      setCountdown(next);
+      setCountdown(prev => {
+        const next = calculateCountdown(target);
+        
+        // Auto-stop once expired
+        if (next.isExpired && intervalRef.current) {
+          clearInterval(intervalRef.current);
+          intervalRef.current = null;
+        }
 
-      // Auto-stop once expired
-      if (next.isExpired && intervalRef.current) {
-        clearInterval(intervalRef.current);
-        intervalRef.current = null;
-      }
+        // Prevent returning new object reference if nothing changed
+        return prev.total === next.total ? prev : next;
+      });
     }, 1000);
 
     // ── Cleanup on unmount or targetDate change ──────────────────

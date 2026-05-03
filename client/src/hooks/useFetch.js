@@ -201,6 +201,7 @@ export const useFetchWithCache = (key, fetchFn, dependencies = []) => {
 
   const fetchIdRef = useRef(0);
   const isMountedRef = useRef(true);
+  const cachedDataRef = useRef(cachedData);
 
   useEffect(() => {
     isMountedRef.current = true;
@@ -208,6 +209,10 @@ export const useFetchWithCache = (key, fetchFn, dependencies = []) => {
       isMountedRef.current = false;
     };
   }, []);
+
+  useEffect(() => {
+    cachedDataRef.current = cachedData;
+  }, [cachedData]);
 
   const execute = useCallback(async () => {
     if (typeof fetchFn !== 'function') {
@@ -220,7 +225,7 @@ export const useFetchWithCache = (key, fetchFn, dependencies = []) => {
     const id = ++fetchIdRef.current;
 
     // Only show loading spinner if there's no cached data to display
-    if (!cachedData) setLoading(true);
+    if (!cachedDataRef.current) setLoading(true);
     setError(null);
 
     try {
@@ -236,14 +241,14 @@ export const useFetchWithCache = (key, fetchFn, dependencies = []) => {
     } catch (err) {
       if (id === fetchIdRef.current && isMountedRef.current) {
         // If we have cached data, keep showing it despite the error
-        if (!cachedData) {
+        if (!cachedDataRef.current) {
           setError(err instanceof Error ? err : new Error(String(err)));
         }
         setLoading(false);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchFn, cachedData, setCachedData]);
+  }, [fetchFn, setCachedData]);
 
   // Auto-fetch on mount and when dependencies change
   useEffect(() => {

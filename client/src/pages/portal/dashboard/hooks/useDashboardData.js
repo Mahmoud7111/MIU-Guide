@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import { getTodaySchedule, getUpcomingExams, getSchedule } from '@/services/scheduleService';
 import { calculateCurrentGPA, getEarnedCredits, getTotalCredits } from '@/lib/gpaUtils';
@@ -12,7 +13,7 @@ export const useDashboardData = () => {
   // In a real app, these would be separate API calls.
   // Here we use the mocked services and calculate the derived stats.
   
-  return useFetch(async () => {
+  const fetchFn = useCallback(async () => {
     const allCourses = getSchedule();
     
     // Calculate GPA stats (mocking grades since schedule doesn't have them)
@@ -67,5 +68,7 @@ export const useDashboardData = () => {
         currentWeek: 16 - getWeeksRemaining(semesterEnd)
       }
     };
-  });
+  }, []);
+
+  return useFetch(fetchFn, []);
 };

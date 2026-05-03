@@ -102,7 +102,11 @@ export const useLocalStorage = (key, initialValue) => {
 
       try {
         const item = window.localStorage.getItem(keyRef.current);
-        setStoredValue(item === null ? initialValue : JSON.parse(item));
+        setStoredValue(prev => {
+          const parsed = item === null ? initialValue : JSON.parse(item);
+          // Only update if the stringified values differ to prevent loops
+          return JSON.stringify(prev) === JSON.stringify(parsed) ? prev : parsed;
+        });
       } catch {
         // Corrupted data — reset to initial
         setStoredValue(
