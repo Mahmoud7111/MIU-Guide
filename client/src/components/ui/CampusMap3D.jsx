@@ -35,9 +35,8 @@ export default function CampusMap3D({
       if (containerRef.current) {
         containerRef.current.requestFullscreen().catch(err => console.error("Fullscreen error:", err));
       }
-    } 
-    else
-        {
+    }
+    else {
       document.exitFullscreen();
     }
 

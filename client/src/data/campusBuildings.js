@@ -6,6 +6,7 @@ export const buildings = [
   {
     id: 'main',
     name: 'Main Building',
+    code: 'M',
     slug: 'main-building',
     image: '/images/main-building.jpg',
     description: 'The central academic hub of MIU campus.',
@@ -47,6 +48,7 @@ export const buildings = [
   {
     id: 'pharmacy',
     name: 'Pharmacy Building',
+    code: 'PH',
     slug: 'pharmacy-building',
     image: '/images/pharmacy-building.jpg',
     description: 'Home of the Faculty of Pharmacy.',
@@ -59,6 +61,7 @@ export const buildings = [
   {
     id: 'dental',
     name: 'Oral & Dental Medicine Building',
+    code: 'D',
     slug: 'dental-building',
     image: '/images/dental-building.jpg',
     description: 'Home of the Faculty of Oral & Dental Medicine.',
@@ -333,4 +336,10 @@ export const campusEvents = [
     location: 'Student Hub',
     tag: 'Culture',
   },
+];
+export const professors = [
+  { id: 'p1', name: 'Dr. Ahmed Hassan', department: 'Computer Science', building: 'main', room: 'M 304', floor: 3 },
+  { id: 'p2', name: 'Dr. Mona El-Sayed', department: 'Pharmacy', building: 'pharmacy', room: 'PH 102', floor: 1 },
+  { id: 'p3', name: 'Dr. Khaled Mostafa', department: 'Engineering', building: 'main', room: 'M 105', floor: 1 },
+  { id: 'p4', name: 'Dr. Nadia Farouk', department: 'Dental Medicine', building: 'dental', room: 'D 110', floor: 1 }
 ];
