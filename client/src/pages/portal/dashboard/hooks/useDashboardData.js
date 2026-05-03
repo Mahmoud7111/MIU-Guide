@@ -1,8 +1,8 @@
 import { useFetch } from '@/hooks/useFetch';
 import { getTodaySchedule, getUpcomingExams, getSchedule } from '@/services/scheduleService';
 import { calculateCurrentGPA, getEarnedCredits, getTotalCredits } from '@/lib/gpaUtils';
-import { getOverallAttendance, getAttendanceStatus, formatAttendanceColor } from '@/lib/attendanceUtils';
-import { formatGPA, formatPercent, formatCredits, formatGPAStatus } from '@/lib/formatters';
+import { getOverallAttendance, getAttendanceStatus } from '@/lib/attendanceUtils';
+import { formatGPA, formatPercent, formatCredits, formatGPAStatus, formatAttendanceColor } from '@/lib/formatters';
 import { getSemesterProgress, getWeeksRemaining } from '@/lib/dateUtils';
 
 /**
