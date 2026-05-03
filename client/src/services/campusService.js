@@ -1,5 +1,6 @@
 import { buildings, campusEvents } from '@/data/campusBuildings';
 
+
 /**
  * Service for fetching campus-related data.
  * Refactored to return mock data from local files.

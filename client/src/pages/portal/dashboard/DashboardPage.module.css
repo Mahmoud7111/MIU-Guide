@@ -1,1 +1,120 @@
-/* Coming soon */
+.page {
+  padding: var(--space-8);
+}
+
+.header {
+  margin-bottom: var(--space-8);
+}
+
+.greeting {
+  font-size: var(--text-3xl);
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.date {
+  font-size: var(--text-base);
+  color: var(--color-text-muted);
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-10);
+}
+
+.section {
+  margin-bottom: var(--space-10);
+}
+
+.sectionTitle {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  color: var(--color-text);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-6);
+}
+
+.scheduleList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.courseItem {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  border-left: 4px solid var(--course-color, var(--brand-primary));
+}
+
+.courseInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.courseCode {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.courseName {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.courseMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-1);
+}
+
+.courseTime {
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.courseRoom {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.upcomingExamsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+}
+
+@media (max-width: 1024px) {
+  .statsRow, .quickGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-4);
+  }
+  
+  .statsRow, .grid, .quickGrid {
+    grid-template-columns: 1fr;
+  }
+}

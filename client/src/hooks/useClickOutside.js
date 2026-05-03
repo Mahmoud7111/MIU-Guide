@@ -23,5 +23,3 @@ export const useClickOutside = (handler) => {
 
   return domNode;
 };
-
-export default useClickOutside;
