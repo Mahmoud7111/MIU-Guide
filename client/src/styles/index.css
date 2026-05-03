@@ -139,3 +139,28 @@ input, textarea, select {
 @media (hover: hover) and (pointer: fine) {
   * { cursor: none !important; }
 }
+
+/* 15. Native cursor override for auth pages */
+.native-cursor,
+.native-cursor * {
+  cursor: auto !important;
+}
+
+.native-cursor input,
+.native-cursor textarea {
+  cursor: text !important;
+}
+
+.native-cursor button,
+.native-cursor a,
+.native-cursor .link {
+  cursor: pointer !important;
+}
+
+.native-cursor canvas,
+.native-cursor .bg,
+.native-cursor::before,
+.native-cursor::after {
+  cursor: default !important;
+}
+
