@@ -4,11 +4,11 @@ import { pageTransition } from '@/lib/motion/variants';
 import { useLocalStorage } from '@/hooks/useLocalStorage';
 import { 
   calculateCurrentGPA, 
-  getAcademicStanding, 
   getTotalCredits, 
-  getHighestGradedCourse, 
-  getLowestGradedCourse 
+  getHighestGrade, 
+  getLowestGrade 
 } from '@/lib/gpaUtils';
+import { formatGPAStatus } from '@/lib/formatters';
 import Button from '@/components/ui/Button';
 
 import GpaTabs from './components/GpaTabs';
@@ -33,10 +33,10 @@ const GpaPage = () => {
 
   // Derived state for current GPA
   const currentGpa = calculateCurrentGPA(courses);
-  const standing = getAcademicStanding(currentGpa);
+  const standing = formatGPAStatus(currentGpa);
   const totalCredits = getTotalCredits(courses);
-  const highestCourse = getHighestGradedCourse(courses)?.courseCode;
-  const lowestCourse = getLowestGradedCourse(courses)?.courseCode;
+  const highestCourse = getHighestGrade(courses)?.courseCode;
+  const lowestCourse = getLowestGrade(courses)?.courseCode;
 
   // Handlers for Mode 1
   const addCourse = () => {
@@ -141,7 +141,7 @@ const GpaPage = () => {
               exit={{ opacity: 0, x: 10 }}
               transition={{ duration: 0.2 }}
             >
-              <TargetCalculator completedCourses={courses} />
+              <TargetCalculator completedCourses={courses} inProgressCourses={futureCourses} />
             </motion.div>
           )}
         </AnimatePresence>

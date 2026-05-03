@@ -11,8 +11,9 @@ import styles from '../GpaPage.module.css';
  * 
  * @param {Object} props
  * @param {Array} props.completedCourses - Array of completed courses
+ * @param {Array} props.inProgressCourses - Array of future/in-progress courses
  */
-const TargetCalculator = ({ completedCourses }) => {
+const TargetCalculator = ({ completedCourses, inProgressCourses = [] }) => {
   const [targetInput, setTargetInput] = useState('3.5');
   const debouncedTarget = useDebounce(targetInput, 500);
   
@@ -20,9 +21,9 @@ const TargetCalculator = ({ completedCourses }) => {
   const isValidTarget = !isNaN(targetVal) && targetVal >= 0 && targetVal <= 4.0;
   
   // Calculate states
-  const achievable = isValidTarget ? isTargetAchievable(completedCourses, targetVal) : true;
-  const requiredMsg = isValidTarget && achievable ? getRequiredGrades(completedCourses, targetVal) : '';
-  const scenarios = isValidTarget ? getTargetScenarios(completedCourses, targetVal) : [];
+  const achievable = isValidTarget ? isTargetAchievable(completedCourses, inProgressCourses, targetVal) : true;
+  const requiredMsg = isValidTarget && achievable ? getRequiredGrades(completedCourses, inProgressCourses, targetVal).message : '';
+  const scenarios = isValidTarget ? getTargetScenarios(completedCourses, inProgressCourses, targetVal) : [];
 
   return (
     <div className={styles.targetLayout}>

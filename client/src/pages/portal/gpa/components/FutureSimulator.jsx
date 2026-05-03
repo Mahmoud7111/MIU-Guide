@@ -1,7 +1,7 @@
 import React from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Button from '@/components/ui/Button';
-import { calculateFutureGPA, getGPAImpact } from '@/lib/gpaUtils';
+import { calculateFutureGPA } from '@/lib/gpaUtils';
 import { formatGPA, formatGPATrend } from '@/lib/formatters';
 import CourseRow from './CourseRow';
 import styles from '../GpaPage.module.css';
@@ -29,8 +29,8 @@ const FutureSimulator = ({ completedCourses, futureCourses, setFutureCourses, cu
   };
 
   const projectedGpa = calculateFutureGPA(completedCourses, futureCourses);
-  const impact = getGPAImpact(completedCourses, futureCourses);
-  const trend = formatGPATrend(impact);
+  const impact = Number((projectedGpa - currentGpa).toFixed(2));
+  const trend = formatGPATrend(projectedGpa, currentGpa);
 
   return (
     <div className={styles.simulatorLayout}>
