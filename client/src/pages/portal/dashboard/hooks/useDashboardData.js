@@ -1,74 +1,113 @@
 import { useCallback } from 'react';
 import { useFetch } from '@/hooks/useFetch';
 import { getTodaySchedule, getUpcomingExams, getSchedule } from '@/services/scheduleService';
-import { calculateCurrentGPA, getEarnedCredits, getTotalCredits } from '@/lib/gpaUtils';
-import { getOverallAttendance, getAttendanceStatus } from '@/lib/attendanceUtils';
-import { formatGPA, formatPercent, formatCredits, formatGPAStatus, formatAttendanceColor } from '@/lib/formatters';
-import { getSemesterProgress, getWeeksRemaining } from '@/lib/dateUtils';
+import { calculateCurrentGPA, getEarnedCredits, getTotalCredits, getRemainingCredits } from '@/lib/gpaUtils';
+import { getOverallAttendance, getAttendanceStatus, getAtRiskCourses } from '@/lib/attendanceUtils';
+import { 
+  formatGPA, 
+  formatPercent, 
+  formatCredits, 
+  formatGPAStatus, 
+  formatAttendanceColor,
+  formatGPATrend,
+  formatSemester
+} from '@/lib/formatters';
+import { getSemesterProgress, getWeeksRemaining, getToday, formatDate } from '@/lib/dateUtils';
 
 /**
  * Custom hook to aggregate all data needed for the DashboardPage.
  */
 export const useDashboardData = () => {
-  // In a real app, these would be separate API calls.
-  // Here we use the mocked services and calculate the derived stats.
-  
   const fetchFn = useCallback(async () => {
     const allCourses = getSchedule();
     
-    // Calculate GPA stats (mocking grades since schedule doesn't have them)
-    // For demo purposes, we'll assign random grades or just hardcode some completed ones
+    // Mock completed courses with grades
     const mockCompletedCourses = [
-      { name: 'Data Structures', credits: 3, grade: 'A' },
-      { name: 'Database Systems', credits: 3, grade: 'B+' },
-      { name: 'Linear Algebra', credits: 3, grade: 'A-' }
+      { name: 'Data Structures', code: 'CS301', credits: 3, grade: 'A' },
+      { name: 'Database Systems', code: 'CS302', credits: 3, grade: 'B+' },
+      { name: 'Linear Algebra', code: 'MATH201', credits: 3, grade: 'A-' }
     ];
     
     const currentGPA = calculateCurrentGPA(mockCompletedCourses);
     const earnedCredits = getEarnedCredits(mockCompletedCourses);
+    const remainingCredits = getRemainingCredits(earnedCredits);
     
-    // Calculate Attendance stats (mocking attendance data)
+    // Mock attendance data
     const mockAttendanceCourses = allCourses.map(c => ({
       name: c.courseName,
-      attended: Math.floor(Math.random() * 5) + 20, // random 20-25
+      code: c.courseCode,
+      attended: Math.floor(Math.random() * 5) + 20,
       total: 25
     }));
     
     const overallAttendance = getOverallAttendance(mockAttendanceCourses);
+    const atRiskCourses = getAtRiskCourses(mockAttendanceCourses).length;
 
-    // Semester dates (Mock)
+    // Semester dates
     const semesterStart = '2026-02-15';
     const semesterEnd = '2026-06-15';
+    const progress = getSemesterProgress(semesterStart, semesterEnd);
+
+    // Get GPA color based on value
+    const getGpaColor = (gpa) => {
+      if (gpa >= 3.7) return 'var(--color-success)';
+      if (gpa >= 3.0) return 'var(--color-primary)';
+      if (gpa >= 2.0) return 'var(--color-warning)';
+      return 'var(--color-danger)';
+    };
+
+    // Get attendance color
+    const getAttendanceColor = () => {
+      if (overallAttendance >= 85) return 'var(--color-success)';
+      if (overallAttendance >= 75) return 'var(--color-warning)';
+      return 'var(--color-danger)';
+    };
+
+    // Get exam data
+    const upcomingExams = getUpcomingExams();
+    const nextExam = upcomingExams.length > 0 ? upcomingExams[0] : null;
 
     return {
+      gpaValue: currentGPA,
       stats: {
         gpa: {
           value: formatGPA(currentGPA),
           label: formatGPAStatus(currentGPA),
-          color: currentGPA >= 3.0 ? 'var(--color-success)' : 'var(--color-warning)'
+          color: getGpaColor(currentGPA),
+          trend: parseFloat((currentGPA - 3.5).toFixed(2)) // Mock trend
         },
         attendance: {
           value: formatPercent(overallAttendance),
           status: getAttendanceStatus(overallAttendance),
-          color: `var(${formatAttendanceColor(overallAttendance)})`
+          color: getAttendanceColor(),
+          atRiskCount: atRiskCourses
         },
         exams: {
-          count: getUpcomingExams().length
+          count: upcomingExams.length,
+          nextExam: nextExam ? `${nextExam.courseCode}: ${nextExam.type}` : 'None scheduled',
+          urgencyColor: 'var(--color-primary)'
         },
         credits: {
-          value: formatCredits(earnedCredits)
+          value: formatCredits(earnedCredits),
+          subtitle: `${remainingCredits} left to graduate`,
+          progress: Math.round((earnedCredits / 136) * 100)
         }
       },
       schedule: getTodaySchedule(),
-      exams: getUpcomingExams().slice(0, 3), // next 3 exams
+      exams: upcomingExams.slice(0, 3),
       progress: {
-        percent: getSemesterProgress(semesterStart, semesterEnd),
+        percent: progress,
         weeksRemaining: getWeeksRemaining(semesterEnd),
         totalWeeks: 16,
-        currentWeek: 16 - getWeeksRemaining(semesterEnd)
-      }
+        currentWeek: 16 - getWeeksRemaining(semesterEnd),
+        semesterLabel: 'Spring 2026',
+        startDate: formatDate(new Date(semesterStart)),
+        endDate: formatDate(new Date(semesterEnd))
+      },
+      semesterLabel: 'Spring 2026'
     };
   }, []);
 
   return useFetch(fetchFn, []);
 };
+
