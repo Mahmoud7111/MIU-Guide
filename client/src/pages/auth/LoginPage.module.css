@@ -109,3 +109,33 @@
   outline-offset: 2px;
 }
 
+/* ──────────────────────────────────────────────────────────────────────
+   Cursor-visibility fix
+   The global index.css hides the native cursor on desktop via
+   `* { cursor: none !important; }` so a custom JS cursor can render.
+   LoginPage doesn't use that custom cursor, so we restore defaults.
+   If a custom <CustomCursor /> component is mounted globally,
+   consider hiding it on the /login route via a route-aware check.
+   ────────────────────────────────────────────────────────────────────── */
+
+.page,
+.page * {
+  cursor: auto !important;
+}
+
+.page input,
+.page textarea {
+  cursor: text !important;
+}
+
+.page button,
+.page a,
+.page .link {
+  cursor: pointer !important;
+}
+
+.page canvas,
+.page::before {
+  cursor: default !important;
+}
+
