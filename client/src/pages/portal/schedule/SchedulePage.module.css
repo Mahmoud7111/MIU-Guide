@@ -1,1 +1,361 @@
-/* Coming soon */
+.page {
+  padding: var(--space-8);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.headerControls {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.viewToggle {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.weekNav {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.summaryBar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-4);
+  margin-bottom: var(--space-6);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.summaryLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summaryValue {
+  font-size: var(--text-lg);
+  font-weight: 700;
+  color: var(--color-text);
+}
+
+.weekGrid {
+  display: grid;
+  grid-template-columns: 60px repeat(5, 1fr);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.timeAxis {
+  border-right: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.timeLabel {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.dayColumn {
+  border-right: 1px solid var(--color-border);
+  position: relative;
+  background: var(--color-surface);
+}
+
+.dayColumn:last-child {
+  border-right: none;
+}
+
+.today {
+  background: color-mix(in srgb, var(--color-primary) 6%, var(--color-surface));
+}
+
+.dayHeader {
+  padding: var(--space-3);
+  text-align: center;
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  background: var(--color-surface);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.dayName {
+  font-size: var(--text-sm);
+}
+
+.dayDate {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.dayBody {
+  position: relative;
+}
+
+.dayBody::after {
+  content: '';
+  position: absolute;
+  inset: var(--space-1);
+  border: 1px dashed color-mix(in srgb, var(--color-border) 60%, transparent);
+  opacity: 0;
+  transition: opacity var(--transition);
+  pointer-events: none;
+}
+
+.dayBody:hover::after {
+  opacity: 1;
+}
+
+.courseLayer {
+  position: relative;
+  height: 100%;
+}
+
+.courseBlock {
+  position: absolute;
+  left: var(--space-1);
+  right: var(--space-1);
+  border-radius: var(--radius-md);
+  padding: var(--space-2);
+  cursor: pointer;
+  overflow: hidden;
+  font-size: var(--text-xs);
+  color: var(--color-text-inverse);
+  box-shadow: var(--shadow-card);
+}
+
+.courseBlockCode {
+  font-weight: 700;
+  font-size: var(--text-xs);
+}
+
+.courseBlockName {
+  font-size: var(--text-xs);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.courseBlockRoom {
+  font-size: var(--text-xs);
+  opacity: 0.9;
+}
+
+.currentTimeLine {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--color-danger);
+  z-index: 2;
+}
+
+.currentTimeDot {
+  position: absolute;
+  left: -4px;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-danger);
+}
+
+.listView {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.daySection {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--color-surface);
+}
+
+.daySectionHeader {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+
+.daySectionTitle {
+  font-size: var(--text-base);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-right: var(--space-2);
+}
+
+.daySectionDate {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.daySectionRight {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.daySectionToggle {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.daySectionBody {
+  padding: var(--space-3) var(--space-4) var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.emptyDay {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  padding: var(--space-2) 0;
+}
+
+.courseRow {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  cursor: pointer;
+  text-align: left;
+}
+
+.courseRow:hover {
+  box-shadow: var(--shadow-card);
+}
+
+.courseDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  margin-top: var(--space-1);
+  flex-shrink: 0;
+}
+
+.courseRowMain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.courseRowTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.courseRowMeta {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.courseRowInstructor {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.modalStrip {
+  height: 6px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+}
+
+.modalGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.modalRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.modalLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.modalValue {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-weight: 500;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .summaryBar {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .weekGrid {
+    display: none;
+  }
+
+  .viewToggle {
+    flex-wrap: wrap;
+  }
+}
