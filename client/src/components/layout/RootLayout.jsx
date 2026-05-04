@@ -3,6 +3,9 @@ import { AnimatePresence } from 'framer-motion';
 import Navbar from './Navbar';
 import Footer from './Footer';
 import ScrollToTop from '@/routes/ScrollToTop';
+import Chatbot from '../ui/Chatbot/Chatbot';
+
+import CustomCursor from '../ui/CustomCursor/CustomCursor';
 
 /**
  * RootLayout component that wraps all public and protected routes.
@@ -10,9 +13,15 @@ import ScrollToTop from '@/routes/ScrollToTop';
  */
 const RootLayout = () => {
   const location = useLocation();
+  const isAuthRoute = location.pathname.startsWith('/login') || 
+                      location.pathname.startsWith('/register') ||
+                      location.pathname.startsWith('/forgot-password');
 
   return (
-    <>
+    <div className={isAuthRoute ? 'native-cursor' : ''}>
+      {/* Custom Cursor */}
+      {!isAuthRoute && <CustomCursor />}
+
       {/* Utility to scroll to top on every route change */}
       <ScrollToTop />
 
@@ -30,9 +39,12 @@ const RootLayout = () => {
         </AnimatePresence>
       </main>
 
+      {/* Floating Chatbot */}
+      <Chatbot />
+
       {/* Persistent Footer */}
       <Footer />
-    </>
+    </div>
   );
 };
 

@@ -1,1 +1,385 @@
-/* Coming soon */
+.page {
+  padding: var(--space-8);
+}
+
+.header {
+  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.headerText {
+  max-width: var(--max-width-narrow);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.subtitle {
+  color: var(--color-text-muted);
+}
+
+.helperText {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.overallBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2);
+  text-align: right;
+}
+
+.overallPercent {
+  font-size: var(--text-5xl);
+  font-weight: 700;
+}
+
+.overallLabel {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.tabs {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-8);
+  border-bottom: 1px solid var(--color-border);
+  padding-bottom: var(--space-4);
+  overflow-x: auto;
+}
+
+.tab {
+  padding: var(--space-2) var(--space-6);
+  border-radius: var(--radius-full);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.tabActive {
+  background: var(--color-primary);
+  color: var(--color-text-inverse);
+}
+
+.statsRow {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-bottom: var(--space-8);
+}
+
+.statCard {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.statLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.statValue {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.statMeta {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.contentArea {
+  position: relative;
+}
+
+.tabPanel {
+  position: relative;
+}
+
+.courseList {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.courseCard {
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--space-4);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.danger {
+}
+
+.warning {
+}
+
+.courseCard.danger {
+  border-color: var(--color-danger);
+}
+
+.courseCard.warning {
+  border-color: var(--color-warning);
+}
+
+.courseHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.courseTitle {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.courseCode {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.courseName {
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.courseMeta {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.progressRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.percentText {
+  font-weight: 700;
+  min-width: var(--space-16);
+  text-align: right;
+}
+
+.detailRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.riskInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+.riskBadgeRow {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.simHeader {
+  margin-bottom: var(--space-6);
+}
+
+.simTitle {
+  font-size: var(--text-2xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.simSubtitle {
+  color: var(--color-text-muted);
+}
+
+.simList {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.simCard {
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  margin-bottom: var(--space-4);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.simCardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+
+.simCourseName {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.simCurrentPercent {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.simInputs {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+
+.projectedResult {
+  padding: var(--space-4);
+  border-radius: var(--radius-md);
+  margin-top: var(--space-4);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-3);
+  flex-wrap: wrap;
+}
+
+.projectedSafe {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.projectedWarning {
+  border-color: var(--color-warning);
+  color: var(--color-warning);
+}
+
+.projectedDanger {
+  border-color: var(--color-danger);
+  color: var(--color-danger);
+}
+
+.trendIndicator {
+  font-weight: 600;
+  font-size: var(--text-sm);
+}
+
+.trendUp {
+  color: var(--color-success);
+}
+
+.trendDown {
+  color: var(--color-danger);
+}
+
+.trendStable {
+  color: var(--color-text-muted);
+}
+
+.summaryCard {
+  margin-top: var(--space-6);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.summaryRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.summaryValue {
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.summaryMessage {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .page {
+    padding: var(--space-4);
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .overallBlock {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .statsRow {
+    grid-template-columns: 1fr;
+  }
+
+  .courseHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .progressRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .percentText {
+    text-align: left;
+  }
+
+  .simInputs {
+    grid-template-columns: 1fr;
+  }
+}

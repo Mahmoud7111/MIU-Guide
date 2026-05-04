@@ -1,284 +1,179 @@
-import { useMemo, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Button, Card, Input } from '@/components/ui';
+import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
-import authService from '@/services/authService';
 import { ROUTES } from '@/lib/constants';
-import { validateEmail, validatePassword } from '@/lib/validators';
 import styles from './RegisterPage.module.css';
+
+// Using the university background image
 import cairoBg from '@/assets/images/tools/cairo3-large.jpg';
 
-const initialFormState = {
-  fullName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
-
-const initialFormErrors = {
-  fullName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
-
-const getFieldError = (name, value, form = {}) => {
-  const trimmedValue = typeof value === 'string' ? value.trim() : value;
-
-  if (name === 'fullName') {
-    if (!trimmedValue) return 'Full name is required';
-    if (trimmedValue.length < 2) return 'Full name must be at least 2 characters';
-    return null;
-  }
-
-  if (name === 'email') {
-    return validateEmail(trimmedValue);
-  }
-
-  if (name === 'password') {
-    if (!trimmedValue) return 'Password is required';
-    if (/\s/.test(trimmedValue)) return 'Password cannot contain spaces';
-
-    const baseError = validatePassword(trimmedValue);
-    if (baseError) return baseError;
-    if (!/[a-z]/.test(trimmedValue)) return 'Password must contain a lowercase letter';
-    if (/password|123456|qwerty|abc123/i.test(trimmedValue)) {
-      return 'Choose a stronger password';
-    }
-    return null;
-  }
-
-  if (name === 'confirmPassword') {
-    if (!trimmedValue) return 'Please confirm your password';
-    if (trimmedValue !== form.password) return 'Passwords do not match';
-    return null;
-  }
-
-  return null;
-};
-
-const parseRegisterResponse = (responseData) => {
-  const payload = responseData?.data ?? responseData;
-  const token = payload?.token || payload?.accessToken || payload?.access_token;
-  const user = payload?.user || payload?.profile || payload?.student || payload;
-
-  return { token, user };
-};
-
 export default function RegisterPage() {
-  const [form, setForm] = useState(initialFormState);
-  const [errors, setErrors] = useState(initialFormErrors);
-  const [submitError, setSubmitError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({
+    fullName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
+  });
   const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
   const { login } = useAuth();
-  const redirectPath = location.state?.from?.pathname || ROUTES.DASHBOARD;
 
-  const isFormValid = useMemo(() => {
-    return (
-      !getFieldError('fullName', form.fullName, form) &&
-      !getFieldError('email', form.email, form) &&
-      !getFieldError('password', form.password, form) &&
-      !getFieldError('confirmPassword', form.confirmPassword, form)
-    );
-  }, [form.fullName, form.email, form.password, form.confirmPassword]);
-
-  const handleChange = ({ target: { name, value } }) => {
-    setForm((current) => ({ ...current, [name]: value }));
-
-    if (submitError) {
-      setSubmitError('');
-    }
-
-    if (errors[name]) {
-      setErrors((current) => ({
-        ...current,
-        [name]: getFieldError(name, value, { ...form, [name]: value }),
-      }));
-    }
-
-    if (name === 'password' && form.confirmPassword) {
-      setErrors((current) => ({
-        ...current,
-        confirmPassword: getFieldError('confirmPassword', form.confirmPassword, {
-          ...form,
-          [name]: value,
-        }),
-      }));
-    }
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleBlur = ({ target: { name, value } }) => {
-    setErrors((current) => ({
-      ...current,
-      [name]: getFieldError(name, value, form),
-    }));
-  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    if (loading) return;
-
-    const nextErrors = {
-      fullName: getFieldError('fullName', form.fullName, form),
-      email: getFieldError('email', form.email, form),
-      password: getFieldError('password', form.password, form),
-      confirmPassword: getFieldError('confirmPassword', form.confirmPassword, form),
-    };
-
-    const hasErrors = Object.values(nextErrors).some(Boolean);
-    if (hasErrors) {
-      setErrors(nextErrors);
-      setSubmitError('');
+    // Validation
+    if (formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match.');
+      setLoading(false);
       return;
     }
 
-    setLoading(true);
-    setSubmitError('');
-
-    try {
-      const { data } = await authService.register({
-        name: form.fullName.trim(),
-        email: form.email.trim(),
-        password: form.password,
-      });
-
-      const { token, user } = parseRegisterResponse(data);
-      if (!token || !user) {
-        throw new Error('Unexpected server response. Please try again.');
-      }
-
-      login(user, token);
-      navigate(redirectPath, { replace: true });
-    } catch (error) {
-      const isOffline = !navigator.onLine || error?.status === 0;
-      const message = isOffline
-        ? 'Unable to reach the server. Check your internet connection and try again.'
-        : error?.message || 'Registration failed. Please review your details and try again.';
-
-      setSubmitError(message);
-    } finally {
+    if (formData.password.length < 8) {
+      setError('Password must be at least 8 characters.');
       setLoading(false);
+      return;
     }
+
+    // Mock Registration logic (no backend)
+    setTimeout(() => {
+      const dummyUser = {
+        id: Date.now().toString(),
+        name: formData.fullName,
+        email: formData.email,
+        role: 'student'
+      };
+      const dummyToken = 'dummy-jwt-token-' + Date.now();
+      
+      login(dummyUser, dummyToken);
+      navigate(ROUTES.DASHBOARD);
+    }, 1000);
   };
 
   const togglePasswordVisibility = () => {
-    setShowPassword((current) => !current);
+    setShowPassword(!showPassword);
   };
 
   return (
-    <section className={styles.page} style={{ backgroundImage: `url(${cairoBg})` }}>
-      <div className={styles.container}>
-        <Card variant="elevated" padding="lg" className={styles.card}>
-          <div className={styles.header}>
-            <div>
-              <p className={styles.overline}>Create your account</p>
-              <h1 className={styles.title}>Register with MIU Guide</h1>
-            </div>
+    <div className={styles.page}>
+      {/* Left Side: University Image */}
+      <div className={styles.leftSide}>
+        <img src={cairoBg} alt="MIU Campus" className={styles.bgImage} />
+        <div className={styles.overlay}>
+          <p>© 2026 Misr International University. All Rights Reserved.</p>
+          <div className={styles.legalLinks}>
+            <span className={styles.legalLink}>Privacy Policy</span>
+            <span className={styles.legalLink}>Terms of Service</span>
+            <span className={styles.legalLink}>Cookie Policy</span>
+            <span className={styles.legalLink}>Accessibility</span>
+          </div>
+        </div>
+      </div>
+
+      {/* Right Side: Registration Form */}
+      <div className={styles.rightSide}>
+        <div className={styles.topNav}>
+          <Link to={ROUTES.HOME}>
+            <img src="/MIU.png" alt="MIU Logo" className={styles.logoImage} />
+          </Link>
+          <div className={styles.helpIcon}>ⓘ</div>
+        </div>
+
+        <div className={styles.formContainer}>
+          <div className={styles.headerArea}>
+            <p className={styles.overline}>Join the Student Portal</p>
+            <h1 className={styles.title}>Create your account</h1>
             <p className={styles.description}>
-              Sign up to access your student portal, track attendance, view grades, and explore campus tools.
+              Sign up to access your student dashboard, view your academic progress, and stay updated with campus events.
             </p>
           </div>
 
-          {submitError && (
-            <div className={styles.errorBanner} role="alert">
-              {submitError}
+          {error && <div className={styles.errorBanner}>{error}</div>}
+
+          <form onSubmit={handleSubmit} className={styles.form}>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Full Name</label>
+              <input
+                type="text"
+                name="fullName"
+                placeholder="Enter your full name"
+                value={formData.fullName}
+                onChange={handleChange}
+                className={styles.input}
+                required
+              />
             </div>
-          )}
 
-          <form className={styles.form} onSubmit={handleSubmit} noValidate>
-            <Input
-              name="fullName"
-              type="text"
-              label="Full Name"
-              placeholder="Enter your full name"
-              value={form.fullName}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.fullName}
-              disabled={loading}
-              required
-              autoComplete="name"
-            />
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Email address</label>
+              <input
+                type="email"
+                name="email"
+                placeholder="you@student.edu.eg"
+                value={formData.email}
+                onChange={handleChange}
+                className={styles.input}
+                required
+              />
+            </div>
 
-            <Input
-              name="email"
-              type="email"
-              label="Email address"
-              placeholder="you@student.edu.eg"
-              value={form.email}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.email}
-              disabled={loading}
-              required
-              autoComplete="email"
-            />
-
-            <Input
-              name="password"
-              type={showPassword ? 'text' : 'password'}
-              label="Password"
-              placeholder="Create a secure password"
-              value={form.password}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.password}
-              hint="At least 8 characters, uppercase, lowercase, and a number."
-              disabled={loading}
-              required
-              autoComplete="new-password"
-              iconRight={() => (
-                <button
-                  type="button"
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Password</label>
+              <div className={styles.inputWrapper}>
+                <input
+                  type={showPassword ? 'text' : 'password'}
+                  name="password"
+                  placeholder="Create a password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  className={styles.input}
+                  required
+                />
+                <button 
+                  type="button" 
                   className={styles.passwordToggle}
                   onClick={togglePasswordVisibility}
                 >
                   {showPassword ? 'Hide' : 'Show'}
                 </button>
-              )}
-            />
+              </div>
+            </div>
 
-            <Input
-              name="confirmPassword"
-              type={showPassword ? 'text' : 'password'}
-              label="Confirm Password"
-              placeholder="Repeat your password"
-              value={form.confirmPassword}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              error={errors.confirmPassword}
-              disabled={loading}
-              required
-              autoComplete="new-password"
-            />
-
-            <div className={styles.actions}>
-              <Button
-                type="submit"
-                variant="primary"
-                size="lg"
-                fullWidth
-                loading={loading}
-                disabled={!isFormValid}
-              >
-                Register
-              </Button>
-
-              <p className={styles.footerText}>
-                Already have an account?{' '}
-                <Link className={styles.link} to={ROUTES.LOGIN}>
-                  Login
-                </Link>
+            <div className={styles.inputGroup}>
+              <label className={styles.label}>Confirm Password</label>
+              <input
+                type={showPassword ? 'text' : 'password'}
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                className={styles.input}
+                required
+              />
+              <p className={styles.hint}>
+                At least 8 characters, including an uppercase letter and a number.
               </p>
             </div>
+
+            <button type="submit" className={styles.submitBtn} disabled={loading}>
+              {loading ? 'Creating account...' : 'Register'}
+            </button>
           </form>
-        </Card>
+
+          <div className={styles.footer}>
+            Already have an account? <Link to={ROUTES.LOGIN} className={styles.loginLink}>Login</Link>
+          </div>
+        </div>
       </div>
-    </section>
+    </div>
   );
 }
-

@@ -5,6 +5,7 @@
 :root {
   /* Brand Colors */
   --brand-primary: #8B0000;
+  --color-primary: var(--brand-primary);
   --brand-light: #A51C30;
   --brand-hover: #6B0000;
 
