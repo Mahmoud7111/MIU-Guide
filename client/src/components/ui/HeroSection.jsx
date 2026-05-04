@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { staggerContainer, fadeUp } from '@/lib/motion/variants';
 import styles from './HeroSection.module.css';
 
@@ -23,17 +24,15 @@ const HeroSection = ({
       style={{ height }}
     >
       <div 
+        className={styles.heroBackground}
+        style={{ 
+          backgroundImage: image ? `url("${image}")` : 'none'
+        }}
+      />
+      <div 
         className={styles.heroOverlay} 
         style={{ backgroundColor: `rgba(0, 0, 0, ${overlayOpacity})` }}
       />
-      
-      {image && (
-        <img 
-          src={image} 
-          alt={title} 
-          className={styles.heroBackground}
-        />
-      )}
       
       <motion.div 
         className={styles.heroContent}
@@ -46,7 +45,7 @@ const HeroSection = ({
             {breadcrumbs.map((crumb, idx) => (
               <React.Fragment key={crumb.path || idx}>
                 {crumb.path ? (
-                  <a href={crumb.path} className={styles.crumb}>{crumb.label}</a>
+                  <Link to={crumb.path} className={styles.crumb}>{crumb.label}</Link>
                 ) : (
                   <span className={styles.activeCrumb}>{crumb.label}</span>
                 )}
@@ -59,7 +58,9 @@ const HeroSection = ({
         )}
         
         <motion.h1 
-          variants={fadeUp} 
+          initial={{ opacity: 0, y: -40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: 'easeOut', delay: 0.2 }}
           className={styles.heroTitle}
           style={{ color: titleColor }}
         >

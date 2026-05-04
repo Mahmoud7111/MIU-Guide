@@ -1,0 +1,197 @@
+.sportsSection {
+  width: 100%;
+  padding: var(--space-12) 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 var(--space-6);
+}
+
+/* Header */
+.header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.topBadge {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: var(--font-bold);
+}
+
+.sectionTitle {
+  font-family: var(--font-heading);
+  font-size: var(--text-4xl);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.sectionSubtitle {
+  color: var(--color-text-secondary);
+  font-size: var(--text-lg);
+  max-width: 700px;
+  line-height: 1.6;
+}
+
+/* Grid Layout */
+.sportsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: var(--space-8);
+  margin-bottom: var(--space-20);
+}
+
+/* Sport Card */
+.sportCard {
+  position: relative;
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition);
+  border: 1px solid var(--color-border);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.sportCard:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-xl);
+  border-color: var(--color-primary-light);
+}
+
+.imageWrapper {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.sportImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.sportCard:hover .sportImage {
+  transform: scale(1.1);
+}
+
+.cardContent {
+  padding: var(--space-6);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.cardTitle {
+  font-size: var(--text-xl);
+  font-weight: var(--font-bold);
+  color: var(--color-text-primary);
+  margin: 0;
+}
+
+.cardDescription {
+  color: var(--color-text-secondary);
+  font-size: var(--text-sm);
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Achievements Section */
+.achievements {
+  background: var(--color-bg-secondary);
+  padding: var(--space-12) var(--space-8);
+  border-radius: var(--radius-2xl);
+  margin-bottom: var(--space-20);
+  border: 1px solid var(--color-border);
+}
+
+.achievementsHeader {
+  margin-bottom: var(--space-8);
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.achievementsTitle {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.achievementList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--space-6);
+}
+
+.achievementItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.achievementYear {
+  font-weight: var(--font-bold);
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+}
+
+.achievementText {
+  font-size: var(--text-md);
+  color: var(--color-text-primary);
+  font-weight: var(--font-medium);
+}
+
+/* CTA Section */
+.cta {
+  text-align: center;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
+  padding: var(--space-12);
+  border-radius: var(--radius-2xl);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-6);
+  box-shadow: 0 10px 30px rgba(var(--color-primary-rgb), 0.3);
+}
+
+.ctaTitle {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-bold);
+  margin: 0;
+}
+
+.ctaText {
+  opacity: 0.9;
+  max-width: 500px;
+  font-size: var(--text-lg);
+}
+
+@media (max-width: 768px) {
+  .sectionTitle {
+    font-size: var(--text-3xl);
+  }
+  
+  .ctaTitle {
+    font-size: var(--text-2xl);
+  }
+  
+  .achievementsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+  }
+}
