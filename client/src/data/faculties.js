@@ -1,6 +1,13 @@
 /**
  * @fileoverview Mock data for university faculties.
  */
+import alsunImage from '@/assets/images/faculty/alsun-banner-bg.png';
+import businessImage from '@/assets/images/faculty/business.webp';
+import computerScienceImage from '@/assets/images/faculty/computer-science-grad-students.webp';
+import dentistryImage from '@/assets/images/faculty/Dentistry.webp';
+import engineeringImage from '@/assets/images/faculty/enginner.webp';
+import massComImage from '@/assets/images/faculty/Mass Com.webp';
+import pharmacyImage from '@/assets/images/faculty/Dr.-Paine-Lab-Pharmacy-.webp';
 export const FACULTIES = [
   {
     id: 'engineering',
@@ -8,7 +15,7 @@ export const FACULTIES = [
     slug: 'engineering',
     icon: 'wrench',
     description: 'Preparing the next generation of engineers with cutting-edge technology and research.',
-    image: 'https://images.unsplash.com/photo-1581092580497-e0d23cbdf1dc?auto=format&fit=crop&q=80&w=800',
+    image: engineeringImage,
     color: '#E63946',
     departments: ['Architecture', 'Electronics', 'Mechatronics', 'Computer Engineering'],
   },
@@ -18,7 +25,7 @@ export const FACULTIES = [
     slug: 'computer-science',
     icon: 'cpu',
     description: 'Advancing software, data, and AI through a future-focused computing curriculum.',
-    image: 'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800',
+    image: computerScienceImage,
     color: '#264653',
     departments: ['Computer Science', 'Software Engineering', 'Artificial Intelligence'],
   },
@@ -28,7 +35,7 @@ export const FACULTIES = [
     slug: 'pharmacy',
     icon: 'pill',
     description: 'A leading center for pharmaceutical education and drug research in the region.',
-    image: 'https://images.unsplash.com/photo-1587854692152-cbe660dbbb88?auto=format&fit=crop&q=80&w=800',
+    image: pharmacyImage,
     color: '#457B9D',
     departments: ['Clinical Pharmacy', 'Pharmacology', 'Pharmaceutical Chemistry'],
   },
@@ -38,7 +45,7 @@ export const FACULTIES = [
     slug: 'business',
     icon: 'briefcase',
     description: 'Fostering innovative leadership and ethical business practices in a global economy.',
-    image: 'https://images.unsplash.com/photo-1454165833767-027ffea9e77b?auto=format&fit=crop&q=80&w=800',
+    image: businessImage,
     color: '#2A9D8F',
     departments: ['Accounting', 'Finance', 'Marketing', 'MIS'],
   },
@@ -48,7 +55,7 @@ export const FACULTIES = [
     slug: 'dentistry',
     icon: 'activity',
     description: 'Providing world-class dental education and community healthcare services.',
-    image: 'https://images.unsplash.com/photo-1588776814546-1ffce47267a5?auto=format&fit=crop&q=80&w=800',
+    image: dentistryImage,
     color: '#8B0000',
     departments: ['Oral Surgery', 'Orthodontics', 'Pedodontics'],
   },
@@ -58,7 +65,7 @@ export const FACULTIES = [
     slug: 'mass-communication',
     icon: 'radio',
     description: 'Empowering voices and shaping the future of media and journalism.',
-    image: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80&w=800',
+    image: massComImage,
     color: '#F4A261',
     departments: ['Journalism', 'Public Relations', 'Radio & TV'],
   },
@@ -68,7 +75,7 @@ export const FACULTIES = [
     slug: 'alsun',
     icon: 'languages',
     description: 'Bridging cultures through language mastery, translation, and literature studies.',
-    image: 'https://images.unsplash.com/photo-1543167664-40d6990297c1?auto=format&fit=crop&q=80&w=800',
+    image: alsunImage,
     color: '#6A4C93',
     departments: ['English', 'German', 'Spanish', 'Italian'],
   }

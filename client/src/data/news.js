@@ -8,7 +8,7 @@ export const NEWS = [
     excerpt: 'The latest global rankings place MIU as a leader in educational quality and student satisfaction.',
     date: '2024-03-15',
     category: 'Achievement',
-    image: 'https://images.unsplash.com/photo-1523050853064-dbad350c701a?auto=format&fit=crop&q=80&w=800',
+    image: '../../src/assets/images/tools/campus.webp',
     featured: true,
   },
   {

@@ -15,7 +15,7 @@ import styles from './Sidebar.module.css';
  * @param {boolean} props.collapsed - Desktop collapsed state.
  * @param {Function} props.setCollapsed - Toggle desktop collapse.
  */
-export const Sidebar = ({ isOpen, collapsed, setCollapsed }) => {
+export const Sidebar = ({ isOpen, collapsed, setCollapsed, onClose }) => {
   const { user, logout } = useAuth();
 
   const getInitials = (name) => {
@@ -45,6 +45,7 @@ export const Sidebar = ({ isOpen, collapsed, setCollapsed }) => {
             to={link.path}
             className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
             title={collapsed ? link.label : ''}
+            onClick={onClose}
           >
             {({ isActive }) => (
               <>

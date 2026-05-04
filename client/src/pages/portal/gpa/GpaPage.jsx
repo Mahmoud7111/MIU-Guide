@@ -84,8 +84,8 @@ const GpaPage = () => {
   return (
     <motion.div
       className={styles.page}
-      initial="initial"
-      animate="animate"
+      initial="hidden"
+      animate="visible"
       exit="exit"
       variants={pageTransition}
     >

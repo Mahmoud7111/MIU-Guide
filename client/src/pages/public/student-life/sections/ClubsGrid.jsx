@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button, Badge } from '@/components/ui';
 import styles from './ClubsGrid.module.css';
@@ -209,6 +209,7 @@ const ClubItem = ({ club, onViewImages }) => (
 export default function ClubsGrid() {
   const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [selectedClub, setSelectedClub] = useState(null);
+  const clubsDisplayRef = useRef(null);
 
   const activeCategory = useMemo(() => 
     CLUBS_DATA.find(c => c.id === activeCategoryId),
@@ -218,6 +219,17 @@ export default function ClubsGrid() {
   const handleCategoryClick = (id) => {
     setActiveCategoryId(prevId => prevId === id ? null : id);
   };
+
+  useEffect(() => {
+    if (!activeCategoryId || !clubsDisplayRef.current) return;
+
+    const scrollToSection = () => {
+      clubsDisplayRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+
+    const raf = requestAnimationFrame(scrollToSection);
+    return () => cancelAnimationFrame(raf);
+  }, [activeCategoryId]);
 
   return (
     <section className={styles.clubsSection}>
@@ -249,6 +261,7 @@ export default function ClubsGrid() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
               className={styles.clubsDisplay}
+              ref={clubsDisplayRef}
             >
               <div className={styles.displayHeader}>
                 <h3 className={styles.displayTitle}>{activeCategory.title} Clubs</h3>

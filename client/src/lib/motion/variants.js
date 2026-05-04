@@ -23,6 +23,30 @@
  * @type {import('framer-motion').Variants}
  */
 export const fadeUp = {
+  hidden: {
+    opacity: 0,
+    y: 40,
+  },
+  initial: {
+    opacity: 0,
+    y: 40,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: 'easeOut',
+    },
+  },
   offscreen: {
     opacity: 0,
     y: 40,
@@ -127,7 +151,13 @@ export const scaleIn = {
  */
 export const staggerContainer = {
   hidden: {},
+  initial: {},
   visible: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+  animate: {
     transition: {
       staggerChildren: 0.1,
     },
@@ -250,7 +280,19 @@ export const pageTransition = {
     opacity: 0,
     y: 16,
   },
+  initial: {
+    opacity: 0,
+    y: 16,
+  },
   visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.4,
+      ease: 'easeOut',
+    },
+  },
+  animate: {
     opacity: 1,
     y: 0,
     transition: {

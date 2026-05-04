@@ -3,7 +3,7 @@
   width: 100%;
   position: relative;
   overflow: hidden;
-  background: linear-gradient(140deg, #f6f2ea 0%, #ffffff 55%, #eef4f2 100%);
+  background: linear-gradient(140deg, var(--color-bg-alt) 0%, var(--color-bg) 55%, var(--color-bg-soft) 100%);
 }
 
 .contentWrapper::before {
@@ -13,7 +13,7 @@
   right: -80px;
   width: 320px;
   height: 320px;
-  background: radial-gradient(circle, rgba(214, 186, 136, 0.35), transparent 70%);
+  background: radial-gradient(circle, rgba(var(--color-primary-rgb), 0.18), transparent 70%);
   pointer-events: none;
 }
 
@@ -80,7 +80,7 @@
 }
 
 .statCard {
-  background: rgba(255, 255, 255, 0.85);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   padding: var(--space-4) var(--space-5);
@@ -89,6 +89,14 @@
   gap: var(--space-1);
   align-items: flex-start;
   box-shadow: 0 12px 30px rgba(18, 30, 34, 0.08);
+}
+
+:global([data-theme="dark"]) .contentWrapper {
+  background: linear-gradient(140deg, #141414 0%, #1a1a1a 55%, #121212 100%);
+}
+
+:global([data-theme="dark"]) .statCard {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
 }
 
 .statValue {

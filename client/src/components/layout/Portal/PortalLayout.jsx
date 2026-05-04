@@ -7,6 +7,7 @@ import { usePageTitle } from '@/hooks/usePageTitle';
 import Sidebar from './Sidebar';
 import CustomCursor from '../../ui/CustomCursor/CustomCursor';
 import Chatbot from '../../ui/Chatbot/Chatbot';
+import { pageTransition } from '@/lib/motion/variants';
 import styles from './PortalLayout.module.css';
 
 /**
@@ -34,6 +35,7 @@ export const PortalLayout = () => {
         isOpen={isSidebarOpen} 
         collapsed={isCollapsed} 
         setCollapsed={setIsCollapsed} 
+        onClose={() => setIsSidebarOpen(false)}
       />
 
       {/* Main Container */}
@@ -79,11 +81,11 @@ export const PortalLayout = () => {
         <main className={styles.content}>
           <AnimatePresence mode="wait">
             <motion.div
-              key={location.pathname}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
+              key={location.key}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              variants={pageTransition}
             >
               <Outlet />
             </motion.div>

@@ -2,14 +2,22 @@
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: linear-gradient(180deg, #ffffff 0%, #f8f6f1 40%, #ffffff 100%);
+  background: linear-gradient(180deg, var(--color-bg-alt) 0%, var(--color-bg) 45%, var(--color-bg-alt) 100%);
+}
+
+:global([data-theme="dark"]) .pageContainer {
+  background: linear-gradient(180deg, #111111 0%, #181818 55%, #111111 100%);
 }
 
 .sectionDivider {
   height: 2px;
-  background: linear-gradient(90deg, transparent, rgba(18, 30, 34, 0.2), transparent);
+  background: linear-gradient(90deg, transparent, rgba(15, 23, 42, 0.2), transparent);
   width: 100%;
   max-width: var(--max-width);
   margin: 0 auto;
   opacity: 0.5;
+}
+
+:global([data-theme="dark"]) .sectionDivider {
+  background: linear-gradient(90deg, transparent, rgba(148, 163, 184, 0.25), transparent);
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useScrollDirection } from '@/hooks/useScrollDirection';
@@ -6,6 +6,7 @@ import { useScrollPosition } from '@/hooks/useScrollPosition';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { useTheme } from '@/context/ThemeContext';
 import { NAV_LINKS, ROUTES } from '@/lib/constants';
+import { FACULTIES } from '@/data/faculties';
 import Button from '@/components/ui/Button';
 import styles from './Navbar.module.css';
 
@@ -16,6 +17,8 @@ import styles from './Navbar.module.css';
 export const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [expandedLink, setExpandedLink] = useState(null);
+  const [activeDrawerLink, setActiveDrawerLink] = useState(null);
   const { scrollDirection } = useScrollDirection();
   const scrollY = useScrollPosition();
   const { theme, toggleTheme, isDark } = useTheme();
@@ -36,6 +39,90 @@ export const Navbar = () => {
   const isHidden = scrollDirection === 'down' && scrollY > 200;
   const isScrolled = scrollY > 50;
 
+  const academicsSubLinks = useMemo(
+    () => FACULTIES.map((faculty) => ({
+      label: faculty.name,
+      path: `${ROUTES.ACADEMICS}/${faculty.slug}`
+    })),
+    []
+  );
+
+  const drawerLinks = useMemo(() => (
+    NAV_LINKS.map((link) => {
+      if (link.path === ROUTES.ACADEMICS) {
+        return { ...link, subLinks: academicsSubLinks };
+      }
+      if (link.path === ROUTES.ADMISSIONS) {
+        return {
+          ...link,
+          subLinks: [
+            { label: 'How to Apply', path: '/apply' },
+            { label: 'Tuition & Aid', path: '/tuition' },
+            { label: 'Plan a Visit', path: '/visit' }
+          ]
+        };
+      }
+      if (link.path === ROUTES.CAMPUS) {
+        return {
+          ...link,
+          subLinks: [
+            { label: 'Libraries', path: '/campus/libraries' },
+            { label: 'Student Housing', path: '/campus/housing' },
+            { label: 'Athletics', path: '/campus/sports' }
+          ]
+        };
+      }
+      if (link.path === ROUTES.ABOUT) {
+        return {
+          ...link,
+          subLinks: [
+            { label: 'Our History', path: '/about/history' },
+            { label: 'Mission & Vision', path: '/about/mission' },
+            { label: 'Leadership', path: '/about/leadership' },
+            { label: 'Campus Map', path: ROUTES.CAMPUS }
+          ]
+        };
+      }
+      if (link.path === ROUTES.STUDENT_LIFE) {
+        return {
+          ...link,
+          subLinks: [
+            { label: 'Clubs & Organizations', path: '/student-life/clubs' },
+            { label: 'Athletics & Sports', path: '/campus/sports' },
+            { label: 'Student Services', path: '/student-life/services' },
+            { label: 'Events Calendar', path: '/portal/calendar' }
+          ]
+        };
+      }
+      if (link.path === ROUTES.NEWS) {
+        return {
+          ...link,
+          subLinks: [
+            { label: 'Latest News', path: ROUTES.NEWS },
+            { label: 'Press Releases', path: '/news/press' },
+            { label: 'Media Gallery', path: '/news/gallery' }
+          ]
+        };
+      }
+      if (link.path === ROUTES.CONTACT) {
+        return {
+          ...link,
+          subLinks: [
+            { label: 'General Inquiries', path: ROUTES.CONTACT },
+            { label: 'Department Directory', path: '/directory' },
+            { label: 'Admissions Office', path: ROUTES.ADMISSIONS }
+          ]
+        };
+      }
+      return { ...link, subLinks: [] };
+    })
+  ), [academicsSubLinks]);
+
+  const activeDrawerSection = useMemo(
+    () => drawerLinks.find((link) => link.path === activeDrawerLink),
+    [drawerLinks, activeDrawerLink]
+  );
+
   // Prevent scroll when menu is open
   useEffect(() => {
     if (isMenuOpen) {
@@ -44,6 +131,28 @@ export const Navbar = () => {
       document.body.style.overflow = 'unset';
     }
     return () => { document.body.style.overflow = 'unset'; };
+  }, [isMenuOpen]);
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      setActiveDrawerLink(null);
+    }
+  }, [isMenuOpen]);
+
+  const handleDrawerLinkClick = (link) => {
+    if (activeDrawerLink === link.path) {
+      navigate(link.path);
+      setIsMenuOpen(false);
+    } else {
+      setActiveDrawerLink(link.path);
+    }
+  };
+
+  // No default link selected - sub-links only appear on click
+  useEffect(() => {
+    if (!isMenuOpen) {
+      setActiveDrawerLink(null);
+    }
   }, [isMenuOpen]);
 
   return (
@@ -66,7 +175,6 @@ export const Navbar = () => {
             <Link to={ROUTES.ACADEMICS} className={styles.pillLink}>Academics</Link>
             <Link to={ROUTES.ADMISSIONS} className={styles.pillLink}>Admissions</Link>
             <Link to={ROUTES.NEWS} className={styles.pillLink}>News</Link>
-            <Link to="/research" className={styles.pillLink}>Research</Link>
           </nav>
 
           {/* Group 2: Actions Pill */}
@@ -140,23 +248,39 @@ export const Navbar = () => {
 
               <div className={styles.drawerContent}>
                 {/* Left: Primary Nav */}
-                <nav className={styles.drawerNav}>
-                  {NAV_LINKS.map((link, idx) => (
-                    <motion.div
-                      key={link.path}
-                      initial={{ opacity: 0, x: -30 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: idx * 0.05 + 0.2 }}
-                    >
-                      <NavLink
-                        to={link.path}
-                        className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
-                        onClick={() => setIsMenuOpen(false)}
+                <nav className={`
+                  ${styles.drawerNav} 
+                  ${activeDrawerLink ? styles.drawerNavHiddenMobile : ''}
+                `}>
+                  {drawerLinks.map((link, idx) => {
+                    const hasSubLinks = link.subLinks && link.subLinks.length > 0;
+                    const isActiveDrawer = activeDrawerLink === link.path;
+
+                    return (
+                      <motion.div
+                        key={link.path}
+                        className={styles.drawerLinkGroup}
+                        initial={{ opacity: 0, x: -30 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: idx * 0.05 + 0.2 }}
                       >
-                        {link.label}
-                      </NavLink>
-                    </motion.div>
-                  ))}
+                        <div className={styles.drawerLinkRow}>
+                          <button
+                            type="button"
+                            className={`${styles.drawerLinkButton} ${isActiveDrawer ? styles.drawerLinkButtonActive : ''}`}
+                            onClick={() => handleDrawerLinkClick(link)}
+                          >
+                            {link.label}
+                          </button>
+                          {hasSubLinks && (
+                            <span className={styles.drawerLinkHint}>
+                              <ChevronIcon isOpen={isActiveDrawer} />
+                            </span>
+                          )}
+                        </div>
+                      </motion.div>
+                    );
+                  })}
 
                   <motion.div
                     key={ROUTES.LOGIN}
@@ -176,37 +300,76 @@ export const Navbar = () => {
                 </nav>
 
                 {/* Right: Detailed Sections */}
-                <div className={styles.drawerDetails}>
+                <div className={`
+                  ${styles.drawerDetails} 
+                  ${activeDrawerLink ? styles.drawerDetailsVisibleMobile : ''}
+                `}>
+                  {activeDrawerSection ? (
+                    <div className={styles.drawerDetailWrapper}>
+                      <button 
+                        className={styles.mobileBackBtn}
+                        onClick={() => setActiveDrawerLink(null)}
+                      >
+                        <SmallArrow /> Back to menu
+                      </button>
+                      {activeDrawerSection.subLinks.length > 0 ? (
+                      <motion.div
+                        key={activeDrawerSection.path}
+                        className={styles.drawerSubPanel}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.4 }}
+                      >
+                        <Link
+                          to={activeDrawerSection.path}
+                          className={styles.drawerSubTitle}
+                          onClick={() => setIsMenuOpen(false)}
+                        >
+                          {activeDrawerSection.label} <ArrowIcon />
+                        </Link>
+                        <div className={styles.drawerSubLinks}>
+                          {activeDrawerSection.subLinks.map((subLink, sIdx) => (
+                            <motion.div
+                              key={subLink.path}
+                              initial={{ opacity: 0, x: 20 }}
+                              animate={{ opacity: 1, x: 0 }}
+                              transition={{ delay: sIdx * 0.05 + 0.1 }}
+                            >
+                              <Link
+                                to={subLink.path}
+                                className={styles.drawerSubLink}
+                                onClick={() => setIsMenuOpen(false)}
+                              >
+                                {subLink.label}
+                              </Link>
+                            </motion.div>
+                          ))}
+                        </div>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        className={styles.emptyDrawerDetail}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                      >
+                        <h3>{activeDrawerSection.label}</h3>
+                        <p>Discover more about {activeDrawerSection.label.toLowerCase()} at MIU. Click below to view the full section.</p>
+                        <Link to={activeDrawerSection.path} className={styles.subLink} onClick={() => setIsMenuOpen(false)}>
+                          View {activeDrawerSection.label} <SmallArrow />
+                        </Link>
+                      </motion.div>
+                    )}
+                  </div>
+                ) : (
                   <motion.div
-                    className={styles.detailSection}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4 }}
+                    className={styles.drawerPlaceholder}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 0.5 }}
                   >
-                    <h3>MIU's Campus <ArrowIcon /></h3>
-                    <p>Experience our state-of-the-art facilities, modern learning environments, and vibrant student life in the heart of the city.</p>
-                    <div className={styles.detailLinks}>
-                      <Link to="/campus/libraries" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Libraries <SmallArrow /></Link>
-                      <Link to="/campus/housing" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Student Housing <SmallArrow /></Link>
-                      <Link to="/campus/sports" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Athletics <SmallArrow /></Link>
-                    </div>
+                    <p>Select a category to explore</p>
                   </motion.div>
-
-                  <motion.div
-                    className={styles.detailSection}
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                  >
-                    <h3>Admissions <ArrowIcon /></h3>
-                    <p>Start your journey at MIU. Find everything you need to know about applying, scholarships, and requirements.</p>
-                    <div className={styles.detailLinks}>
-                      <Link to="/apply" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>How to Apply <SmallArrow /></Link>
-                      <Link to="/tuition" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Tuition & Aid <SmallArrow /></Link>
-                      <Link to="/visit" className={styles.subLink} onClick={() => setIsMenuOpen(false)}>Plan a Visit <SmallArrow /></Link>
-                    </div>
-                  </motion.div>
-                </div>
+                )}
+              </div>
               </div>
 
               <div className={styles.drawerFooter}>
@@ -255,6 +418,22 @@ const ArrowIcon = () => (
 const SmallArrow = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
     <path d="m9 18 6-6-6-6" />
+  </svg>
+);
+
+const ChevronIcon = ({ isOpen }) => (
+  <svg
+    width="18"
+    height="18"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.5"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0deg)', transition: 'transform 0.2s ease' }}
+  >
+    <path d="m6 9 6 6 6-6" />
   </svg>
 );
 

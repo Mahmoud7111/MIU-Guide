@@ -29,6 +29,7 @@ const CampusExplorer = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedItem, setSelectedItem] = useState(null);
   const [expandedFloor, setExpandedFloor] = useState(0);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   // Categories for Sidebar
   const categories = [
@@ -128,12 +129,19 @@ const CampusExplorer = () => {
     } else {
       setExpandedFloor(0);
     }
+    // Close sidebar on mobile after selection
+    if (window.innerWidth < 1024) {
+      setIsSidebarOpen(false);
+    }
   };
 
   return (
     <div className={styles.container}>
       {/* Sidebar */}
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${isSidebarOpen ? styles.sidebarOpen : ''}`}>
+        <button className={styles.sidebarCloseBtn} onClick={() => setIsSidebarOpen(false)}>
+          <FiX size={24} />
+        </button>
         <div className={styles.sidebarHeader}>
           <div className={styles.brandGroup}>
             <img src="/MIU.png" alt="MIU" style={{ width: '44px' }} />
@@ -211,11 +219,21 @@ const CampusExplorer = () => {
           className={styles.mapWrapper}
           style={{}}
         >
-          <CampusMap3D
+        <CampusMap3D
             cameraOrbit={selectedItem?.cameraOrbit || "0deg 75deg 80%"}
             fieldOfView={selectedItem?.fieldOfView || "30deg"}
           />
         </div>
+
+        {/* Mobile Toggle Button */}
+        {!isSidebarOpen && !selectedItem && (
+          <button 
+            className={styles.mobileToggle}
+            onClick={() => setIsSidebarOpen(true)}
+          >
+            <FiSearch size={24} />
+          </button>
+        )}
 
         {/* Right Detail Panel - IMPROVED DETAILS */}
         <AnimatePresence>
