@@ -12,6 +12,7 @@
  */
 
 import { createContext, useContext, useState, useEffect } from 'react';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONTEXT                                    */
@@ -33,6 +34,7 @@ const AuthContext = createContext(null);
  */
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+  const [isInitializing, setIsInitializing] = useState(true);
 
   /* ---- Rehydrate from localStorage on mount ---- */
   useEffect(() => {
@@ -48,6 +50,13 @@ export function AuthProvider({ children }) {
         localStorage.removeItem('miu_user');
       }
     }
+
+    // Artificial delay to show the premium loading screen on every refresh
+    const timer = setTimeout(() => {
+      setIsInitializing(false);
+    }, 800);
+
+    return () => clearTimeout(timer);
   }, []);
 
   /* ---- Actions ---- */
@@ -95,6 +104,10 @@ export function AuthProvider({ children }) {
     login,
     logout,
   };
+
+  if (isInitializing) {
+    return <LoadingScreen fullScreen={true} />;
+  }
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }

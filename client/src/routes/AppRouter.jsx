@@ -2,12 +2,13 @@ import React, { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router-dom';
 import { ROUTES } from '@/lib/constants';
 import { Spinner } from '@/components/ui';
+import LoadingScreen from '@/components/ui/LoadingScreen';
 
 /**
  * Loading wrapper for lazy-loaded components.
  */
 const Loadable = (Component) => (props) => (
-  <Suspense fallback={<div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Spinner size="large" /></div>}>
+  <Suspense fallback={<LoadingScreen message="Loading..." fullScreen={true} />}>
     <Component {...props} />
   </Suspense>
 );
