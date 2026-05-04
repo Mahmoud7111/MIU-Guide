@@ -1,20 +1,21 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCountdown } from '@/hooks/useCountdown';
+import { isToday, getDaysUntil } from '@/lib/dateUtils';
 import styles from '../ExamsPage.module.css';
 
 /**
- * AnimatedDigit - Animates individual digits of the countdown
+ * AnimatedDigit - Animates individual digits
  */
 const AnimatedDigit = ({ digit }) => (
   <div style={{ position: 'relative', display: 'inline-flex', justifyContent: 'center' }}>
-    <AnimatePresence mode="popLayout">
+    <AnimatePresence mode="wait">
       <motion.span
         key={digit}
-        initial={{ y: 10, opacity: 0 }}
+        initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        exit={{ y: -10, opacity: 0 }}
-        transition={{ duration: 0.2 }}
+        exit={{ y: -20, opacity: 0 }}
+        transition={{ duration: 0.3 }}
         className={styles.timerDigit}
       >
         {digit}
@@ -24,13 +25,13 @@ const AnimatedDigit = ({ digit }) => (
 );
 
 /**
- * ExamCountdown - Left side of the exam card, shows live countdown
- *
- * @param {Object} props
- * @param {string} props.date - The exam date string
+ * ExamCountdown - Countdown display with animated digits and progress ring
  */
-const ExamCountdown = ({ date }) => {
+const ExamCountdown = ({ date, urgency = 'low' }) => {
   const { days, hours, minutes, seconds, isExpired } = useCountdown(date);
+  const daysUntil = getDaysUntil(date);
+  const isExamToday = isToday(date);
+  const isTomorrow = daysUntil === 1;
   
   if (isExpired) {
     return (
@@ -45,11 +46,45 @@ const ExamCountdown = ({ date }) => {
   const mStr = pad(minutes);
   const sStr = pad(seconds);
 
+  // SVG circle progress
+  const circumference = 2 * Math.PI * 45;
+  const progress = Math.max(0, Math.min(100, (daysUntil / 30) * 100));
+  const strokeDashoffset = circumference - (circumference * progress) / 100;
+
   return (
     <div className={styles.countdownDisplay}>
-      <div className={styles.daysNumber}>{days}</div>
-      <div style={{ fontSize: 'var(--text-xs)', color: 'var(--color-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-        Days left
+      <div className={styles.countdownCircle}>
+        <svg className={styles.countdownRing} viewBox="0 0 100 100">
+          <circle cx="50" cy="50" r="45" fill="none" stroke="var(--color-border)" strokeWidth="2" />
+          <motion.circle
+            cx="50"
+            cy="50"
+            r="45"
+            fill="none"
+            stroke={urgency === 'critical' ? 'var(--color-danger)' : urgency === 'high' ? 'var(--color-warning)' : 'var(--color-primary)'}
+            strokeWidth="2"
+            strokeDasharray={circumference}
+            initial={{ strokeDashoffset: circumference }}
+            animate={{ strokeDashoffset }}
+            transition={{ duration: 0.5 }}
+            strokeLinecap="round"
+            style={{ transform: 'rotate(-90deg)', transformOrigin: '50px 50px' }}
+          />
+        </svg>
+
+        <div className={styles.countdownCenter}>
+          <motion.div 
+            className={`${styles.daysNumber} ${daysUntil < 3 ? styles.urgent : ''}`}
+            animate={daysUntil < 3 ? { scale: [1, 1.1, 1] } : {}}
+            transition={{ duration: 0.5, repeat: daysUntil < 3 ? Infinity : 0 }}
+          >
+            {days}
+          </motion.div>
+          <div className={styles.daysLabel}>Days left</div>
+        </div>
+
+        {isExamToday && <div className={styles.todayBadge}>TODAY</div>}
+        {isTomorrow && <div className={styles.tomorrowBadge}>TOMORROW</div>}
       </div>
       
       <div className={styles.timer}>
