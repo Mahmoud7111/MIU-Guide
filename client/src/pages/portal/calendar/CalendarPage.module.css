@@ -1,3 +1,414 @@
-.calendar {
-  padding: 2rem;
+.page {
+  padding: var(--space-8);
+}
+
+.header {
+  margin-bottom: var(--space-6);
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  margin-bottom: var(--space-4);
+}
+
+.title {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--space-2) 0;
+}
+
+.subtitle {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.viewToggle {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.monthLayout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: var(--space-6);
+  align-items: start;
+}
+
+.calendarGrid {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.calendarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.monthNav {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.monthLabel {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  color: var(--color-text);
+  margin: 0 var(--space-2);
+}
+
+.dayHeaders {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: var(--color-surface);
+}
+
+.dayHeader {
+  padding: var(--space-3);
+  text-align: center;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.daysGrid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.dayCell {
+  min-height: 80px;
+  padding: var(--space-2);
+  border-right: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.dayCell:hover {
+  background: var(--color-surface);
+}
+
+.dayCellOther {
+  opacity: 0.35;
+}
+
+.dayCellToday .dayNumber {
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dayCellSelected {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -2px;
+}
+
+.dayCellWeekend {
+  background: color-mix(in srgb, var(--color-surface) 85%, var(--color-border));
+}
+
+.dayNumber {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.eventDots {
+  display: flex;
+  gap: 3px;
+  flex-wrap: wrap;
+  margin-top: var(--space-1);
+}
+
+.eventDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.moreBadge {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.sidebar {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  position: sticky;
+  top: var(--space-4);
+  max-height: 80vh;
+  overflow-y: auto;
+  background: var(--color-surface);
+}
+
+.sidebarHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.sidebarTitle {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.sidebarEvent {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  margin-bottom: var(--space-2);
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.sidebarEvent:hover {
+  background: var(--color-surface);
+}
+
+.eventColorStrip {
+  width: 4px;
+  border-radius: var(--radius-full);
+  flex-shrink: 0;
+}
+
+.sidebarEventContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.sidebarEventTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.sidebarEventMeta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.sidebarEventDesc {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.summaryBar {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  padding: var(--space-4);
+  margin-top: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.summaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.summaryLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.summaryValue {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.summaryBadge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 24px;
+  padding: 0 var(--space-2);
+  border-radius: var(--radius-full);
+  color: white;
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.listView {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.listMonth {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.listMonthHeader {
+  padding: var(--space-4);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  font-weight: 600;
+}
+
+.listEventRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--color-border);
+  cursor: pointer;
+}
+
+.listEventRow:last-child {
+  border-bottom: none;
+}
+
+.listEventDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.listEventContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.listEventTitle {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.listEventMeta {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.filterBar {
+  display: flex;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  flex-wrap: wrap;
+}
+
+.listFilterBar {
+  margin-bottom: var(--space-6);
+}
+
+.filterChip {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border);
+  cursor: pointer;
+  background: transparent;
+  color: var(--color-text);
+  font-size: var(--text-xs);
+  font-weight: 600;
+}
+
+.filterChipActive {
+  color: white;
+  border-color: transparent;
+}
+
+.toast {
+  position: fixed;
+  bottom: var(--space-6);
+  right: var(--space-6);
+  background: var(--color-text);
+  color: var(--color-text-inverse);
+  padding: var(--space-3) var(--space-4);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  z-index: 50;
+}
+
+.modalStrip {
+  height: 6px;
+  border-radius: var(--radius-sm);
+  margin-bottom: var(--space-4);
+}
+
+.modalGrid {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.modalRow {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+.modalLabel {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.modalValue {
+  font-size: var(--text-sm);
+  color: var(--color-text);
+  font-weight: 500;
+  text-align: right;
+}
+
+@media (max-width: 768px) {
+  .monthLayout {
+    grid-template-columns: 1fr;
+  }
+
+  .dayCell {
+    min-height: 50px;
+  }
+
+  .sidebar {
+    position: static;
+    max-height: none;
+  }
+
+  .sidebarEventDesc {
+    display: none;
+  }
 }
