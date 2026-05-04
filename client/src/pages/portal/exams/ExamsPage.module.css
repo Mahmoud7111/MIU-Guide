@@ -626,19 +626,11 @@
 
 .timelineNode {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: minmax(0, 1fr) 48px minmax(0, 1fr);
   gap: var(--space-8);
   margin-bottom: var(--space-12);
   position: relative;
-  align-items: center;
-}
-
-.timelineNode.left {
-  grid-template-columns: 1fr 0;
-}
-
-.timelineNode.right {
-  grid-template-columns: 0 1fr;
+  align-items: stretch;
 }
 
 .timelineNodeContent {
@@ -647,6 +639,7 @@
   border: 2px solid var(--color-border);
   border-radius: var(--radius-lg);
   position: relative;
+  min-height: 140px;
 }
 
 .timelineNodeContent.critical {
@@ -664,17 +657,32 @@
   background: rgba(59, 130, 246, 0.05);
 }
 
+.timelineNodeContent.past {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+  opacity: 0.72;
+}
+
+.timelineSpacer {
+  min-height: 1px;
+}
+
+.timelineCenter {
+  position: relative;
+}
+
 .timelineNodeDot {
   position: absolute;
   left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 16px;
-  height: 16px;
+  top: var(--space-6);
+  transform: translateX(-50%);
+  width: 18px;
+  height: 18px;
   background: var(--color-surface);
   border: 3px solid var(--color-border);
   border-radius: 50%;
-  z-index: 2;
+  z-index: 3;
+  box-shadow: 0 0 0 4px var(--color-background);
 }
 
 .timelineNodeDot.critical {
@@ -687,6 +695,11 @@
 
 .timelineNodeDot.medium {
   border-color: var(--color-primary);
+}
+
+.timelineNodeDot.past {
+  border-color: var(--color-text-muted);
+  background: var(--color-surface);
 }
 
 .timelineMarker {
@@ -831,21 +844,33 @@
   }
 
   .timelineNode {
-    grid-template-columns: 1fr;
+    grid-template-columns: 32px 1fr;
     gap: var(--space-4);
+    margin-bottom: var(--space-6);
   }
 
-  .timelineNode.left,
-  .timelineNode.right {
-    grid-template-columns: 1fr;
+  .timelineSpacer {
+    display: none;
   }
 
   .timelineLine {
-    left: var(--space-4);
+    left: 16px;
+  }
+
+  .timelineCenter {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .timelineNodeContent {
+    grid-column: 2;
+    min-height: 120px;
   }
 
   .timelineNodeDot {
-    left: var(--space-4);
+    left: 16px;
+    top: var(--space-4);
+    transform: translateX(-50%);
   }
 
   .pastExamsStats {
