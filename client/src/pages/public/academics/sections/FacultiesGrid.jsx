@@ -59,6 +59,9 @@ const FACULTIES_DATA = [
 ];
 
 export default function FacultiesGrid() {
+  const facultyCount = FACULTIES_DATA.length;
+  const programCount = FACULTIES_DATA.reduce((total, faculty) => total + faculty.programs, 0);
+
   return (
     <div className={styles.contentWrapper}>
       <motion.div 
@@ -69,10 +72,25 @@ export default function FacultiesGrid() {
         viewport={{ once: true, margin: '-50px' }}
       >
         <motion.div className={styles.header} variants={fadeUp}>
-          <h2 className={styles.title}>Our Faculties</h2>
-          <p className={styles.subtitle}>
-            Explore our diverse academic offerings designed to prepare you for a successful and impactful career.
-          </p>
+          <span className={styles.kicker}>Academic Disciplines</span>
+          <div className={styles.headerRow}>
+            <div className={styles.headerText}>
+              <h2 className={styles.title}>Our Faculties</h2>
+              <p className={styles.subtitle}>
+                Explore our diverse academic offerings designed to prepare you for a successful and impactful career.
+              </p>
+            </div>
+            <div className={styles.stats}>
+              <div className={styles.statCard}>
+                <span className={styles.statValue}>{facultyCount}</span>
+                <span className={styles.statLabel}>Faculties</span>
+              </div>
+              <div className={styles.statCard}>
+                <span className={styles.statValue}>{programCount}</span>
+                <span className={styles.statLabel}>Programs</span>
+              </div>
+            </div>
+          </div>
         </motion.div>
 
         <div className={styles.grid}>

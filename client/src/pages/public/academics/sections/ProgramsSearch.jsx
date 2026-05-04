@@ -5,32 +5,51 @@ import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './ProgramsSearch.module.css';
 
 const PROGRAMS_DATA = [
-  { id: 'cs', title: 'B.Sc. in Computer Science', faculty: 'Faculty of Computer Science', category: 'Undergraduate' },
-  { id: 'se', title: 'B.Sc. in Software Engineering', faculty: 'Faculty of Computer Science', category: 'Undergraduate' },
-  { id: 'ai', title: 'B.Sc. in Artificial Intelligence', faculty: 'Faculty of Computer Science', category: 'Undergraduate' },
-  { id: 'ds', title: 'B.Sc. in Data Science', faculty: 'Faculty of Computer Science', category: 'Undergraduate' },
-  { id: 'ba', title: 'BBA in Business Administration', faculty: 'Faculty of Business Administration', category: 'Undergraduate' },
-  { id: 'af', title: 'B.Sc. in Accounting & Finance', faculty: 'Faculty of Business Administration', category: 'Undergraduate' },
-  { id: 'mc', title: 'B.A. in Mass Communication', faculty: 'Faculty of Mass Communication', category: 'Undergraduate' },
-  { id: 'ph', title: 'Bachelor of Pharmacy (PharmD)', faculty: 'Faculty of Pharmacy', category: 'Undergraduate' },
-  { id: 'ce', title: 'B.Sc. in Civil Engineering', faculty: 'Faculty of Engineering', category: 'Undergraduate' },
-  { id: 'mba', title: 'Master of Business Administration (MBA)', faculty: 'Faculty of Business Administration', category: 'Graduate' },
-  { id: 'msc-cs', title: 'M.Sc. in Computer Science', faculty: 'Faculty of Computer Science', category: 'Graduate' }
+  {
+    category: 'Undergraduate Programs',
+    programs: [
+      { id: 'cs', title: 'B.Sc. in Computer Science', faculty: 'Faculty of Computer Science', duration: '4 Years' },
+      { id: 'se', title: 'B.Sc. in Software Engineering', faculty: 'Faculty of Computer Science', duration: '4 Years' },
+      { id: 'ai', title: 'B.Sc. in Artificial Intelligence', faculty: 'Faculty of Computer Science', duration: '4 Years' },
+      { id: 'ds', title: 'B.Sc. in Data Science', faculty: 'Faculty of Computer Science', duration: '4 Years' },
+      { id: 'ba', title: 'BBA in Business Administration', faculty: 'Faculty of Business Administration', duration: '4 Years' },
+      { id: 'af', title: 'B.Sc. in Accounting & Finance', faculty: 'Faculty of Business Administration', duration: '4 Years' },
+      { id: 'mc', title: 'B.A. in Mass Communication', faculty: 'Faculty of Mass Communication', duration: '4 Years' },
+      { id: 'ph', title: 'Bachelor of Pharmacy (PharmD)', faculty: 'Faculty of Pharmacy', duration: '5 Years' },
+      { id: 'ce', title: 'B.Sc. in Civil Engineering', faculty: 'Faculty of Engineering', duration: '5 Years' }
+    ]
+  },
+  {
+    category: 'Graduate Programs & Diplomas',
+    programs: [
+      { id: 'mba', title: 'Master of Business Administration (MBA)', faculty: 'Faculty of Business Administration', duration: '2 Years' },
+      { id: 'msc-cs', title: 'M.Sc. in Computer Science', faculty: 'Faculty of Computer Science', duration: '2 Years' },
+      { id: 'dip-ai', title: 'Professional Diploma in AI', faculty: 'Faculty of Computer Science', duration: '1 Year' }
+    ]
+  }
 ];
 
 export default function ProgramsSearch() {
   const [searchQuery, setSearchQuery] = useState('');
+  const totalPrograms = PROGRAMS_DATA.reduce((total, section) => total + section.programs.length, 0);
+  const categoryCount = PROGRAMS_DATA.length;
 
-  const filteredPrograms = useMemo(() => {
+  const filteredSections = useMemo(() => {
     const query = searchQuery.toLowerCase().trim();
     if (!query) return PROGRAMS_DATA;
 
-    return PROGRAMS_DATA.filter((program) => 
-      program.title.toLowerCase().includes(query) ||
-      program.faculty.toLowerCase().includes(query) ||
-      program.category.toLowerCase().includes(query)
-    );
+    return PROGRAMS_DATA.map((section) => {
+      const programs = section.programs.filter((program) => 
+        program.title.toLowerCase().includes(query) ||
+        program.faculty.toLowerCase().includes(query) ||
+        section.category.toLowerCase().includes(query)
+      );
+
+      return { ...section, programs };
+    }).filter((section) => section.programs.length > 0);
   }, [searchQuery]);
+
+  const hasResults = filteredSections.length > 0;
 
   return (
     <div className={styles.contentWrapper}>
@@ -42,10 +61,25 @@ export default function ProgramsSearch() {
           viewport={{ once: true }}
           variants={fadeUp}
         >
-          <h2 className={styles.title}>Find Your Program</h2>
-          <p className={styles.subtitle}>
-            Search through our comprehensive list of undergraduate and graduate programs to find the perfect fit for your academic goals.
-          </p>
+          <span className={styles.kicker}>Programs Directory</span>
+          <div className={styles.headerRow}>
+            <div className={styles.headerText}>
+              <h2 className={styles.title}>Find Your Program</h2>
+              <p className={styles.subtitle}>
+                Search or browse our programs directory to find the right path for your academic goals.
+              </p>
+            </div>
+            <div className={styles.stats}>
+              <div className={styles.statCard}>
+                <span className={styles.statValue}>{totalPrograms}</span>
+                <span className={styles.statLabel}>Programs</span>
+              </div>
+              <div className={styles.statCard}>
+                <span className={styles.statValue}>{categoryCount}</span>
+                <span className={styles.statLabel}>Levels</span>
+              </div>
+            </div>
+          </div>
           
           <div className={styles.searchContainer}>
             <input 
@@ -60,26 +94,40 @@ export default function ProgramsSearch() {
 
         <div className={styles.resultsArea}>
           <AnimatePresence mode="wait">
-            {filteredPrograms.length > 0 ? (
+            {hasResults ? (
               <motion.div 
                 key="results"
-                className={styles.grid}
-                variants={staggerContainer}
+                className={styles.sections}
                 initial="hidden"
                 animate="visible"
                 exit={{ opacity: 0, transition: { duration: 0.2 } }}
               >
-                {filteredPrograms.map((program) => (
-                  <motion.div key={program.id} variants={staggerItem} layout>
-                    <Card variant="bordered" hoverable padding="md" className={styles.card}>
-                      <div className={styles.cardContent}>
-                        <p className={styles.programFaculty}>{program.faculty}</p>
-                        <h4 className={styles.programTitle}>{program.title}</h4>
-                        <div style={{ marginTop: 'auto', paddingTop: 'var(--space-2)' }}>
-                          <TagBadge label={program.category} size="sm" />
-                        </div>
-                      </div>
-                    </Card>
+                {filteredSections.map((section) => (
+                  <motion.div key={section.category} className={styles.categorySection} variants={fadeUp}>
+                    <div className={styles.categoryHeader}>
+                      <h3 className={styles.categoryTitle}>{section.category}</h3>
+                    </div>
+
+                    <motion.div 
+                      className={styles.grid}
+                      variants={staggerContainer}
+                      initial="hidden"
+                      animate="visible"
+                    >
+                      {section.programs.map((program) => (
+                        <motion.div key={program.id} variants={staggerItem} layout>
+                          <Card variant="bordered" hoverable padding="md" className={styles.card}>
+                            <div className={styles.cardContent}>
+                              <p className={styles.programFaculty}>{program.faculty}</p>
+                              <h4 className={styles.programTitle}>{program.title}</h4>
+                              <div className={styles.programDetails}>
+                                <TagBadge label={program.duration} size="sm" />
+                              </div>
+                            </div>
+                          </Card>
+                        </motion.div>
+                      ))}
+                    </motion.div>
                   </motion.div>
                 ))}
               </motion.div>

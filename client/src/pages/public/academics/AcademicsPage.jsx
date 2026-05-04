@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { PageHero, HeroSection } from '@/components/ui';
+import { HeroSection } from '@/components/ui';
 import { pageTransition } from '@/lib/motion/variants';
 import styles from './AcademicsPage.module.css';
 
@@ -10,7 +10,6 @@ import cairoHero from '@/assets/images/tools/cairo1-large.jpg';
 // Import Sections
 import FacultiesGrid from './sections/FacultiesGrid';
 import ProgramsSearch from './sections/ProgramsSearch';
-import ProgramsDirectory from './sections/ProgramsDirectory';
 import AcademicCalendar from '@/components/sections/academic/AcademicCalendar';
 
 export default function AcademicsPage() {
@@ -37,9 +36,6 @@ export default function AcademicsPage() {
       <div className={styles.sectionDivider} />
       
       <ProgramsSearch />
-      <div className={styles.sectionDivider} />
-      
-      <ProgramsDirectory />
       <div className={styles.sectionDivider} />
       
       <AcademicCalendar />

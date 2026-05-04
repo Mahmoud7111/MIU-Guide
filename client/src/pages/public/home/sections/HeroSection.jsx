@@ -12,26 +12,12 @@ import styles from './HeroSection.module.css';
  * Featuring a dual-column layout with text content and a cinematic video.
  */
 const HeroSection = () => {
-  const videoRef = React.useRef(null);
-  const [isPlaying, setIsPlaying] = React.useState(true);
-
-  const togglePlay = () => {
-    if (videoRef.current) {
-      if (isPlaying) {
-        videoRef.current.pause();
-      } else {
-        videoRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
 
   return (
     <section className={styles.hero}>
       {/* Background Video */}
       <div className={styles.videoWrapper}>
         <video 
-          ref={videoRef}
           className={styles.video}
           autoPlay 
           muted 
@@ -92,31 +78,8 @@ const HeroSection = () => {
           </Button>
         </motion.div>
       </motion.div>
-
-      {/* Video Controls */}
-      <div className={styles.controls}>
-        <button 
-          className={styles.playPauseBtn} 
-          onClick={togglePlay}
-          aria-label={isPlaying ? "Pause video" : "Play video"}
-        >
-          {isPlaying ? <PauseIcon size={24} /> : <PlayIcon size={24} />}
-        </button>
-      </div>
     </section>
   );
 };
-
-const PauseIcon = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-    <rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/>
-  </svg>
-);
-
-const PlayIcon = ({ size }) => (
-  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
-    <path d="M8 5v14l11-7z"/>
-  </svg>
-);
 
 export default HeroSection;
