@@ -1,6 +1,15 @@
 .pageContainer {
   min-height: 100vh;
-  background-color: var(--color-bg);
+  background-color: #FFFFFF;
+  color: #1A1A1A;
+  
+  /* Force light theme variables for sub-sections */
+  --color-bg: #FFFFFF;
+  --color-text: #1A1A1A;
+  --color-text-muted: #6B7280;
+  --color-border: #E5E7EB;
+  --color-surface: #FFFFFF;
+  --color-bg-secondary: #F3F4F6;
 }
 
 .mainSection {
