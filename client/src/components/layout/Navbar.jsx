@@ -392,12 +392,12 @@ export const Navbar = () => {
               <div className={styles.drawerFooter}>
                 <div className={styles.footerLinks}>
                   <span className={styles.footerLabel}>Quick Links</span>
-                  <Link to="/directory" className={styles.footerLink}>A to Z Index</Link>
-                  <Link to="/people" className={styles.footerLink}>Find a person</Link>
-                  <Link to="/events" className={styles.footerLink}>Events</Link>
-                  <Link to="/news" className={styles.footerLink}>Media Relations</Link>
-                  <Link to="/alumni" className={styles.footerLink}>Alumni</Link>
-                  <Link to="/give" className={styles.footerLink}>Give Now</Link>
+                  <Link to={ROUTES.ACADEMICS} className={styles.footerLink} onClick={() => setIsMenuOpen(false)}>All Faculties</Link>
+                  <Link to={ROUTES.CAMPUS} className={styles.footerLink} onClick={() => setIsMenuOpen(false)}>Staff Directory</Link>
+                  <Link to={ROUTES.ADMISSIONS} className={styles.footerLink} onClick={() => setIsMenuOpen(false)}>Apply Now</Link>
+                  <Link to={ROUTES.NEWS} className={styles.footerLink} onClick={() => setIsMenuOpen(false)}>Latest News</Link>
+                  <Link to={ROUTES.STUDENT_LIFE} className={styles.footerLink} onClick={() => setIsMenuOpen(false)}>Clubs & Sports</Link>
+                  <Link to={ROUTES.ABOUT} className={styles.footerLink} onClick={() => setIsMenuOpen(false)}>Our History</Link>
                 </div>
               </div>
             </motion.aside>

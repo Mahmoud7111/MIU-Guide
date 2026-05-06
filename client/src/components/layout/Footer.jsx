@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { staggerContainer, staggerItem } from '@/lib/motion/variants';
+import { Link } from 'react-router-dom';
 import { ROUTES } from '@/lib/constants';
 import styles from './Footer.module.css';
 
@@ -47,11 +48,11 @@ export const Footer = () => {
           <motion.div variants={staggerItem} className={styles.column}>
             <h4 className={styles.colTitle}>Explore</h4>
             <ul className={styles.links}>
-              <li><a href={ROUTES.ABOUT}>About MIU</a></li>
-              <li><a href={ROUTES.ACADEMICS}>Academics</a></li>
-              <li><a href={ROUTES.ADMISSIONS}>Admissions</a></li>
-              <li><a href={ROUTES.CAMPUS}>Campus Map</a></li>
-              <li><a href={ROUTES.STUDENT_LIFE}>Student Life</a></li>
+              <li><Link to={ROUTES.ABOUT}>About MIU</Link></li>
+              <li><Link to={ROUTES.ACADEMICS}>Academics</Link></li>
+              <li><Link to={ROUTES.ADMISSIONS}>Admissions</Link></li>
+              <li><Link to={ROUTES.CAMPUS}>Campus Map</Link></li>
+              <li><Link to={ROUTES.STUDENT_LIFE}>Student Life</Link></li>
             </ul>
           </motion.div>
 
@@ -59,11 +60,11 @@ export const Footer = () => {
           <motion.div variants={staggerItem} className={styles.column}>
             <h4 className={styles.colTitle}>Student Portal</h4>
             <ul className={styles.links}>
-              <li><a href={ROUTES.DASHBOARD}>Dashboard</a></li>
-              <li><a href={ROUTES.GPA}>GPA Calculator</a></li>
-              <li><a href={ROUTES.ATTENDANCE}>Attendance</a></li>
-              <li><a href={ROUTES.SCHEDULE}>Class Schedule</a></li>
-              <li><a href={ROUTES.PORTAL_CAMPUS}>Campus Map</a></li>
+              <li><Link to={ROUTES.DASHBOARD}>Dashboard</Link></li>
+              <li><Link to={ROUTES.GPA}>GPA Calculator</Link></li>
+              <li><Link to={ROUTES.ATTENDANCE}>Attendance</Link></li>
+              <li><Link to={ROUTES.SCHEDULE}>Class Schedule</Link></li>
+              <li><Link to={ROUTES.PORTAL_CAMPUS}>Campus Map</Link></li>
             </ul>
           </motion.div>
 

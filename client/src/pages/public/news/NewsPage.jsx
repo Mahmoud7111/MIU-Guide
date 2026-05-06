@@ -1,6 +1,8 @@
 import React, { useMemo, useState } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import HeroSection from '@/components/ui/HeroSection';
+import { ROUTES } from '@/lib/constants';
 import { NEWS } from '@/data/news';
 import { pageTransition, staggerContainer, staggerItem, fadeUp } from '@/lib/motion/variants';
 import styles from './NewsPage.module.css';
@@ -80,7 +82,7 @@ export default function NewsPage() {
 							<span className={styles.meta}>{featured.category} • {formatDate(featured.date)}</span>
 							<h3 className={styles.featuredTitle}>{featured.title}</h3>
 							<p className={styles.featuredExcerpt}>{featured.excerpt}</p>
-							<button className={styles.readMoreButton} type="button">Read More</button>
+							<Link to={ROUTES.NEWS_DETAIL.replace(':newsId', featured.id)} className={styles.readMoreButton}>Read More</Link>
 						</div>
 					</motion.article>
 				</div>
@@ -135,7 +137,7 @@ export default function NewsPage() {
 										<span className={styles.meta}>{formatDate(item.date)}</span>
 										<h3 className={styles.cardTitle}>{item.title}</h3>
 										<p className={styles.cardExcerpt}>{item.excerpt}</p>
-										<button className={styles.cardLink} type="button">Read Story</button>
+										<Link to={ROUTES.NEWS_DETAIL.replace(':newsId', item.id)} className={styles.cardLink}>Read Story</Link>
 									</div>
 								</motion.article>
 							))}

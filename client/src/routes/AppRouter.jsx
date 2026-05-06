@@ -30,6 +30,7 @@ const FacultyPage = Loadable(lazy(() => import('../pages/public/faculty/FacultyP
 const AdmissionsPage = Loadable(lazy(() => import('../pages/public/admissions/AdmissionsPage')));
 const StudentLifePage = Loadable(lazy(() => import('../pages/public/student-life/StudentLifePage')));
 const NewsPage = Loadable(lazy(() => import('../pages/public/news/NewsPage')));
+const NewsDetailPage = Loadable(lazy(() => import('../pages/public/news/NewsDetailPage')));
 const ContactPage = Loadable(lazy(() => import('../pages/public/contact/ContactPage')));
 const CampusPage = Loadable(lazy(() => import('../pages/public/campus/CampusPage')));
 const BuildingsPage = Loadable(lazy(() => import('../pages/public/campus/BuildingsPage')));
@@ -65,6 +66,7 @@ const router = createBrowserRouter([
       { path: ROUTES.ADMISSIONS, element: <AdmissionsPage /> },
       { path: ROUTES.STUDENT_LIFE, element: <StudentLifePage /> },
       { path: ROUTES.NEWS, element: <NewsPage /> },
+      { path: ROUTES.NEWS_DETAIL, element: <NewsDetailPage /> },
       { path: ROUTES.CONTACT, element: <ContactPage /> },
       { path: ROUTES.CAMPUS, element: <CampusPage /> },
       { path: ROUTES.CAMPUS_BUILDINGS, element: <BuildingsPage /> },

@@ -40,6 +40,9 @@ export const ROUTES = {
   /** Contact information and inquiry form */
   CONTACT: '/contact',
 
+  /** Individual news detail page */
+  NEWS_DETAIL: '/news/:newsId',
+
   /** Interactive campus map */
   CAMPUS: '/campus',
 

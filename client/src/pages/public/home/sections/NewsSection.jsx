@@ -47,7 +47,7 @@ const NewsSection = () => {
               className={styles.card}
               variants={staggerItem}
             >
-              <Link to={`${ROUTES.NEWS}/${item.id}`} className={styles.cardLink}>
+              <Link to={ROUTES.NEWS_DETAIL.replace(':newsId', item.id)} className={styles.cardLink}>
                 <div className={styles.imageWrapper}>
                   <img src={item.image} alt={item.title} className={styles.image} />
                   <span className={styles.category}>{item.category}</span>
