@@ -110,10 +110,10 @@ export const NAV_LINKS = [
  */
 export const SIDEBAR_LINKS = [
   { label: 'Dashboard',      path: ROUTES.DASHBOARD,     icon: 'grid' },
-  { label: 'GPA Calculator', path: ROUTES.GPA,           icon: 'bar-chart' },
-  { label: 'Attendance',     path: ROUTES.ATTENDANCE,    icon: 'check-circle' },
   { label: 'Schedule',       path: ROUTES.SCHEDULE,      icon: 'calendar' },
-  { label: 'Exams',          path: ROUTES.EXAMS,         icon: 'clock' },
   { label: 'Calendar',       path: ROUTES.CALENDAR,      icon: 'calendar' },
+  { label: 'Attendance',     path: ROUTES.ATTENDANCE,    icon: 'check-circle' },
+  { label: 'Exams',          path: ROUTES.EXAMS,         icon: 'clock' },
+  { label: 'GPA Calculator', path: ROUTES.GPA,           icon: 'bar-chart' },
   { label: 'Campus Map',     path: ROUTES.PORTAL_CAMPUS, icon: 'map' },
 ];

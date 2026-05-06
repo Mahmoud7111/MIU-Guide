@@ -631,12 +631,16 @@
     font-size: var(--text-base);
   }
 
-  .statsRow, .grid, .quickGrid {
+  .statsRow, .grid {
     grid-template-columns: 1fr;
   }
 
+  .quickGrid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .examMeta, .courseMeta {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 
   .courseCard {
@@ -705,7 +709,7 @@
   }
 
   .quickGrid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: var(--space-3);
   }
 

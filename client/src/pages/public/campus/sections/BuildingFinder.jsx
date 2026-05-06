@@ -78,7 +78,13 @@ const BuildingFinder = () => {
             </div>
 
             {/* List cards */}
-            <div className={styles.cardList}>
+            <motion.div 
+              key={activeTab}
+              className={styles.cardList}
+              variants={staggerContainer}
+              initial="hidden"
+              animate="visible"
+            >
               {(activeTab === 'buildings' ? buildings : restaurants).map((item) => {
                 const isSelected = selectedItem.id === item.id;
                 return (
@@ -107,7 +113,7 @@ const BuildingFinder = () => {
                   </motion.button>
                 );
               })}
-            </div>
+            </motion.div>
 
             {/* Detail panel */}
             <AnimatePresence mode="wait">

@@ -341,5 +341,11 @@ export const professors = [
   { id: 'p1', name: 'Dr. Ahmed Hassan', department: 'Computer Science', building: 'main', room: 'M 304', floor: 3 },
   { id: 'p2', name: 'Dr. Mona El-Sayed', department: 'Pharmacy', building: 'pharmacy', room: 'PH 102', floor: 1 },
   { id: 'p3', name: 'Dr. Khaled Mostafa', department: 'Engineering', building: 'main', room: 'M 105', floor: 1 },
-  { id: 'p4', name: 'Dr. Nadia Farouk', department: 'Dental Medicine', building: 'dental', room: 'D 110', floor: 1 }
+  { id: 'p4', name: 'Dr. Nadia Farouk', department: 'Dental Medicine', building: 'dental', room: 'D 110', floor: 1 },
+  { id: 'p5', name: 'Dr. Sarah Ibrahim', department: 'Al-Alsun', building: 'main', room: 'M 201', floor: 2 },
+  { id: 'p6', name: 'Dr. Mohamed Zaki', department: 'Business Administration', building: 'main', room: 'M 215', floor: 2 },
+  { id: 'p7', name: 'Dr. Layla Mahmoud', department: 'Mass Communication', building: 'main', room: 'M 208', floor: 2 },
+  { id: 'p8', name: 'Dr. Omar Ali', department: 'Computer Science', building: 'main', room: 'M 312', floor: 3 },
+  { id: 'p9', name: 'Dr. Hanaa Soliman', department: 'Engineering', building: 'main', room: 'M 112', floor: 1 },
+  { id: 'p10', name: 'Dr. Tarek Fouad', department: 'Pharmacy', building: 'pharmacy', room: 'PH 105', floor: 1 }
 ];

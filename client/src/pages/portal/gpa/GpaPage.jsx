@@ -128,37 +128,39 @@ const GpaPage = () => {
                 </div>
               ) : (
                 <>
-                  <table className={styles.courseTable}>
-                    <thead>
-                      <tr>
-                        <th>Code</th>
-                        <th>Name</th>
-                        <th>Credits</th>
-                        <th>Grade</th>
-                        <th>Grade Points</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <Reorder.Group
-                      as="tbody"
-                      axis="y"
-                      values={courses}
-                      onReorder={setCourses}
-                    >
-                      <AnimatePresence>
-                        {courses.map(course => (
-                          <CourseRow 
-                            key={course.id} 
-                            course={course} 
-                            onUpdate={(fields) => updateCourse(course.id, fields)}
-                            onRemove={() => removeCourse(course.id)}
-                            onAddRow={addCourse}
-                            disableRemove={courses.length <= 1}
-                          />
-                        ))}
-                      </AnimatePresence>
-                    </Reorder.Group>
-                  </table>
+                  <div className={styles.tableWrapper}>
+                    <table className={styles.courseTable}>
+                      <thead>
+                        <tr>
+                          <th>Code</th>
+                          <th>Name</th>
+                          <th>Credits</th>
+                          <th>Grade</th>
+                          <th>Grade Points</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <Reorder.Group
+                        as="tbody"
+                        axis="y"
+                        values={courses}
+                        onReorder={setCourses}
+                      >
+                        <AnimatePresence>
+                          {courses.map(course => (
+                            <CourseRow 
+                              key={course.id} 
+                              course={course} 
+                              onUpdate={(fields) => updateCourse(course.id, fields)}
+                              onRemove={() => removeCourse(course.id)}
+                              onAddRow={addCourse}
+                              disableRemove={courses.length <= 1}
+                            />
+                          ))}
+                        </AnimatePresence>
+                      </Reorder.Group>
+                    </table>
+                  </div>
 
                   <div className={styles.courseActions}>
                     <Button variant="primary" onClick={addCourse} fullWidth>

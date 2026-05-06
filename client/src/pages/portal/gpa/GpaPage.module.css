@@ -44,10 +44,17 @@
   position: relative;
 }
 
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-6);
+}
+
 .courseTable {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: var(--space-6);
+  min-width: 600px; /* Ensure table doesn't squish too much */
 }
 
 .courseTable th {
@@ -544,5 +551,91 @@
   .remainingRow {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* Table to Card Layout for Mobile */
+  .tableWrapper {
+    overflow-x: visible;
+  }
+  
+  .courseTable {
+    min-width: 100%;
+    display: block;
+  }
+
+  .courseTable thead {
+    display: none;
+  }
+
+  .courseTable tbody {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    width: 100%;
+  }
+
+  .courseRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-3);
+    padding: var(--space-5) var(--space-4) var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    position: relative;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+  }
+
+  .courseTableTd {
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Code Input */
+  .courseTableTd:nth-child(1) {
+    grid-column: span 2;
+    padding-right: var(--space-10); /* space for delete btn */
+  }
+
+  /* Name Input */
+  .courseTableTd:nth-child(2) {
+    grid-column: span 2;
+  }
+
+  /* Credits */
+  .courseTableTd:nth-child(3) {
+    grid-column: span 1;
+  }
+
+  /* Grade */
+  .courseTableTd:nth-child(4) {
+    grid-column: span 1;
+  }
+
+  /* Points Formula */
+  .courseTableTd:nth-child(5) {
+    grid-column: span 2;
+    text-align: center;
+    background: var(--color-bg);
+    padding: var(--space-2);
+    border-radius: var(--radius-md);
+    margin-top: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  /* Delete Button */
+  .courseTableTd:nth-child(6) {
+    position: absolute;
+    top: var(--space-4);
+    right: var(--space-4);
+    width: auto;
+  }
+
+  .courseCodeInput, .courseCreditsInput {
+    max-width: 100%;
+    min-width: 100%;
   }
 }

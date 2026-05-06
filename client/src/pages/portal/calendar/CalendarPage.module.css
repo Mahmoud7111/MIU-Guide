@@ -38,12 +38,13 @@
   grid-template-columns: 1fr 320px;
   gap: var(--space-6);
   align-items: start;
+  min-width: 0;
 }
 
 .calendarGrid {
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  overflow: hidden;
+  overflow-x: auto;
 }
 
 .calendarHeader {
@@ -71,6 +72,7 @@
   display: grid;
   grid-template-columns: repeat(7, 1fr);
   background: var(--color-surface);
+  min-width: 500px;
 }
 
 .dayHeader {
@@ -85,6 +87,7 @@
 .daysGrid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  min-width: 500px;
 }
 
 .dayCell {
@@ -399,8 +402,50 @@
     grid-template-columns: 1fr;
   }
 
+  .dayHeaders, .daysGrid {
+    min-width: 100%;
+  }
+
+  .dayHeader {
+    padding: var(--space-1);
+    font-size: 0.65rem;
+  }
+
   .dayCell {
-    min-height: 50px;
+    min-height: 60px;
+    padding: var(--space-1);
+  }
+
+  .dayNumber {
+    width: 22px;
+    height: 22px;
+    font-size: 0.75rem;
+  }
+
+  .eventDots {
+    gap: 2px;
+  }
+
+  .eventDot {
+    width: 4px;
+    height: 4px;
+  }
+
+  .calendarHeader {
+    padding: var(--space-4) var(--space-2);
+    gap: var(--space-2);
+  }
+
+  .monthNav {
+    gap: var(--space-1);
+    flex: 1;
+    justify-content: center;
+  }
+
+  .monthLabel {
+    font-size: var(--text-base);
+    margin: 0 var(--space-1);
+    white-space: nowrap;
   }
 
   .sidebar {
@@ -412,3 +457,4 @@
     display: none;
   }
 }
+

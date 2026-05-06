@@ -51,11 +51,11 @@ const CalendarHeader = ({
           <div className={styles.calendarHeader}>
             <div className={styles.monthNav}>
               <Button variant="outlined" size="sm" onClick={onPrevMonth}>
-                ← Previous Month
+                ← Prev
               </Button>
               <span className={styles.monthLabel}>{monthLabel}</span>
               <Button variant="outlined" size="sm" onClick={onNextMonth}>
-                Next Month →
+                Next →
               </Button>
             </div>
             <Button variant="outlined" size="sm" onClick={onToday}>
