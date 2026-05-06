@@ -1,6 +1,8 @@
 /**
  * @fileoverview Mock data for university news and events.
  */
+import campusImage from '@/assets/images/tools/campus.webp';
+
 export const NEWS = [
   {
     id: 1,
@@ -14,7 +16,7 @@ export const NEWS = [
     `,
     date: '2024-03-15',
     category: 'Achievement',
-    image: '/src/assets/images/tools/campus.webp',
+    image: campusImage,
     author: 'Academic Office',
     featured: true,
   },

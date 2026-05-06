@@ -31,6 +31,7 @@ const CampusExplorer = () => {
   const [expandedFloor, setExpandedFloor] = useState(0);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [selectedFaculty, setSelectedFaculty] = useState('All');
+  const [cameraView, setCameraView] = useState({ orbit: "0deg 75deg 80%", fov: "30deg" });
 
   // Categories for Sidebar
   const categories = [
@@ -138,12 +139,20 @@ const CampusExplorer = () => {
       ? item.data 
       : buildings.find(b => b.id === item.data.building || (item.data.location && item.data.location.includes(b.name)));
     
+    const newOrbit = item.data.cameraOrbit || buildingData?.cameraOrbit;
+    const newFov = item.data.fieldOfView || buildingData?.fieldOfView;
+
+    if (newOrbit) {
+      setCameraView({
+        orbit: newOrbit,
+        fov: newFov || "30deg"
+      });
+    }
+
     setSelectedItem({
       ...item.data,
-      // Ensure we have map coordinates even for staff/dining
-      cameraOrbit: item.data.cameraOrbit || buildingData?.cameraOrbit,
-      fieldOfView: item.data.fieldOfView || buildingData?.fieldOfView,
-      // Keep reference to building for floor logic if needed
+      cameraOrbit: newOrbit,
+      fieldOfView: newFov,
       buildingRef: buildingData
     });
 
@@ -263,8 +272,8 @@ const CampusExplorer = () => {
           style={{}}
         >
         <CampusMap3D
-            cameraOrbit={selectedItem?.cameraOrbit || "0deg 75deg 80%"}
-            fieldOfView={selectedItem?.fieldOfView || "30deg"}
+            cameraOrbit={cameraView.orbit}
+            fieldOfView={cameraView.fov}
           />
         </div>
 
