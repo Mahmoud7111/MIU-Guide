@@ -7,7 +7,7 @@ import Input from '@/components/ui/Input';
 import styles from './CampusContact.module.css';
 
 const contactCards = [
-  { icon: FaLocationDot, label: 'Address', value: '5th Settlement, New Cairo, Egypt' },
+  { icon: FaLocationDot, label: 'Address', value: 'KM 28 Cairo-Ismailia Road, Egypt' },
   { icon: FaPhone, label: 'Phone', value: '+20 2 2477-1200' },
   { icon: FaEnvelope, label: 'Email', value: 'info@miu.edu.eg' },
 ];

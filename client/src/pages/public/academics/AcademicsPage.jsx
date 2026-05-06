@@ -32,13 +32,13 @@ export default function AcademicsPage() {
         ]}
       />
       
-      <FacultiesGrid />
+      <div id="faculties"><FacultiesGrid /></div>
       <div className={styles.sectionDivider} />
       
-      <ProgramsSearch />
+      <div id="programs"><ProgramsSearch /></div>
       <div className={styles.sectionDivider} />
       
-      <AcademicCalendar />
+      <div id="calendar"><AcademicCalendar /></div>
       
     </motion.main>
   );

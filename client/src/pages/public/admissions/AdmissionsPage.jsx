@@ -38,22 +38,22 @@ export default function AdmissionsPage() {
       />
       
       {/* 1. Requirements Section */}
-      <Requirements />
+      <div id="requirements"><Requirements /></div>
 
       <div className={styles.sectionDivider} />
       
       {/* 2. How to Apply Section */}
-      <ApplySteps />
+      <div id="apply"><ApplySteps /></div>
       
       <div className={styles.sectionDivider} />
       
       {/* 3. Scholarships Section */}
-      <Scholarships />
+      <div id="scholarships"><Scholarships /></div>
       
       <div className={styles.sectionDivider} />
       
       {/* 4. Frequently Asked Questions Section */}
-      <AdmissionsFAQ />
+      <div id="faq"><AdmissionsFAQ /></div>
       
     </motion.main>
   );

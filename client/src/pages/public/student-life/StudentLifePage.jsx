@@ -38,28 +38,28 @@ export default function StudentLifePage() {
       />
       
       {/* 1. Clubs & Organizations Section */}
-      <div className={styles.mainSection}>
+      <div id="clubs" className={styles.mainSection}>
         <ClubsGrid />
       </div>
 
       <div className={styles.largeDivider} />
       
-      {/* 2. Sports & Athletics Section (Placeholder) */}
-      <div className={styles.mainSection}>
+      {/* 2. Sports & Athletics Section */}
+      <div id="sports" className={styles.mainSection}>
         <Sports />
       </div>
       
       <div className={styles.largeDivider} />
       
-      {/* 3. Campus Gallery Section (Placeholder) */}
-      <div className={styles.mainSection}>
+      {/* 3. Campus Gallery Section */}
+      <div id="gallery" className={styles.mainSection}>
         <Gallery />
       </div>
       
       <div className={styles.largeDivider} />
       
-      {/* 4. Support Services Section (Placeholder) */}
-      <div className={styles.mainSection}>
+      {/* 4. Support Services Section */}
+      <div id="services" className={styles.mainSection}>
         <SupportServices />
       </div>
       

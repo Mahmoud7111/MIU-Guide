@@ -1,16 +1,8 @@
 .gallerySection {
   padding: var(--space-20) 0;
-  background-color: #000000; /* Forced Black Background */
-  color: #FFFFFF; /* Forced White Text */
+  background-color: var(--color-bg-alt);
+  color: var(--color-text);
   overflow: hidden;
-
-  /* Re-override variables to dark-theme values for visibility on black */
-  --color-text: #F9FAFB;
-  --color-text-muted: #9CA3AF;
-  --color-text-primary: #F9FAFB;
-  --color-text-secondary: #9CA3AF;
-  --color-border: #374151;
-  --color-surface: #1E1E1E;
 }
 
 .container {
@@ -48,25 +40,25 @@
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: var(--space-4);
-  background: linear-gradient(135deg, #FFFFFF 0%, #A0A0A0 100%);
+  background: linear-gradient(135deg, var(--color-text) 0%, var(--color-text-muted) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
   font-size: 1.15rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-secondary);
   line-height: 1.6;
 }
 
 /* Controls Area */
 .filterGroup {
   display: flex;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--color-bg-secondary);
   backdrop-filter: blur(12px);
   padding: 6px;
   border-radius: 100px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
   gap: 4px;
 }
 
@@ -75,17 +67,17 @@
   padding: 12px 28px;
   font-size: 0.95rem;
   font-weight: 600;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-muted);
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   border-radius: 100px;
   z-index: 1;
 }
 
 .filterBtn.active {
-  color: #ffffff;
+  color: var(--color-text-inverse);
 }
 
 .activeIndicator {
@@ -100,7 +92,7 @@
 /* Divider */
 .divider {
   height: 1px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.02) 100%);
+  background: linear-gradient(90deg, var(--color-border) 0%, transparent 100%);
   margin-bottom: var(--space-12);
 }
 
@@ -118,9 +110,9 @@
   border-radius: 24px;
   overflow: hidden;
   aspect-ratio: 16/10;
-  background: #111111;
+  background: var(--color-surface);
   cursor: pointer;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border);
 }
 
 .imageContainer {
@@ -177,13 +169,13 @@
 .cardTitle {
   font-size: 1.75rem;
   font-weight: 700;
-  color: #ffffff;
+  color: var(--color-text);
   margin-bottom: var(--space-1);
 }
 
 .cardDesc {
   font-size: 1rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: var(--color-text-muted);
   line-height: 1.5;
 }
 
@@ -193,7 +185,7 @@
   grid-template-columns: repeat(3, 1fr);
   gap: var(--space-8);
   padding-top: var(--space-12);
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 1px solid var(--color-border);
 }
 
 .statItem {
@@ -204,14 +196,14 @@
   display: block;
   font-size: 3rem;
   font-weight: 800;
-  color: #FFFFFF; /* Highlight on black background */
+  color: var(--color-text);
   margin-bottom: var(--space-1);
   font-family: var(--font-heading);
 }
 
 .statLabel {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--color-text-secondary);
   text-transform: uppercase;
   letter-spacing: 2px;
   font-weight: 600;

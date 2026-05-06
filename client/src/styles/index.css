@@ -135,4 +135,14 @@ input, textarea, select {
   border-width: 0;
 }
 
-/* 14. Custom Scrollbar or other desktop-only styles can go here */
+/* 14. Global Cursor Overrides */
+.custom-cursor-active,
+.custom-cursor-active * {
+  cursor: none !important;
+}
+
+/* Ensure native cursor works in specific areas if needed */
+.native-cursor,
+.native-cursor * {
+  cursor: auto !important;
+}

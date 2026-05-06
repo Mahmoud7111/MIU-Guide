@@ -38,10 +38,10 @@ export default function AboutPage() {
       />
       
       <div className={styles.sectionsContainer}>
-        <MissionVision />
-        <HistoryTimeline />
-        <Leadership />
-        <Accreditations />
+        <div id="mission"><MissionVision /></div>
+        <div id="history"><HistoryTimeline /></div>
+        <div id="leadership"><Leadership /></div>
+        <div id="accreditations"><Accreditations /></div>
       </div>
     </motion.main>
   );

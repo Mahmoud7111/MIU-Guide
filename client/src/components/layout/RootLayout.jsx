@@ -18,7 +18,7 @@ const RootLayout = () => {
                       location.pathname.startsWith('/forgot-password');
 
   return (
-    <div className={isAuthRoute ? 'native-cursor' : ''}>
+    <div className={isAuthRoute ? 'native-cursor' : 'custom-cursor-active'}>
       {/* Custom Cursor */}
       {!isAuthRoute && <CustomCursor />}
 

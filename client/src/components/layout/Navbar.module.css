@@ -443,6 +443,11 @@
   gap: var(--space-4);
   text-decoration: none;
   letter-spacing: -0.02em;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
 }
 
 .drawerSubTitle:hover {
@@ -458,6 +463,12 @@
   display: flex;
   align-items: center;
   gap: var(--space-2);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font-family: inherit;
 }
 
 .drawerSubLink::before {

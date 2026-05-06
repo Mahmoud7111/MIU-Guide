@@ -29,6 +29,9 @@ import Tuners1Img from '@/assets/images/ClubsBanner/Tuners1.png';
 import Tuners2Img from '@/assets/images/ClubsBanner/Tuners2.png';
 import Tuners3Img from '@/assets/images/ClubsBanner/Tuners3.png';
 import UTOPIAImg from '@/assets/images/ClubsBanner/UTOPIA.jpeg';
+import MSP1Img from '@/assets/images/ClubsBanner/MSP1.png';
+import MSP2Img from '@/assets/images/ClubsBanner/MSP2.png';
+import MSP3Img from '@/assets/images/ClubsBanner/MSP3.png';
 
 const CLUBS_DATA = [
   {
@@ -52,6 +55,12 @@ const CLUBS_DATA = [
     description: 'Elevating academic excellence and professional growth with industry connections.',
     clubs: [
       {
+        name: 'MSP Tech Club',
+        logo: MSP1Img,
+        description: 'MSP Tech Club is a student-led innovation community powered by the Microsoft Learn Student Ambassadors program. We explore cutting‑edge technologies, build real projects, and develop technical & leadership excellence together.',
+        images: [MSP1Img, MSP2Img, MSP3Img]
+      },
+      {
         name: 'AIESEC',
         logo: AIESEC1Img,
         description: 'AIESEC offers talent solutions to a variety of organizations such as companies, start-ups and NGOs to find and bring on board the right candidate for the job from our pool of global talents.',
@@ -60,7 +69,7 @@ const CLUBS_DATA = [
       {
         name: 'IEEE',
         logo:IEEE1Img,
-        description: 'IEEE is an academic association that targets computer science and ECE students. It aims at upgrading their technical skills to practical ones. As an on-campus club, IEEE arranges a number of events, starting with the Easter Event right before the final exams, ending with the Professional Week that is held annually as a closing event to each academic year.',
+        description: 'IEEE is an academic association that targets computer science and ECE students. It aims at upgrading their technical skills to practical ones. As an on-campus club, IEEE arranges a number of events, starting with the Easter Event, ending with the Professional Week.',
         images: [IEEE1Img, IEEE2Img]
       },
       {
@@ -140,7 +149,7 @@ const ClubGalleryModal = ({ club, onClose }) => {
           </div>
         </div>
         <div className={styles.modalFooter}>
-          <Button variant="outline" size="sm" onClick={onClose}>Close</Button>
+          <Button variant="outlined" size="sm" onClick={onClose}>Close</Button>
         </div>
       </motion.div>
     </motion.div>
@@ -163,7 +172,7 @@ const CategoryCard = ({ category, isActive, onClick }) => (
       <h3 className={styles.cardTitle}>{category.title}</h3>
       <p className={styles.cardDescription}>{category.description}</p>
       <Button 
-        variant={isActive ? 'primary' : 'outline'} 
+        variant={isActive ? 'primary' : 'outlined'} 
         size="sm" 
         className={styles.exploreBtn}
         onClick={(e) => {
@@ -194,12 +203,12 @@ const ClubItem = ({ club, onViewImages }) => (
       <p className={styles.clubSmallDesc}>{club.description}</p>
       {club.images && club.images.length > 0 && (
         <Button 
-          variant="outline" 
+          variant="outlined" 
           size="sm" 
           className={styles.viewImagesBtn}
           onClick={() => onViewImages(club)}
         >
-          View Images
+          View Gallery
         </Button>
       )}
     </div>

@@ -225,11 +225,9 @@
 }
 
 .viewImagesBtn {
-  margin-top: var(--space-3);
-  font-size: var(--text-xs) !important;
-  padding: 0 var(--space-3) !important;
-  height: 28px !important;
-  border-radius: var(--radius-full) !important;
+  margin-top: var(--space-4);
+  font-weight: var(--font-semi);
+  border-radius: var(--radius-md) !important; /* Match other cards */
 }
 
 /* Gallery Modal Styles */
@@ -292,7 +290,7 @@
 
 .closeBtn:hover {
   color: var(--brand-primary);
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: var(--color-bg-secondary);
 }
 
 .modalBody {

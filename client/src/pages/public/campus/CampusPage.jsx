@@ -14,12 +14,12 @@ const CampusPage = () => (
     animate="visible"
     exit="exit"
   >
-    <CampusHero />
-    <BuildingFinder />
-    <CampusFacilities />
-    <RestaurantMenus />
-    <CampusEvents />
-    <CampusContact />
+    <div id="hero"><CampusHero /></div>
+    <div id="buildings"><BuildingFinder /></div>
+    <div id="facilities"><CampusFacilities /></div>
+    <div id="dining"><RestaurantMenus /></div>
+    <div id="events"><CampusEvents /></div>
+    <div id="contact"><CampusContact /></div>
   </motion.main>
 );
 

@@ -40,10 +40,15 @@ export const Navbar = () => {
   const isScrolled = scrollY > 50;
 
   const academicsSubLinks = useMemo(
-    () => FACULTIES.map((faculty) => ({
-      label: faculty.name,
-      path: `${ROUTES.ACADEMICS}/${faculty.slug}`
-    })),
+    () => [
+      { label: 'All Faculties', path: '/academics#faculties' },
+      { label: 'Programs Search', path: '/academics#programs' },
+      { label: 'Academic Calendar', path: '/academics#calendar' },
+      ...FACULTIES.map((faculty) => ({
+        label: faculty.name,
+        path: `${ROUTES.ACADEMICS}/${faculty.slug}`
+      }))
+    ],
     []
   );
 
@@ -56,9 +61,10 @@ export const Navbar = () => {
         return {
           ...link,
           subLinks: [
-            { label: 'How to Apply', path: '/apply' },
-            { label: 'Tuition & Aid', path: '/tuition' },
-            { label: 'Plan a Visit', path: '/visit' }
+            { label: 'Admission Requirements', path: '/admissions#requirements' },
+            { label: 'How to Apply', path: '/admissions#apply' },
+            { label: 'Scholarships', path: '/admissions#scholarships' },
+            { label: 'Admissions FAQ', path: '/admissions#faq' }
           ]
         };
       }
@@ -66,9 +72,10 @@ export const Navbar = () => {
         return {
           ...link,
           subLinks: [
-            { label: 'Libraries', path: '/campus/libraries' },
-            { label: 'Student Housing', path: '/campus/housing' },
-            { label: 'Athletics', path: '/campus/sports' }
+            { label: 'Building Finder', path: '/campus#buildings' },
+            { label: 'Campus Facilities', path: '/campus#facilities' },
+            { label: 'Dining & Restaurants', path: '/campus#dining' },
+            { label: 'Contact Us', path: '/campus#contact' }
           ]
         };
       }
@@ -76,10 +83,10 @@ export const Navbar = () => {
         return {
           ...link,
           subLinks: [
-            { label: 'Our History', path: '/about/history' },
-            { label: 'Mission & Vision', path: '/about/mission' },
-            { label: 'Leadership', path: '/about/leadership' },
-            { label: 'Campus Map', path: ROUTES.CAMPUS }
+            { label: 'Mission & Vision', path: '/about#mission' },
+            { label: 'Our History', path: '/about#history' },
+            { label: 'Leadership', path: '/about#leadership' },
+            { label: 'Accreditations', path: '/about#accreditations' }
           ]
         };
       }
@@ -87,10 +94,10 @@ export const Navbar = () => {
         return {
           ...link,
           subLinks: [
-            { label: 'Clubs & Organizations', path: '/student-life/clubs' },
-            { label: 'Athletics & Sports', path: '/campus/sports' },
-            { label: 'Student Services', path: '/student-life/services' },
-            { label: 'Events Calendar', path: '/portal/calendar' }
+            { label: 'Clubs & Organizations', path: '/student-life#clubs' },
+            { label: 'Sports & Athletics', path: '/student-life#sports' },
+            { label: 'Student Services', path: '/student-life#services' },
+            { label: 'Campus Gallery', path: '/student-life#gallery' }
           ]
         };
       }
@@ -148,12 +155,23 @@ export const Navbar = () => {
     }
   };
 
-  // No default link selected - sub-links only appear on click
-  useEffect(() => {
-    if (!isMenuOpen) {
-      setActiveDrawerLink(null);
+  const handleSubLinkClick = (path) => {
+    setIsMenuOpen(false);
+    
+    const [pathname, hash] = path.split('#');
+    const isSamePage = location.pathname === pathname;
+
+    if (isSamePage && hash) {
+      const element = document.getElementById(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    } else {
+      navigate(path);
     }
-  }, [isMenuOpen]);
+  };
 
   return (
     <header
@@ -321,29 +339,27 @@ export const Navbar = () => {
                         animate={{ opacity: 1, x: 0 }}
                         transition={{ duration: 0.4 }}
                       >
-                        <Link
-                          to={activeDrawerSection.path}
+                        <button
                           className={styles.drawerSubTitle}
-                          onClick={() => setIsMenuOpen(false)}
+                          onClick={() => handleSubLinkClick(activeDrawerSection.path)}
                         >
                           {activeDrawerSection.label} <ArrowIcon />
-                        </Link>
+                        </button>
                         <div className={styles.drawerSubLinks}>
                           {activeDrawerSection.subLinks.map((subLink, sIdx) => (
-                            <motion.div
-                              key={subLink.path}
-                              initial={{ opacity: 0, x: 20 }}
-                              animate={{ opacity: 1, x: 0 }}
-                              transition={{ delay: sIdx * 0.05 + 0.1 }}
-                            >
-                              <Link
-                                to={subLink.path}
-                                className={styles.drawerSubLink}
-                                onClick={() => setIsMenuOpen(false)}
+                              <motion.div
+                                key={subLink.path}
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ delay: sIdx * 0.05 + 0.1 }}
                               >
-                                {subLink.label}
-                              </Link>
-                            </motion.div>
+                                <button
+                                  className={styles.drawerSubLink}
+                                  onClick={() => handleSubLinkClick(subLink.path)}
+                                >
+                                  {subLink.label}
+                                </button>
+                              </motion.div>
                           ))}
                         </div>
                       </motion.div>

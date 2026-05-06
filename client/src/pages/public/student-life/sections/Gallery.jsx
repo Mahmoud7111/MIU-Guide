@@ -5,11 +5,11 @@ import styles from './Gallery.module.css';
 
 // Import Campus Assets
 import mainBuldingImg from '@/assets/images/bulding/mainBulding.jpg';
-import kBImg from '@/assets/images/bulding/KB.jpg';
+import kBImg from '@/assets/images/bulding/KB.png';
 import pharmacyImg from '@/assets/images/bulding/pharmacy.png';
-import NBImg from '@/assets/images/bulding/NB.jpg';
-import SBImg from '@/assets/images/bulding/SB.jpg';
-import RBImg from '@/assets/images/bulding/RB.jpg';
+import NBImg from '@/assets/images/bulding/NB.png';
+import SBImg from '@/assets/images/bulding/SB.png';
+import RBImg from '@/assets/images/bulding/RB.png';
 
 // Import Other Assets
 import F2024Img from '@/assets/images/bulding/F2024.png';
