@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { RouterProvider } from 'react-router-dom';
+import { MotionConfig } from 'framer-motion';
 
 // Context Providers
 import { LanguageProvider } from './context/LanguageContext';
@@ -24,12 +25,14 @@ import './styles/index.css';
  */
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <LanguageProvider>
-      <ThemeProvider>
-        <AuthProvider>
-          <RouterProvider router={router} />
-        </AuthProvider>
-      </ThemeProvider>
-    </LanguageProvider>
+    <MotionConfig reducedMotion="never">
+      <LanguageProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <RouterProvider router={router} />
+          </AuthProvider>
+        </ThemeProvider>
+      </LanguageProvider>
+    </MotionConfig>
   </StrictMode>
 );

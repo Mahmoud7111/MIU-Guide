@@ -1,25 +1,22 @@
 import React, { useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+// import { Outlet } from 'react-router-dom';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
 import { usePageTitle } from '@/hooks/usePageTitle';
 import Sidebar from './Sidebar';
 import CustomCursor from '../../ui/CustomCursor/CustomCursor';
 import Chatbot from '../../ui/Chatbot/Chatbot';
-import { pageTransition } from '@/lib/motion/variants';
 import styles from './PortalLayout.module.css';
 
 /**
  * PortalLayout component for authenticated student pages.
- * Features a persistent sidebar and a contextual topbar.
+ * Built from scratch to ensure standard React Router Outlet behavior.
  */
-export const PortalLayout = () => {
+const PortalLayout = ({ children }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const { user } = useAuth();
   const { toggleTheme, isDark } = useTheme();
-  const location = useLocation();
   const pageTitle = usePageTitle();
 
   const getInitials = (name) => {
@@ -30,6 +27,7 @@ export const PortalLayout = () => {
   return (
     <div className={styles.layout}>
       <CustomCursor />
+      
       {/* Persistent Sidebar */}
       <Sidebar 
         isOpen={isSidebarOpen} 
@@ -39,10 +37,8 @@ export const PortalLayout = () => {
       />
 
       {/* Main Container */}
-      <div className={`
-        ${styles.mainContainer} 
-        ${isCollapsed ? styles.sidebarCollapsed : ''}
-      `}>
+      <div className={`${styles.mainContainer} ${isCollapsed ? styles.sidebarCollapsed : ''}`}>
+        
         {/* Topbar */}
         <header className={styles.topbar}>
           <div className={styles.topbarLeft}>
@@ -77,43 +73,26 @@ export const PortalLayout = () => {
           </div>
         </header>
 
-        {/* Content Area */}
+        {/* Content Area - Pure Outlet, no wrappers, no keys, no AnimatePresence */}
         <main className={styles.content}>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={location.key}
-              initial="hidden"
-              animate="visible"
-              exit="exit"
-              variants={pageTransition}
-            >
-              <Outlet />
-            </motion.div>
-          </AnimatePresence>
+          {children}
         </main>
       </div>
 
-      {/* Floating Chatbot */}
       <Chatbot />
 
       {/* Mobile Backdrop */}
-      <AnimatePresence>
-        {isSidebarOpen && (
-          <motion.div 
-            className={styles.mobileBackdrop}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsSidebarOpen(false)}
-          />
-        )}
-      </AnimatePresence>
+      {isSidebarOpen && (
+        <div 
+          className={styles.mobileBackdrop}
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
     </div>
   );
 };
 
 /* --- Icons --- */
-
 const MenuIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
 );
@@ -130,4 +109,8 @@ const MoonIcon = ({ size }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
 );
 
+// Named export
+export { PortalLayout };
+
+// Default export
 export default PortalLayout;

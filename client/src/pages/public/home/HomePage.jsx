@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import HeroSection from './sections/HeroSection';
 import StatsBar from './sections/StatsBar';
 import AboutStrip from './sections/AboutStrip';
@@ -7,6 +8,7 @@ import FacultyHighlights from './sections/FacultyHighlights';
 import FeaturesShowcase from './sections/FeaturesShowcase';
 import NewsSection from './sections/NewsSection';
 import Testimonials from './sections/Testimonials';
+import { pageTransition } from '@/lib/motion/variants';
 import styles from './HomePage.module.css';
 
 /**
@@ -15,7 +17,13 @@ import styles from './HomePage.module.css';
  */
 const HomePage = () => {
   return (
-    <main className={styles.home}>
+    <motion.main
+      className={styles.home}
+      variants={pageTransition}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <HeroSection />
       
       {/* Container for subsequent sections */}
@@ -29,7 +37,7 @@ const HomePage = () => {
         <NewsSection />
         <Testimonials />
       </div>
-    </main>
+    </motion.main>
   );
 };
 

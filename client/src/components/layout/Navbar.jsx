@@ -170,14 +170,19 @@ export const Navbar = () => {
         </Link>
 
         <div className={styles.navGroups}>
-          {/* Group 1: Nav Links Pill */}
+          {/* Group 1: Student Portal Button - Left CTA */}
+          <Link to={ROUTES.DASHBOARD} className={styles.portalBtn} aria-label="Student Portal">
+            Student Portal
+          </Link>
+
+          {/* Group 2: Nav Links Pill */}
           <nav className={styles.linksPill}>
             <Link to={ROUTES.ACADEMICS} className={styles.pillLink}>Academics</Link>
             <Link to={ROUTES.ADMISSIONS} className={styles.pillLink}>Admissions</Link>
-            <Link to={ROUTES.NEWS} className={styles.pillLink}>News</Link>
+            <Link to={ROUTES.CAMPUS} className={styles.pillLink}>Campus</Link>
           </nav>
 
-          {/* Group 2: Actions Pill */}
+          {/* Group 3: Actions Pill */}
           <div className={styles.actionsPill}>
             <div
               ref={searchRef}
@@ -208,10 +213,6 @@ export const Navbar = () => {
             >
               {isDark ? <SunIcon size={18} /> : <MoonIcon size={18} />}
             </button>
-
-            <Link to={ROUTES.LOGIN} className={styles.actionBtn} aria-label="Login">
-              Login
-            </Link>
 
             <button
               className={styles.menuBtn}
@@ -283,17 +284,17 @@ export const Navbar = () => {
                   })}
 
                   <motion.div
-                    key={ROUTES.LOGIN}
+                    key={ROUTES.DASHBOARD}
                     initial={{ opacity: 0, x: -30 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: NAV_LINKS.length * 0.05 + 0.2 }}
                   >
                     <NavLink
-                      to={ROUTES.LOGIN}
-                      className={({ isActive }) => `${styles.drawerLink} ${isActive ? styles.active : ''}`}
+                      to={ROUTES.DASHBOARD}
+                      className={({ isActive }) => `${styles.drawerPortalLink} ${isActive ? styles.active : ''}`}
                       onClick={() => setIsMenuOpen(false)}
                     >
-                      Login
+                      Student Portal
                     </NavLink>
                   </motion.div>
 

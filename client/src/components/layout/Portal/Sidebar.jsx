@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { SIDEBAR_LINKS } from '@/lib/constants';
-import { sidebarIndicator } from '@/lib/motion/variants';
 import { useAuth } from '@/context/AuthContext';
 import styles from './Sidebar.module.css';
 
@@ -24,14 +22,9 @@ export const Sidebar = ({ isOpen, collapsed, setCollapsed, onClose }) => {
   };
 
   return (
-    <motion.aside 
-      className={`
-        ${styles.sidebar} 
-        ${collapsed ? styles.collapsed : ''} 
-        ${isOpen ? styles.mobileOpen : ''}
-      `}
-      animate={{ width: collapsed ? 68 : 260 }}
-      transition={{ type: 'spring', damping: 25, stiffness: 200 }}
+    <aside 
+      className={`${styles.sidebar} ${collapsed ? styles.collapsed : ''} ${isOpen ? styles.mobileOpen : ''}`}
+      style={{ width: collapsed ? 68 : 260 }}
     >
       <div className={styles.header}>
         <img src="/MIU.png" alt="MIU Logo" className={styles.sidebarLogo} />
@@ -43,25 +36,13 @@ export const Sidebar = ({ isOpen, collapsed, setCollapsed, onClose }) => {
           <NavLink
             key={link.path}
             to={link.path}
+            end={link.path === '/portal/dashboard'}
             className={({ isActive }) => `${styles.navItem} ${isActive ? styles.active : ''}`}
             title={collapsed ? link.label : ''}
             onClick={onClose}
           >
-            {({ isActive }) => (
-              <>
-                <span className={styles.icon}>{getIcon(link.icon)}</span>
-                {!collapsed && (
-                  <motion.span 
-                    initial={{ opacity: 0, x: -10 }} 
-                    animate={{ opacity: 1, x: 0 }} 
-                    className={styles.label}
-                  >
-                    {link.label}
-                  </motion.span>
-                )}
-                <ActiveIndicator isActive={isActive} />
-              </>
-            )}
+            <span className={styles.icon}>{getIcon(link.icon)}</span>
+            {!collapsed && <span className={styles.label}>{link.label}</span>}
           </NavLink>
         ))}
       </nav>
@@ -71,14 +52,10 @@ export const Sidebar = ({ isOpen, collapsed, setCollapsed, onClose }) => {
         <div className={styles.userCard}>
           <div className={styles.avatar}>{getInitials(user?.name)}</div>
           {!collapsed && (
-            <motion.div 
-              initial={{ opacity: 0 }} 
-              animate={{ opacity: 1 }} 
-              className={styles.userInfo}
-            >
+            <div className={styles.userInfo}>
               <p className={styles.userName}>{user?.name || 'Student'}</p>
               <p className={styles.userFaculty}>{user?.faculty || 'MIU'}</p>
-            </motion.div>
+            </div>
           )}
         </div>
 
@@ -88,9 +65,9 @@ export const Sidebar = ({ isOpen, collapsed, setCollapsed, onClose }) => {
             onClick={() => setCollapsed(!collapsed)}
             aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
           >
-            <motion.span animate={{ rotate: collapsed ? 180 : 0 }}>
+            <span className={collapsed ? styles.chevronRotated : ''}>
               <ChevronLeftIcon size={18} />
-            </motion.span>
+            </span>
           </button>
           
           <button 
@@ -102,26 +79,11 @@ export const Sidebar = ({ isOpen, collapsed, setCollapsed, onClose }) => {
           </button>
         </div>
       </div>
-    </motion.aside>
+    </aside>
   );
 };
 
 /* --- Helpers --- */
-
-const ActiveIndicator = ({ isActive }) => (
-  <AnimatePresence>
-    {isActive && (
-      <motion.span
-        layoutId="sidebar-indicator"
-        className={styles.activePill}
-        variants={sidebarIndicator}
-        initial="hidden"
-        animate="visible"
-        exit="exit"
-      />
-    )}
-  </AnimatePresence>
-);
 
 const getIcon = (name) => {
   const icons = {

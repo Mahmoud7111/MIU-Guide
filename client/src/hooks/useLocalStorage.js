@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 /**
  * Custom React hook that mirrors `useState` but persists the value
@@ -8,123 +8,103 @@ import { useState, useEffect, useCallback, useRef } from 'react';
  * @param {string} key         — localStorage key
  * @param {T | (() => T)} initialValue — default value (or lazy initialiser)
  * @returns {[T, (value: T | ((prev: T) => T)) => void, () => void]}
- *   [storedValue, setValue, removeValue]
- *
- * @example
- * const [courses, setCourses, clearCourses] = useLocalStorage('gpa_courses', []);
- * const [theme, setTheme] = useLocalStorage('theme', 'light');
  */
 export const useLocalStorage = (key, initialValue) => {
-  // ── Read from localStorage (or fall back to initialValue) ────────
-
-  const readValue = useCallback(() => {
-    // Resolve lazy initialisers the same way useState does
-    const fallback =
-      initialValue instanceof Function ? initialValue() : initialValue;
-
+  // Read once lazily to avoid heavy synchronous reads on every render
+  const [storedValue, setStoredValue] = useState(() => {
+    if (typeof window === 'undefined') {
+      return initialValue instanceof Function ? initialValue() : initialValue;
+    }
     try {
       const item = window.localStorage.getItem(key);
-      if (item === null) return fallback;
-      return JSON.parse(item);
-    } catch {
-      // localStorage unavailable, corrupted JSON, or private-browsing block
-      return fallback;
+      if (item !== null) {
+        return JSON.parse(item);
+      }
+    } catch (error) {
+      console.warn(`[useLocalStorage] Error reading key "${key}":`, error);
     }
-  }, [key, initialValue]);
+    return initialValue instanceof Function ? initialValue() : initialValue;
+  });
 
-  const [storedValue, setStoredValue] = useState(readValue);
-
-  // Keep a ref to the key so the storage event listener always
-  // sees the latest key without re-subscribing.
-  const keyRef = useRef(key);
-
-  // ── Re-read when the key changes between renders ─────────────────
-
+  // Re-sync if the key changes, without tracking initialValue which breaks references
   useEffect(() => {
-    keyRef.current = key;
-    setStoredValue(readValue());
-  }, [key, readValue]);
+    try {
+      const item = window.localStorage.getItem(key);
+      const fallback = initialValue instanceof Function ? initialValue() : initialValue;
+      const newValue = item !== null ? JSON.parse(item) : fallback;
+      
+      setStoredValue(prev => {
+        return JSON.stringify(prev) === JSON.stringify(newValue) ? prev : newValue;
+      });
+    } catch (error) {
+      const fallback = initialValue instanceof Function ? initialValue() : initialValue;
+      setStoredValue(fallback);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
-  // ── setValue — update both React state and localStorage ───────────
-
+  // Set value and trigger local event
   const setValue = useCallback(
     (value) => {
       try {
-        // Support functional updates like useState
         const valueToStore =
           value instanceof Function ? value(storedValue) : value;
 
         setStoredValue(valueToStore);
-        window.localStorage.setItem(key, JSON.stringify(valueToStore));
-
-        // Dispatch a custom event so other tabs / hook instances
-        // using the same key can stay in sync.
-        window.dispatchEvent(
-          new StorageEvent('local-storage', { key }),
-        );
+        if (typeof window !== 'undefined') {
+          window.localStorage.setItem(key, JSON.stringify(valueToStore));
+          window.dispatchEvent(new StorageEvent('local-storage', { key }));
+        }
       } catch (error) {
-        // Quota exceeded or localStorage unavailable
-        console.warn(
-          `[useLocalStorage] Failed to set key "${key}":`,
-          error,
-        );
+        console.warn(`[useLocalStorage] Failed to set key "${key}":`, error);
       }
     },
-    [key, storedValue],
+    [key, storedValue]
   );
 
-  // ── removeValue — delete from both state and localStorage ────────
-
+  // Remove value
   const removeValue = useCallback(() => {
     try {
-      const fallback =
-        initialValue instanceof Function ? initialValue() : initialValue;
-
+      const fallback = initialValue instanceof Function ? initialValue() : initialValue;
       setStoredValue(fallback);
-      window.localStorage.removeItem(key);
-
-      window.dispatchEvent(
-        new StorageEvent('local-storage', { key }),
-      );
+      if (typeof window !== 'undefined') {
+        window.localStorage.removeItem(key);
+        window.dispatchEvent(new StorageEvent('local-storage', { key }));
+      }
     } catch (error) {
-      console.warn(
-        `[useLocalStorage] Failed to remove key "${key}":`,
-        error,
-      );
+      console.warn(`[useLocalStorage] Failed to remove key "${key}":`, error);
     }
-  }, [key, initialValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
-  // ── Cross-tab sync — listen for storage changes ──────────────────
-
+  // Cross-tab and same-tab synchronization
   useEffect(() => {
     const handleStorage = (event) => {
-      if (event.key && event.key !== keyRef.current) return;
+      if (event.key && event.key !== key) return;
 
       try {
-        const item = window.localStorage.getItem(keyRef.current);
+        const item = window.localStorage.getItem(key);
+        const fallback = initialValue instanceof Function ? initialValue() : initialValue;
+        const newValue = item !== null ? JSON.parse(item) : fallback;
+
         setStoredValue(prev => {
-          const parsed = item === null ? initialValue : JSON.parse(item);
-          // Only update if the stringified values differ to prevent loops
-          return JSON.stringify(prev) === JSON.stringify(parsed) ? prev : parsed;
+          return JSON.stringify(prev) === JSON.stringify(newValue) ? prev : newValue;
         });
-      } catch {
-        // Corrupted data — reset to initial
-        setStoredValue(
-          initialValue instanceof Function ? initialValue() : initialValue,
-        );
+      } catch (error) {
+        const fallback = initialValue instanceof Function ? initialValue() : initialValue;
+        setStoredValue(fallback);
       }
     };
 
-    // Native cross-tab event
     window.addEventListener('storage', handleStorage);
-    // Custom same-tab event (fired by setValue / removeValue above)
     window.addEventListener('local-storage', handleStorage);
 
     return () => {
       window.removeEventListener('storage', handleStorage);
       window.removeEventListener('local-storage', handleStorage);
     };
-  }, [initialValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [key]);
 
   return [storedValue, setValue, removeValue];
 };

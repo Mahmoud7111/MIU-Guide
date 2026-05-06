@@ -1,4 +1,6 @@
 import React from 'react';
+import { motion } from 'framer-motion';
+import { fadeIn } from '@/lib/motion/variants';
 import styles from './StatsBar.module.css';
 
 const stats = [
@@ -15,7 +17,13 @@ const stats = [
  */
 const StatsBar = () => {
   return (
-    <section className={styles.marqueeSection}>
+    <motion.section
+      className={styles.marqueeSection}
+      variants={fadeIn}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, amount: 0.2 }}
+    >
       <div className={styles.marqueeTrack}>
         {/* First set of stats */}
         <div className={styles.statsList}>
@@ -37,7 +45,7 @@ const StatsBar = () => {
           ))}
         </div>
       </div>
-    </section>
+    </motion.section>
   );
 };
 

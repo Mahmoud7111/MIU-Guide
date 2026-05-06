@@ -85,6 +85,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-4);
+  margin-left: auto;
 }
 
 /* Common Pill Styles */
@@ -175,6 +176,35 @@
 .authAction:hover {
   background-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-1px);
+}
+
+.portalBtn {
+  background: var(--brand-primary);
+  color: white;
+  text-decoration: none;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.portalBtn:hover {
+  background: var(--brand-primary);
+  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+  .portalBtn {
+    display: none;
+  }
 }
 
 .menuBtn {
@@ -495,6 +525,32 @@
 .drawerLink:hover,
 .drawerLink.active {
   color: white;
+  transform: translateX(20px);
+}
+
+.drawerPortalLink {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  text-decoration: none;
+  transition: all 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  line-height: 1.1;
+  margin-top: var(--space-8);
+  padding-top: var(--space-8);
+  border-top: 2px solid rgba(139, 0, 0, 0.3);
+  display: inline-block;
+}
+
+@media (max-width: 768px) {
+  .drawerPortalLink {
+    font-size: 1.8rem;
+  }
+}
+
+.drawerPortalLink:hover,
+.drawerPortalLink.active {
+  color: var(--brand-primary);
   transform: translateX(20px);
 }
 

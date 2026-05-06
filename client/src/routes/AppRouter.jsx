@@ -1,5 +1,5 @@
 import React, { lazy, Suspense } from 'react';
-import { createBrowserRouter } from 'react-router-dom';
+import { createBrowserRouter, Navigate } from 'react-router-dom';
 import { ROUTES } from '@/lib/constants';
 import { Spinner } from '@/components/ui';
 import LoadingScreen from '@/components/ui/LoadingScreen';
@@ -15,8 +15,8 @@ const Loadable = (Component) => (props) => (
 
 // Layouts
 import RootLayout from '@/components/layout/RootLayout';
-const PortalLayout = Loadable(lazy(() => import('../components/layout/Portal/PortalLayout')));
-const PrivateRoute = Loadable(lazy(() => import('./PrivateRoute')));
+import PortalLayout from '@/components/layout/Portal/PortalLayout';
+import PrivateRoute from './PrivateRoute';
 
 // Error Pages
 const NotFoundPage = Loadable(lazy(() => import('../pages/public/error/NotFoundPage')));
@@ -36,13 +36,13 @@ const BuildingsPage = Loadable(lazy(() => import('../pages/public/campus/Buildin
 const RoomsPage = Loadable(lazy(() => import('../pages/public/campus/RoomsPage')));
 
 // Portal Pages
-const DashboardPage = Loadable(lazy(() => import('../pages/portal/dashboard/DashboardPage')));
-const GpaPage = Loadable(lazy(() => import('../pages/portal/gpa/GpaPage')));
-const AttendancePage = Loadable(lazy(() => import('../pages/portal/attendance/AttendancePage')));
-const SchedulePage = Loadable(lazy(() => import('../pages/portal/schedule/SchedulePage')));
-const ExamsPage = Loadable(lazy(() => import('../pages/portal/exams/ExamsPage')));
-const CalendarPage = Loadable(lazy(() => import('../pages/portal/calendar/CalendarPage')));
-const PortalCampusPage = Loadable(lazy(() => import('../pages/portal/campus/CampusPage')));
+import DashboardPage from '../pages/portal/dashboard/DashboardPage';
+import GpaPage from '../pages/portal/gpa/GpaPage';
+import AttendancePage from '../pages/portal/attendance/AttendancePage';
+import SchedulePage from '../pages/portal/schedule/SchedulePage';
+import ExamsPage from '../pages/portal/exams/ExamsPage';
+import CalendarPage from '../pages/portal/calendar/CalendarPage';
+import PortalCampusPage from '../pages/portal/campus/CampusPage';
 
 // Auth Pages
 const LoginPage = Loadable(lazy(() => import('../pages/auth/LoginPage')));
@@ -76,18 +76,14 @@ const router = createBrowserRouter([
   {
     element: <PrivateRoute />,
     children: [
-      {
-        element: <PortalLayout />,
-        children: [
-          { path: ROUTES.DASHBOARD, element: <DashboardPage /> },
-          { path: ROUTES.GPA, element: <GpaPage /> },
-          { path: ROUTES.ATTENDANCE, element: <AttendancePage /> },
-          { path: ROUTES.SCHEDULE, element: <SchedulePage /> },
-          { path: ROUTES.EXAMS, element: <ExamsPage /> },
-          { path: ROUTES.CALENDAR, element: <CalendarPage /> },
-          { path: ROUTES.PORTAL_CAMPUS, element: <PortalCampusPage /> },
-        ]
-      }
+      { path: '/portal', element: <Navigate to={ROUTES.DASHBOARD} replace /> },
+      { path: ROUTES.DASHBOARD, element: <PortalLayout><DashboardPage /></PortalLayout> },
+      { path: ROUTES.GPA, element: <PortalLayout><GpaPage /></PortalLayout> },
+      { path: ROUTES.ATTENDANCE, element: <PortalLayout><AttendancePage /></PortalLayout> },
+      { path: ROUTES.SCHEDULE, element: <PortalLayout><SchedulePage /></PortalLayout> },
+      { path: ROUTES.EXAMS, element: <PortalLayout><ExamsPage /></PortalLayout> },
+      { path: ROUTES.CALENDAR, element: <PortalLayout><CalendarPage /></PortalLayout> },
+      { path: ROUTES.PORTAL_CAMPUS, element: <PortalLayout><PortalCampusPage /></PortalLayout> },
     ]
   },
 

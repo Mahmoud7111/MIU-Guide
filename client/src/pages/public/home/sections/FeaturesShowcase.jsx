@@ -1,5 +1,7 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 import { FiBarChart2, FiCheckCircle, FiMap } from 'react-icons/fi';
+import { fadeUp, staggerContainer, staggerItem } from '@/lib/motion/variants';
 import styles from './FeaturesShowcase.module.css';
 
 // Assets
@@ -39,20 +41,34 @@ const FeaturesShowcase = () => {
     return (
         <section id="features" className={styles.section}>
             <div className={styles.container}>
-                <header className={styles.header}>
-                    <span className={styles.tagline}>The Ultimate Student Toolkit</span>
-                    <h2 className={styles.title}>
+                <motion.header
+                    className={styles.header}
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.3 }}
+                >
+                    <motion.span className={styles.tagline} variants={fadeUp}>
+                        The Ultimate Student Toolkit
+                    </motion.span>
+                    <motion.h2 className={styles.title} variants={fadeUp}>
                         Experience a Smarter <br /> University Journey
-                    </h2>
-                    <p className={styles.description}>
+                    </motion.h2>
+                    <motion.p className={styles.description} variants={fadeUp}>
                         MIU Guide provides exclusive tools designed to streamline your academic life.
                         From grade simulations to campus navigation, we’ve built what students actually need.
-                    </p>
-                </header>
+                    </motion.p>
+                </motion.header>
 
-                <div className={styles.grid}>
+                <motion.div
+                    className={styles.grid}
+                    variants={staggerContainer}
+                    initial="hidden"
+                    whileInView="visible"
+                    viewport={{ once: true, amount: 0.2 }}
+                >
                     {features.map((feature) => (
-                        <div key={feature.id} className={styles.card}>
+                        <motion.div key={feature.id} className={styles.card} variants={staggerItem}>
                             <div className={styles.imageWrapper}>
                                 <img src={feature.image} alt={feature.title} className={styles.image} />
                             </div>
@@ -64,9 +80,9 @@ const FeaturesShowcase = () => {
                                 <h3 className={styles.featureTitle}>{feature.title}</h3>
                                 <p className={styles.featureText}>{feature.description}</p>
                             </div>
-                        </div>
+                        </motion.div>
                     ))}
-                </div>
+                </motion.div>
 
                 <div className={styles.cta}>
                     {/* CTA Button can be added here later */}

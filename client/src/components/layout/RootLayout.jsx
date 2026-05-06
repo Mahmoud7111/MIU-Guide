@@ -30,7 +30,7 @@ const RootLayout = () => {
 
       {/* Main Content Area with Page Transitions */}
       <main style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-        <AnimatePresence mode="wait" initial={false}>
+        <AnimatePresence mode="wait">
           {/* 
             The key={location.pathname} is critical for AnimatePresence 
             to detect route changes and trigger exit animations. 

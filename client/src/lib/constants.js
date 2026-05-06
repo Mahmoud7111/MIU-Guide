@@ -58,7 +58,7 @@ export const ROUTES = {
   /* ---- Protected portal routes ---- */
 
   /** Portal home dashboard */
-  DASHBOARD: '/portal',
+  DASHBOARD: '/portal/dashboard',
 
   /** GPA calculator tool */
   GPA: '/portal/gpa',
@@ -92,10 +92,10 @@ export const NAV_LINKS = [
   { label: 'About',        path: ROUTES.ABOUT },
   { label: 'Academics',    path: ROUTES.ACADEMICS },
   { label: 'Admissions',   path: ROUTES.ADMISSIONS },
+  { label: 'Campus',       path: ROUTES.CAMPUS },
   { label: 'Student Life', path: ROUTES.STUDENT_LIFE },
   { label: 'News',         path: ROUTES.NEWS },
   { label: 'Contact',      path: ROUTES.CONTACT },
-  { label: 'Campus',       path: ROUTES.CAMPUS },
 ];
 
 /* -------------------------------------------------------------------------- */
