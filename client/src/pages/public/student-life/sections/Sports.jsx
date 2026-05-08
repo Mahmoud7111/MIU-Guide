@@ -6,7 +6,7 @@ import styles from './Sports.module.css';
 
 // Import Assets
 import footballImg from '@/assets/images/sports/football.png';
-import bingbongImg from '@/assets/images/sports/bingbong.png';
+import bingbongImg from '@/assets/images/sports/ping-pong.png';
 import gymImg from '@/assets/images/sports/gym.png';
 import volleyballImg from '@/assets/images/sports/Volleyball.png';
 import generalSportsImg from '@/assets/images/tools/campus.webp';
@@ -18,7 +18,7 @@ const SPORTS_CATEGORIES = [
     image: footballImg
   },
   {
-    title: 'Bingbong',
+    title: 'ping-pong',
     description: 'High-energy gameplay on our state-of-the-art courts. Open for both varsity and recreational play.',
     image: bingbongImg
   },
