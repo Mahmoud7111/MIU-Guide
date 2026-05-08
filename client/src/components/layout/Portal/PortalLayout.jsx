@@ -25,7 +25,7 @@ const PortalLayout = ({ children }) => {
   };
 
   return (
-    <div className={styles.layout}>
+    <div className={`${styles.layout} custom-cursor-active`}>
       <CustomCursor />
       
       {/* Persistent Sidebar */}

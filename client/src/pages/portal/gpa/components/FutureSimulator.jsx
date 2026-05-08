@@ -67,36 +67,38 @@ const FutureSimulator = ({ completedCourses, futureCourses, setFutureCourses, cu
             />
           </div>
         ) : (
-          <table className={styles.courseTable}>
-            <thead>
-              <tr>
-                <th>Code</th>
-                <th>Name</th>
-                <th>Cr</th>
-                <th>Grade</th>
-                <th>Points</th>
-              </tr>
-            </thead>
-            <tbody>
-              {completedCourses.map((course) => {
-                const points =
-                  (GRADE_POINTS[course.grade] || 0) * (Number(course.credits) || 0);
-                return (
-                  <tr key={course.id} className={styles.readOnlyRow}>
-                    <td className={styles.courseTableTd}>{course.courseCode || '-'}</td>
-                    <td className={styles.courseTableTd}>{course.name || '-'}</td>
-                    <td className={styles.courseTableTd}>{course.credits || '-'}</td>
-                    <td className={styles.courseTableTd}>{course.grade || '-'}</td>
-                    <td className={`${styles.courseTableTd} ${styles.pointsFormula}`}>
-                      {course.grade
-                        ? `${course.grade} × ${course.credits}cr = ${points.toFixed(1)} pts`
-                        : '-'}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div className={styles.tableWrapper}>
+            <table className={styles.courseTable}>
+              <thead>
+                <tr>
+                  <th>Code</th>
+                  <th>Name</th>
+                  <th>Cr</th>
+                  <th>Grade</th>
+                  <th>Points</th>
+                </tr>
+              </thead>
+              <tbody>
+                {completedCourses.map((course) => {
+                  const points =
+                    (GRADE_POINTS[course.grade] || 0) * (Number(course.credits) || 0);
+                  return (
+                    <tr key={course.id} className={styles.readOnlyRow}>
+                      <td className={styles.courseTableTd}>{course.courseCode || '-'}</td>
+                      <td className={styles.courseTableTd}>{course.name || '-'}</td>
+                      <td className={styles.courseTableTd}>{course.credits || '-'}</td>
+                      <td className={styles.courseTableTd}>{course.grade || '-'}</td>
+                      <td className={`${styles.courseTableTd} ${styles.pointsFormula}`}>
+                        {course.grade
+                          ? `${course.grade} × ${course.credits}cr = ${points.toFixed(1)} pts`
+                          : '-'}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         )}
         <div className={styles.gpaSummary}>
           Current GPA: <strong>{formatGPA(currentGpa)}</strong>
@@ -124,38 +126,40 @@ const FutureSimulator = ({ completedCourses, futureCourses, setFutureCourses, cu
           </div>
         </div>
 
-        <table className={styles.courseTable}>
-          <thead>
-            <tr>
-              <th>Code</th>
-              <th>Name</th>
-              <th>Cr</th>
-              <th>Expected</th>
-              <th>Points</th>
-              <th></th>
-            </tr>
-          </thead>
-          <Reorder.Group
-            as="tbody"
-            axis="y"
-            values={futureCourses}
-            onReorder={setFutureCourses}
-          >
-            <AnimatePresence>
-              {futureCourses.map((course) => (
-                <CourseRow
-                  key={course.id}
-                  course={course}
-                  isFuture={true}
-                  onUpdate={(fields) => updateFutureCourse(course.id, fields)}
-                  onRemove={() => removeFutureCourse(course.id)}
-                  onAddRow={addFutureCourse}
-                  disableRemove={futureCourses.length <= 1}
-                />
-              ))}
-            </AnimatePresence>
-          </Reorder.Group>
-        </table>
+        <div className={styles.tableWrapper}>
+          <table className={styles.courseTable}>
+            <thead>
+              <tr>
+                <th>Code</th>
+                <th>Name</th>
+                <th>Cr</th>
+                <th>Expected</th>
+                <th>Points</th>
+                <th></th>
+              </tr>
+            </thead>
+            <Reorder.Group
+              as="tbody"
+              axis="y"
+              values={futureCourses}
+              onReorder={setFutureCourses}
+            >
+              <AnimatePresence>
+                {futureCourses.map((course) => (
+                  <CourseRow
+                    key={course.id}
+                    course={course}
+                    isFuture={true}
+                    onUpdate={(fields) => updateFutureCourse(course.id, fields)}
+                    onRemove={() => removeFutureCourse(course.id)}
+                    onAddRow={addFutureCourse}
+                    disableRemove={futureCourses.length <= 1}
+                  />
+                ))}
+              </AnimatePresence>
+            </Reorder.Group>
+          </table>
+        </div>
         <Button variant="outlined" onClick={addFutureCourse} fullWidth>
           + Add Expected Course
         </Button>
